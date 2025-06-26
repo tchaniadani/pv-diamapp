@@ -286,7 +286,7 @@ const DiagnosticGuide = ({ systemType, onBack, onReset }) => {
         <div className="current-question">
           <div className="question-card">
             <div className="question-icon">❓</div>
-            <h5>Bienvenu(e), je suis l'assistant PV DiaMapp :</h5>
+            <h5>Bienvenu(e), je suis l'assistant PV DiaMapp22222222222222 :</h5>
             <p className="question-text">{currentQuestion.text}</p>
 
             {currentQuestion.help && (
