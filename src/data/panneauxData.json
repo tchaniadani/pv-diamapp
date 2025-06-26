@@ -1,0 +1,154 @@
+[
+  {
+    "marque": "FELICITY SOLAR",
+    "modele": "FS-250P",
+    "puissance": 250,
+    "tensionMaxPuissance": 30.5,
+    "courantMaxPuissance": 8.2,
+    "tensionCircuitOuvert": 37.8,
+    "courantCourtCircuit": 8.75,
+    "tensionNominale": 24,
+    "dimensions": {
+      "longueur": 1640,
+      "largeur": 992,
+      "epaisseur": 35
+    },
+    "poids": 18.5,
+    "surface": 1.627,
+    "rendement": 15.4,
+    "tolerancePuissance": "+/-3%"
+  },
+  {
+    "marque": "FELICITY SOLAR",
+    "modele": "FS-330P",
+    "puissance": 330,
+    "tensionMaxPuissance": 37.2,
+    "courantMaxPuissance": 8.87,
+    "tensionCircuitOuvert": 45.6,
+    "courantCourtCircuit": 9.45,
+    "tensionNominale": 24,
+    "dimensions": {
+      "longueur": 1684,
+      "largeur": 1002,
+      "epaisseur": 35
+    },
+    "poids": 22.0,
+    "surface": 1.687,
+    "rendement": 19.6,
+    "tolerancePuissance": "+/-3%"
+  },
+  {
+    "marque": "FELICITY SOLAR",
+    "modele": "FS-450M",
+    "puissance": 450,
+    "tensionMaxPuissance": 41.8,
+    "courantMaxPuissance": 10.77,
+    "tensionCircuitOuvert": 49.9,
+    "courantCourtCircuit": 11.45,
+    "tensionNominale": 36,
+    "dimensions": {
+      "longueur": 2108,
+      "largeur": 1048,
+      "epaisseur": 35
+    },
+    "poids": 24.5,
+    "surface": 2.209,
+    "rendement": 20.4,
+    "tolerancePuissance": "+/-3%"
+  },
+  {
+    "marque": "FELICITY SOLAR",
+    "modele": "FS-550M",
+    "puissance": 550,
+    "tensionMaxPuissance": 44.1,
+    "courantMaxPuissance": 12.47,
+    "tensionCircuitOuvert": 52.8,
+    "courantCourtCircuit": 13.25,
+    "tensionNominale": 36,
+    "dimensions": {
+      "longueur": 2278,
+      "largeur": 1134,
+      "epaisseur": 35
+    },
+    "poids": 27.8,
+    "surface": 2.583,
+    "rendement": 21.3,
+    "tolerancePuissance": "+/-3%"
+  },
+  {
+    "marque": "JA SOLAR",
+    "modele": "JAM54S30-400/MR",
+    "puissance": 400,
+    "tensionMaxPuissance": 31.16,
+    "courantMaxPuissance": 12.84,
+    "tensionCircuitOuvert": 37.77,
+    "courantCourtCircuit": 13.76,
+    "tensionNominale": 24,
+    "dimensions": {
+      "longueur": 1722,
+      "largeur": 1134,
+      "epaisseur": 30
+    },
+    "poids": 22.0,
+    "surface": 1.952,
+    "rendement": 20.5,
+    "tolerancePuissance": "0/+3%"
+  },
+  {
+    "marque": "JA SOLAR",
+    "modele": "JAM72S20-445/MR",
+    "puissance": 445,
+    "tensionMaxPuissance": 41.7,
+    "courantMaxPuissance": 10.67,
+    "tensionCircuitOuvert": 50.15,
+    "courantCourtCircuit": 11.24,
+    "tensionNominale": 36,
+    "dimensions": {
+      "longueur": 2108,
+      "largeur": 1048,
+      "epaisseur": 35
+    },
+    "poids": 24.0,
+    "surface": 2.209,
+    "rendement": 20.1,
+    "tolerancePuissance": "0/+3%"
+  },
+  {
+    "marque": "JA SOLAR",
+    "modele": "JAM54S31-410/MR",
+    "puissance": 410,
+    "tensionMaxPuissance": 31.31,
+    "courantMaxPuissance": 13.09,
+    "tensionCircuitOuvert": 38.38,
+    "courantCourtCircuit": 13.95,
+    "tensionNominale": 24,
+    "dimensions": {
+      "longueur": 1722,
+      "largeur": 1134,
+      "epaisseur": 30
+    },
+    "poids": 22.0,
+    "surface": 1.952,
+    "rendement": 21.0,
+    "tolerancePuissance": "0/+3%"
+  },
+  {
+    "marque": "JA SOLAR",
+    "modele": "JAM72S30-550/MR",
+    "puissance": 550,
+    "tensionMaxPuissance": 41.98,
+    "courantMaxPuissance": 13.1,
+    "tensionCircuitOuvert": 50.35,
+    "courantCourtCircuit": 13.88,
+    "tensionNominale": 36,
+    "dimensions": {
+      "longueur": 2278,
+      "largeur": 1134,
+      "epaisseur": 35
+    },
+    "poids": 27.5,
+    "surface": 2.583,
+    "rendement": 21.3,
+    "tolerancePuissance": "0/+3%"
+  }
+]

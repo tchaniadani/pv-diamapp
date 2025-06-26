@@ -1,0 +1,1787 @@
+{
+  "systemType": "pompage",
+  "start": {
+    "id": "question_pump_operation",
+    "text": "La pompe fonctionne-t-elle actuellement ?",
+    "help": "Vérifiez si vous entendez la pompe tourner et si l'eau remonte",
+    "answers": [
+      {
+        "text": "Oui, pompe en marche",
+        "description": "Pompe fonctionne normalement",
+        "icon": "💧",
+        "next": "question_water_flow"
+      },
+      {
+        "text": "Non, pompe arrêtée",
+        "description": "Aucun bruit de pompe",
+        "icon": "❌",
+        "next": "question_controller_status"
+      },
+      {
+        "text": "Marche intermittente",
+        "description": "Pompe s'arrête et redémarre",
+        "icon": "🔄",
+        "next": "question_intermittent_cause"
+      },
+      {
+        "text": "Ne sais pas",
+        "description": "Impossible à déterminer",
+        "icon": "❓",
+        "next": "question_water_availability"
+      }
+    ]
+  },
+  "questions": {
+    "question_water_flow": {
+      "id": "question_water_flow",
+      "text": "Le débit d'eau est-il normal ?",
+      "help": "Comparez avec le débit habituel de votre installation",
+      "answers": [
+        {
+          "text": "Débit normal",
+          "description": "Eau coule normalement",
+          "icon": "💧",
+          "next": "diagnosis_normal_operation_pump"
+        },
+        {
+          "text": "Débit faible",
+          "description": "Moins d'eau que d'habitude",
+          "icon": "💧",
+          "next": "question_water_level"
+        },
+        {
+          "text": "Pas d'eau du tout",
+          "description": "Pompe tourne mais pas d'eau",
+          "icon": "🚫",
+          "next": "question_pump_priming"
+        },
+        {
+          "text": "Débit irrégulier",
+          "description": "Eau par à-coups",
+          "icon": "💧",
+          "next": "diagnosis_irregular_flow"
+        }
+      ]
+    },
+    "question_controller_status": {
+      "id": "question_controller_status",
+      "text": "Que montre l'affichage du contrôleur de pompe ?",
+      "help": "Regardez l'écran et les voyants du contrôleur",
+      "answers": [
+        {
+          "text": "Affichage normal, pas d'erreur",
+          "description": "Contrôleur semble OK",
+          "icon": "✅",
+          "next": "question_solar_production_pump"
+        },
+        {
+          "text": "Code d'erreur affiché",
+          "description": "Message d'erreur visible",
+          "icon": "🚨",
+          "next": "diagnosis_controller_error"
+        },
+        {
+          "text": "Pas d'affichage",
+          "description": "Écran éteint",
+          "icon": "⚫",
+          "next": "question_controller_power"
+        },
+        {
+          "text": "Voyant de protection allumé",
+          "description": "Protection activée",
+          "icon": "🔴",
+          "next": "diagnosis_protection_activated"
+        }
+      ]
+    },
+    "question_intermittent_cause": {
+      "id": "question_intermittent_cause",
+      "text": "À quoi correspond l'arrêt/redémarrage de la pompe ?",
+      "help": "Observez si c'est lié au soleil, au niveau d'eau, ou autre",
+      "answers": [
+        {
+          "text": "Lié aux nuages/soleil",
+          "description": "S'arrête quand il y a moins de soleil",
+          "icon": "☁️",
+          "next": "diagnosis_solar_dependent_operation"
+        },
+        {
+          "text": "Arrêts réguliers programmés",
+          "description": "Cycles automatiques",
+          "icon": "⏰",
+          "next": "diagnosis_programmed_cycles"
+        },
+        {
+          "text": "Arrêts aléatoires",
+          "description": "Pas de logique apparente",
+          "icon": "❓",
+          "next": "question_protection_triggers"
+        },
+        {
+          "text": "Lié au niveau du réservoir",
+          "description": "S'arrête quand le réservoir est plein",
+          "icon": "🪣",
+          "next": "diagnosis_tank_level_control"
+        }
+      ]
+    },
+    "question_water_availability": {
+      "id": "question_water_availability",
+      "text": "Y a-t-il de l'eau disponible au robinet ou au réservoir ?",
+      "help": "Vérifiez si le système produit de l'eau",
+      "answers": [
+        {
+          "text": "Oui, eau disponible",
+          "description": "Le système fonctionne",
+          "icon": "💧",
+          "next": "diagnosis_system_working_quietly"
+        },
+        {
+          "text": "Non, pas d'eau",
+          "description": "Aucune eau produite",
+          "icon": "🚫",
+          "next": "question_recent_water"
+        },
+        {
+          "text": "Très peu d'eau",
+          "description": "Débit très réduit",
+          "icon": "💧",
+          "next": "question_system_age"
+        }
+      ]
+    },
+    "question_water_level": {
+      "id": "question_water_level",
+      "text": "Le niveau d'eau dans le puits/forage a-t-il baissé ?",
+      "help": "Vérifiez si possible le niveau d'eau dans la source",
+      "answers": [
+        {
+          "text": "Niveau normal",
+          "description": "Eau suffisante dans le puits",
+          "icon": "💧",
+          "next": "question_pump_depth"
+        },
+        {
+          "text": "Niveau bas",
+          "description": "Moins d'eau que d'habitude",
+          "icon": "📉",
+          "next": "diagnosis_low_water_level"
+        },
+        {
+          "text": "Ne sais pas vérifier",
+          "description": "Impossible à contrôler",
+          "icon": "❓",
+          "next": "question_seasonal_variation"
+        }
+      ]
+    },
+    "question_pump_priming": {
+      "id": "question_pump_priming",
+      "text": "La pompe a-t-elle perdu son amorçage ?",
+      "help": "Une pompe qui tourne sans eau a souvent perdu son amorçage",
+      "answers": [
+        {
+          "text": "Oui, probablement désamorcée",
+          "description": "Pompe tourne à vide",
+          "icon": "🌪️",
+          "next": "diagnosis_pump_priming_lost"
+        },
+        {
+          "text": "Non, toujours amorcée",
+          "description": "Pompe semble normale",
+          "icon": "✅",
+          "next": "question_pipe_blockage"
+        },
+        {
+          "text": "Ne sais pas",
+          "description": "Pas sûr de l'état",
+          "icon": "❓",
+          "next": "diagnosis_pump_inspection_needed"
+        }
+      ]
+    },
+    "question_solar_production_pump": {
+      "id": "question_solar_production_pump",
+      "text": "Y a-t-il une production solaire suffisante ?",
+      "help": "Vérifiez l'ensoleillement et l'état des panneaux",
+      "answers": [
+        {
+          "text": "Bon soleil, panneaux propres",
+          "description": "Conditions optimales",
+          "icon": "☀️",
+          "next": "question_minimum_voltage"
+        },
+        {
+          "text": "Soleil faible ou panneaux sales",
+          "description": "Production insuffisante",
+          "icon": "🌫️",
+          "next": "diagnosis_insufficient_solar_pump"
+        },
+        {
+          "text": "Temps nuageux",
+          "description": "Pas assez de soleil",
+          "icon": "☁️",
+          "next": "diagnosis_weather_dependent"
+        }
+      ]
+    },
+    "question_controller_power": {
+      "id": "question_controller_power",
+      "text": "Le contrôleur reçoit-il l'alimentation des panneaux ?",
+      "help": "Vérifiez les connexions et la tension d'entrée",
+      "answers": [
+        {
+          "text": "Oui, tension présente",
+          "description": "Alimentation OK",
+          "icon": "⚡",
+          "next": "diagnosis_controller_failure"
+        },
+        {
+          "text": "Non, pas de tension",
+          "description": "Problème d'alimentation",
+          "icon": "❌",
+          "next": "question_panel_connections"
+        },
+        {
+          "text": "Tension faible",
+          "description": "Alimentation insuffisante",
+          "icon": "📉",
+          "next": "diagnosis_low_voltage_supply"
+        }
+      ]
+    },
+    "question_protection_triggers": {
+      "id": "question_protection_triggers",
+      "text": "Les arrêts correspondent-ils à des conditions particulières ?",
+      "help": "Observez si les arrêts ont lieu à des moments spécifiques",
+      "answers": [
+        {
+          "text": "Arrêts par forte chaleur",
+          "description": "Protection thermique",
+          "icon": "🌡️",
+          "next": "diagnosis_thermal_protection"
+        },
+        {
+          "text": "Arrêts par manque d'eau",
+          "description": "Protection à sec",
+          "icon": "🚫",
+          "next": "diagnosis_dry_run_protection"
+        },
+        {
+          "text": "Arrêts aléatoires",
+          "description": "Pas de logique claire",
+          "icon": "❓",
+          "next": "diagnosis_random_shutdowns"
+        }
+      ]
+    },
+    "question_recent_water": {
+      "id": "question_recent_water",
+      "text": "Y avait-il de l'eau récemment (hier, ce matin) ?",
+      "help": "Déterminez si c'est un problème récent ou ancien",
+      "answers": [
+        {
+          "text": "Oui, fonctionnait récemment",
+          "description": "Problème récent",
+          "icon": "🕐",
+          "next": "question_recent_changes_pump"
+        },
+        {
+          "text": "Non, plus d'eau depuis longtemps",
+          "description": "Problème ancien",
+          "icon": "📅",
+          "next": "diagnosis_long_term_failure"
+        },
+        {
+          "text": "Eau par intermittence",
+          "description": "Problème progressif",
+          "icon": "🔄",
+          "next": "diagnosis_progressive_failure"
+        }
+      ]
+    },
+    "question_system_age": {
+      "id": "question_system_age",
+      "text": "Depuis quand le système est-il installé ?",
+      "help": "L'âge peut expliquer certains problèmes",
+      "answers": [
+        {
+          "text": "Installation récente (moins d'1 an)",
+          "description": "Système neuf",
+          "icon": "🆕",
+          "next": "diagnosis_new_system_issues"
+        },
+        {
+          "text": "Installation ancienne (plus de 5 ans)",
+          "description": "Système mature",
+          "icon": "📅",
+          "next": "diagnosis_aging_system"
+        },
+        {
+          "text": "Installation moyenne (1-5 ans)",
+          "description": "Système établi",
+          "icon": "⏳",
+          "next": "question_maintenance_history"
+        }
+      ]
+    },
+    "question_pump_depth": {
+      "id": "question_pump_depth",
+      "text": "La pompe est-elle à la bonne profondeur dans le puits ?",
+      "help": "Une pompe trop haute ne peut pas aspirer l'eau",
+      "answers": [
+        {
+          "text": "Profondeur correcte",
+          "description": "Pompe bien positionnée",
+          "icon": "✅",
+          "next": "question_pump_wear"
+        },
+        {
+          "text": "Pompe trop haute",
+          "description": "Pas assez immergée",
+          "icon": "⬆️",
+          "next": "diagnosis_pump_depth_issue"
+        },
+        {
+          "text": "Ne sais pas",
+          "description": "Position inconnue",
+          "icon": "❓",
+          "next": "diagnosis_depth_verification_needed"
+        }
+      ]
+    },
+    "question_seasonal_variation": {
+      "id": "question_seasonal_variation",
+      "text": "Le problème correspond-il à une période sèche ?",
+      "help": "En saison sèche, le niveau des nappes baisse",
+      "answers": [
+        {
+          "text": "Oui, en saison sèche",
+          "description": "Période de faible pluviométrie",
+          "icon": "🌵",
+          "next": "diagnosis_seasonal_water_shortage"
+        },
+        {
+          "text": "Non, en saison des pluies",
+          "description": "Eau normalement abondante",
+          "icon": "🌧️",
+          "next": "diagnosis_technical_issue_pump"
+        },
+        {
+          "text": "Problème permanent",
+          "description": "Indépendant de la saison",
+          "icon": "📅",
+          "next": "diagnosis_permanent_issue"
+        }
+      ]
+    },
+    "question_pipe_blockage": {
+      "id": "question_pipe_blockage",
+      "text": "Les tuyaux peuvent-ils être bouchés ?",
+      "help": "Vérifiez s'il y a des obstructions dans les canalisations",
+      "answers": [
+        {
+          "text": "Possible, dépôts ou débris",
+          "description": "Obstruction probable",
+          "icon": "🚫",
+          "next": "diagnosis_pipe_blockage"
+        },
+        {
+          "text": "Non, tuyaux récents/propres",
+          "description": "Canalisations OK",
+          "icon": "✅",
+          "next": "diagnosis_pump_mechanical_issue"
+        },
+        {
+          "text": "Ne sais pas vérifier",
+          "description": "Impossible à contrôler",
+          "icon": "❓",
+          "next": "diagnosis_system_inspection_needed"
+        }
+      ]
+    },
+    "question_minimum_voltage": {
+      "id": "question_minimum_voltage",
+      "text": "Le contrôleur indique-t-il une tension suffisante pour démarrer ?",
+      "help": "Les pompes ont besoin d'une tension minimum pour fonctionner",
+      "answers": [
+        {
+          "text": "Tension suffisante",
+          "description": "Seuil de démarrage atteint",
+          "icon": "⚡",
+          "next": "diagnosis_controller_configuration"
+        },
+        {
+          "text": "Tension insuffisante",
+          "description": "En dessous du seuil",
+          "icon": "📉",
+          "next": "diagnosis_insufficient_voltage"
+        },
+        {
+          "text": "Pas d'information de tension",
+          "description": "Données non disponibles",
+          "icon": "❓",
+          "next": "diagnosis_monitoring_missing"
+        }
+      ]
+    },
+    "question_panel_connections": {
+      "id": "question_panel_connections",
+      "text": "Les connexions entre panneaux et contrôleur sont-elles correctes ?",
+      "help": "Vérifiez les câbles et connecteurs",
+      "answers": [
+        {
+          "text": "Connexions OK",
+          "description": "Câblage en bon état",
+          "icon": "🔌",
+          "next": "diagnosis_panel_failure"
+        },
+        {
+          "text": "Connexions défaillantes",
+          "description": "Câbles ou connecteurs abîmés",
+          "icon": "⚡",
+          "next": "diagnosis_connection_repair_needed"
+        },
+        {
+          "text": "Ne sais pas vérifier",
+          "description": "Vérification impossible",
+          "icon": "❓",
+          "next": "diagnosis_electrical_inspection_needed"
+        }
+      ]
+    },
+    "question_recent_changes_pump": {
+      "id": "question_recent_changes_pump",
+      "text": "Y a-t-il eu des modifications récentes sur le système ?",
+      "help": "Nouveaux équipements, travaux, orages, etc.",
+      "answers": [
+        {
+          "text": "Oui, changements récents",
+          "description": "Modifications effectuées",
+          "icon": "🔧",
+          "next": "diagnosis_recent_modification_pump"
+        },
+        {
+          "text": "Non, rien de nouveau",
+          "description": "Aucun changement",
+          "icon": "❌",
+          "next": "diagnosis_sudden_failure"
+        },
+        {
+          "text": "Orage ou intempérie",
+          "description": "Événement météorologique",
+          "icon": "⛈️",
+          "next": "diagnosis_weather_damage"
+        }
+      ]
+    },
+    "question_maintenance_history": {
+      "id": "question_maintenance_history",
+      "text": "Le système a-t-il été entretenu régulièrement ?",
+      "help": "Maintenance des panneaux, contrôleur, pompe",
+      "answers": [
+        {
+          "text": "Oui, maintenance régulière",
+          "description": "Bien entretenu",
+          "icon": "✅",
+          "next": "diagnosis_well_maintained_system"
+        },
+        {
+          "text": "Non, jamais entretenu",
+          "description": "Aucune maintenance",
+          "icon": "❌",
+          "next": "diagnosis_maintenance_needed"
+        },
+        {
+          "text": "Maintenance occasionnelle",
+          "description": "Entretien irrégulier",
+          "icon": "🔄",
+          "next": "diagnosis_irregular_maintenance"
+        }
+      ]
+    },
+    "question_pump_wear": {
+      "id": "question_pump_wear",
+      "text": "La pompe montre-t-elle des signes d'usure ?",
+      "help": "Bruits anormaux, vibrations, performance réduite",
+      "answers": [
+        {
+          "text": "Pompe semble neuve",
+          "description": "Bon état apparent",
+          "icon": "✨",
+          "next": "diagnosis_external_factors"
+        },
+        {
+          "text": "Signes d'usure visibles",
+          "description": "Dégradation apparente",
+          "icon": "⚙️",
+          "next": "diagnosis_pump_wear_issue"
+        },
+        {
+          "text": "Impossible à évaluer",
+          "description": "Pompe non accessible",
+          "icon": "❓",
+          "next": "diagnosis_pump_inspection_required"
+        }
+      ]
+    }
+  },
+  "diagnoses": {
+    "diagnosis_normal_operation_pump": {
+      "title": "Fonctionnement normal du système de pompage",
+      "description": "Votre système de pompage solaire fonctionne correctement.",
+      "severity": "low",
+      "causes": ["Système bien dimensionné", "Conditions optimales", "Maintenance à jour", "Installation correcte"],
+      "solutions": [
+        {
+          "action": "Continuer la surveillance",
+          "details": "Monitorer quotidiennement le débit et les performances"
+        },
+        {
+          "action": "Maintenir la maintenance préventive",
+          "details": "Respecter le calendrier d'entretien"
+        },
+        {
+          "action": "Optimiser l'utilisation",
+          "details": "Utiliser l'eau aux heures de forte production"
+        },
+        {
+          "action": "Documenter les performances",
+          "details": "Tenir un registre de production d'eau"
+        }
+      ],
+      "prevention": "Continuez les bonnes pratiques de maintenance et surveillance."
+    },
+    "diagnosis_irregular_flow": {
+      "title": "Débit d'eau irrégulier",
+      "description": "L'eau arrive par à-coups, indiquant un problème dans le système.",
+      "severity": "medium",
+      "causes": [
+        "Pompe partiellement désamorcée",
+        "Obstruction partielle",
+        "Problème de pression",
+        "Usure de la pompe"
+      ],
+      "solutions": [
+        {
+          "action": "Vérifier l'amorçage de la pompe",
+          "details": "S'assurer que la pompe est correctement amorcée"
+        },
+        {
+          "action": "Contrôler les canalisations",
+          "details": "Rechercher des obstructions partielles"
+        },
+        {
+          "action": "Vérifier la pression du système",
+          "details": "Contrôler la pression de refoulement"
+        },
+        {
+          "action": "Inspecter la pompe",
+          "details": "Vérifier l'état mécanique de la pompe"
+        }
+      ],
+      "prevention": "Effectuez une maintenance régulière de la pompe et des canalisations."
+    },
+    "diagnosis_controller_error": {
+      "title": "Erreur du contrôleur de pompe",
+      "description": "Le contrôleur affiche un code d'erreur spécifique.",
+      "severity": "high",
+      "causes": [
+        "Défaut technique détecté",
+        "Protection activée",
+        "Problème de configuration",
+        "Défaillance de composant"
+      ],
+      "solutions": [
+        {
+          "action": "Noter le code d'erreur exact",
+          "details": "Relever précisément le message affiché"
+        },
+        {
+          "action": "Consulter le manuel du contrôleur",
+          "details": "Interpréter le code selon la documentation"
+        },
+        {
+          "action": "Appliquer la procédure recommandée",
+          "details": "Suivre les instructions de résolution"
+        },
+        {
+          "action": "Contacter le support technique",
+          "details": "Faire appel au fabricant si nécessaire"
+        }
+      ],
+      "prevention": "Surveillez régulièrement l'affichage du contrôleur."
+    },
+    "diagnosis_protection_activated": {
+      "title": "Protection du système activée",
+      "description": "Une protection de sécurité a arrêté le système.",
+      "severity": "medium",
+      "causes": [
+        "Surchauffe du contrôleur",
+        "Surcharge de la pompe",
+        "Fonctionnement à sec",
+        "Surtension ou sous-tension"
+      ],
+      "solutions": [
+        {
+          "action": "Identifier le type de protection",
+          "details": "Déterminer quelle protection s'est déclenchée"
+        },
+        {
+          "action": "Éliminer la cause",
+          "details": "Corriger le problème qui a causé la protection"
+        },
+        {
+          "action": "Attendre le refroidissement",
+          "details": "Laisser le système refroidir si nécessaire"
+        },
+        {
+          "action": "Redémarrer le système",
+          "details": "Réarmer la protection après correction"
+        }
+      ],
+      "prevention": "Surveillez les conditions de fonctionnement et maintenez une ventilation adéquate."
+    },
+    "diagnosis_solar_dependent_operation": {
+      "title": "Fonctionnement dépendant du solaire",
+      "description": "Le système s'arrête et redémarre selon l'ensoleillement disponible.",
+      "severity": "low",
+      "causes": [
+        "Fonctionnement normal au solaire",
+        "Puissance solaire variable",
+        "Seuil de démarrage élevé",
+        "Système bien configuré"
+      ],
+      "solutions": [
+        {
+          "action": "Accepter le fonctionnement variable",
+          "details": "C'est normal pour un système solaire direct"
+        },
+        {
+          "action": "Optimiser les heures de pompage",
+          "details": "Concentrer l'utilisation aux heures ensoleillées"
+        },
+        {
+          "action": "Installer un réservoir de stockage",
+          "details": "Stocker l'eau pour les périodes sans soleil"
+        },
+        {
+          "action": "Ajuster les seuils si possible",
+          "details": "Réduire le seuil de démarrage si autorisé"
+        }
+      ],
+      "prevention": "C'est un fonctionnement normal, dimensionnez le stockage d'eau en conséquence."
+    },
+    "diagnosis_programmed_cycles": {
+      "title": "Cycles programmés du système",
+      "description": "Le système fonctionne selon une programmation automatique.",
+      "severity": "low",
+      "causes": [
+        "Programmation horaire activée",
+        "Cycles de protection",
+        "Gestion automatique",
+        "Configuration optimisée"
+      ],
+      "solutions": [
+        {
+          "action": "Vérifier la programmation",
+          "details": "Contrôler les paramètres de cycles automatiques"
+        },
+        {
+          "action": "Ajuster si nécessaire",
+          "details": "Modifier la programmation selon les besoins"
+        },
+        {
+          "action": "Documenter les cycles",
+          "details": "Noter les horaires de fonctionnement"
+        },
+        {
+          "action": "Optimiser selon l'usage",
+          "details": "Adapter aux besoins réels en eau"
+        }
+      ],
+      "prevention": "Révisez périodiquement la programmation selon l'évolution des besoins."
+    },
+    "diagnosis_tank_level_control": {
+      "title": "Contrôle automatique du niveau de réservoir",
+      "description": "Le système s'arrête automatiquement quand le réservoir est plein.",
+      "severity": "low",
+      "causes": [
+        "Fonctionnement normal",
+        "Capteur de niveau fonctionnel",
+        "Protection contre le débordement",
+        "Système bien configuré"
+      ],
+      "solutions": [
+        {
+          "action": "Vérifier le niveau du réservoir",
+          "details": "Confirmer que le réservoir est effectivement plein"
+        },
+        {
+          "action": "Contrôler le capteur de niveau",
+          "details": "S'assurer que le capteur fonctionne correctement"
+        },
+        {
+          "action": "Ajuster les seuils si nécessaire",
+          "details": "Modifier les niveaux de déclenchement"
+        },
+        {
+          "action": "Utiliser l'eau stockée",
+          "details": "Consommer l'eau pour permettre un nouveau cycle"
+        }
+      ],
+      "prevention": "C'est un fonctionnement normal, surveillez simplement le bon fonctionnement du capteur."
+    },
+    "diagnosis_system_working_quietly": {
+      "title": "Système fonctionnant silencieusement",
+      "description": "Le système produit de l'eau mais la pompe n'est pas audible.",
+      "severity": "low",
+      "causes": [
+        "Pompe immergée silencieuse",
+        "Bonne isolation phonique",
+        "Fonctionnement normal",
+        "Distance importante"
+      ],
+      "solutions": [
+        {
+          "action": "Vérifier la production d'eau",
+          "details": "Confirmer que le système produit bien de l'eau"
+        },
+        {
+          "action": "Contrôler les indicateurs",
+          "details": "Vérifier l'affichage du contrôleur"
+        },
+        {
+          "action": "Mesurer le débit",
+          "details": "Quantifier la production d'eau"
+        },
+        {
+          "action": "Documenter le fonctionnement",
+          "details": "Noter les performances pour référence"
+        }
+      ],
+      "prevention": "C'est normal, continuez la surveillance des performances."
+    },
+    "diagnosis_low_water_level": {
+      "title": "Niveau d'eau bas dans la source",
+      "description": "Le niveau d'eau dans le puits ou forage a diminué.",
+      "severity": "medium",
+      "causes": [
+        "Saison sèche",
+        "Surexploitation de la nappe",
+        "Baisse naturelle du niveau",
+        "Problème hydrogéologique"
+      ],
+      "solutions": [
+        {
+          "action": "Descendre la pompe plus profondément",
+          "details": "Repositionner la pompe à un niveau plus bas"
+        },
+        {
+          "action": "Réduire la consommation temporairement",
+          "details": "Limiter le pompage pour préserver la ressource"
+        },
+        {
+          "action": "Attendre la remontée naturelle",
+          "details": "Le niveau peut remonter avec les pluies"
+        },
+        {
+          "action": "Consulter un hydrogéologue",
+          "details": "Évaluer la situation de la nappe phréatique"
+        }
+      ],
+      "prevention": "Surveillez le niveau d'eau et adaptez l'utilisation aux saisons."
+    },
+    "diagnosis_pump_priming_lost": {
+      "title": "Pompe désamorcée",
+      "description": "La pompe a perdu son amorçage et tourne à vide.",
+      "severity": "medium",
+      "causes": [
+        "Entrée d'air dans le circuit",
+        "Niveau d'eau trop bas",
+        "Fuite dans l'aspiration",
+        "Arrêt prolongé du système"
+      ],
+      "solutions": [
+        {
+          "action": "Réamorcer la pompe",
+          "details": "Remplir le circuit d'aspiration avec de l'eau"
+        },
+        {
+          "action": "Vérifier l'étanchéité",
+          "details": "Rechercher les fuites d'air dans l'aspiration"
+        },
+        {
+          "action": "Contrôler le niveau d'eau",
+          "details": "S'assurer que la pompe est suffisamment immergée"
+        },
+        {
+          "action": "Purger l'air du système",
+          "details": "Éliminer toutes les poches d'air"
+        }
+      ],
+      "prevention": "Maintenez l'étanchéité du circuit et surveillez le niveau d'eau."
+    },
+    "diagnosis_pump_inspection_needed": {
+      "title": "Inspection de la pompe nécessaire",
+      "description": "Il faut vérifier l'état et le fonctionnement de la pompe.",
+      "severity": "medium",
+      "causes": ["Diagnostic incertain", "Symptômes non clairs", "Besoin de vérification", "Maintenance préventive"],
+      "solutions": [
+        {
+          "action": "Faire remonter la pompe",
+          "details": "Sortir la pompe du puits pour inspection"
+        },
+        {
+          "action": "Contrôler l'état mécanique",
+          "details": "Vérifier l'usure, les joints, les roulements"
+        },
+        {
+          "action": "Tester le fonctionnement",
+          "details": "Faire tourner la pompe hors du puits"
+        },
+        {
+          "action": "Faire appel à un spécialiste",
+          "details": "Consulter un technicien en pompage"
+        }
+      ],
+      "prevention": "Planifiez des inspections régulières de la pompe."
+    },
+    "diagnosis_insufficient_solar_pump": {
+      "title": "Production solaire insuffisante",
+      "description": "L'énergie solaire disponible est insuffisante pour faire fonctionner la pompe.",
+      "severity": "medium",
+      "causes": ["Ensoleillement faible", "Panneaux sales", "Ombrage des panneaux", "Défaillance des panneaux"],
+      "solutions": [
+        {
+          "action": "Nettoyer les panneaux solaires",
+          "details": "Éliminer la poussière et les salissures"
+        },
+        {
+          "action": "Éliminer les ombrages",
+          "details": "Supprimer les obstructions"
+        },
+        {
+          "action": "Vérifier les connexions des panneaux",
+          "details": "Contrôler le câblage et les connecteurs"
+        },
+        {
+          "action": "Attendre un meilleur ensoleillement",
+          "details": "Le système redémarrera avec plus de soleil"
+        }
+      ],
+      "prevention": "Maintenez les panneaux propres et dégagés."
+    },
+    "diagnosis_weather_dependent": {
+      "title": "Fonctionnement dépendant de la météo",
+      "description": "Le système ne fonctionne pas à cause du manque de soleil.",
+      "severity": "low",
+      "causes": [
+        "Temps nuageux",
+        "Saison peu ensoleillée",
+        "Conditions météorologiques défavorables",
+        "Fonctionnement normal"
+      ],
+      "solutions": [
+        {
+          "action": "Attendre l'amélioration météo",
+          "details": "Le système redémarrera avec le retour du soleil"
+        },
+        {
+          "action": "Utiliser l'eau stockée",
+          "details": "Puiser dans les réserves constituées"
+        },
+        {
+          "action": "Planifier selon la météo",
+          "details": "Adapter l'utilisation aux prévisions"
+        },
+        {
+          "action": "Considérer un système de stockage",
+          "details": "Installer des batteries pour l'autonomie"
+        }
+      ],
+      "prevention": "Dimensionnez le stockage d'eau selon les variations météorologiques."
+    },
+    "diagnosis_controller_failure": {
+      "title": "Défaillance du contrôleur",
+      "description": "Le contrôleur de pompe ne fonctionne plus correctement.",
+      "severity": "critical",
+      "causes": ["Panne électronique", "Surchauffe du contrôleur", "Dommage par surtension", "Fin de vie du composant"],
+      "solutions": [
+        {
+          "action": "Vérifier l'alimentation",
+          "details": "Contrôler la tension d'entrée du contrôleur"
+        },
+        {
+          "action": "Redémarrer le contrôleur",
+          "details": "Effectuer un reset complet"
+        },
+        {
+          "action": "Vérifier la ventilation",
+          "details": "S'assurer que le contrôleur ne surchauffe pas"
+        },
+        {
+          "action": "Remplacer le contrôleur",
+          "details": "Installer un nouveau contrôleur si défaillant",
+          "warning": "Respecter les caractéristiques de la pompe"
+        }
+      ],
+      "prevention": "Protégez le contrôleur de la surchauffe et des surtensions."
+    },
+    "diagnosis_low_voltage_supply": {
+      "title": "Tension d'alimentation insuffisante",
+      "description": "La tension fournie par les panneaux est trop faible.",
+      "severity": "medium",
+      "causes": [
+        "Ensoleillement insuffisant",
+        "Panneaux sous-dimensionnés",
+        "Défaillance de panneaux",
+        "Problème de câblage"
+      ],
+      "solutions": [
+        {
+          "action": "Vérifier la production des panneaux",
+          "details": "Mesurer la tension et le courant de sortie"
+        },
+        {
+          "action": "Contrôler les connexions",
+          "details": "Vérifier tous les câbles et connecteurs"
+        },
+        {
+          "action": "Nettoyer les panneaux",
+          "details": "Améliorer l'efficacité par le nettoyage"
+        },
+        {
+          "action": "Évaluer l'ajout de panneaux",
+          "details": "Augmenter la puissance installée si nécessaire"
+        }
+      ],
+      "prevention": "Dimensionnez correctement les panneaux selon la pompe."
+    },
+    "diagnosis_thermal_protection": {
+      "title": "Protection thermique activée",
+      "description": "Le système s'arrête pour éviter la surchauffe.",
+      "severity": "medium",
+      "causes": [
+        "Température ambiante élevée",
+        "Ventilation insuffisante",
+        "Surcharge du système",
+        "Défaut de refroidissement"
+      ],
+      "solutions": [
+        {
+          "action": "Améliorer la ventilation",
+          "details": "Installer des ventilateurs ou améliorer l'aération"
+        },
+        {
+          "action": "Protéger du soleil direct",
+          "details": "Installer un abri pour le contrôleur"
+        },
+        {
+          "action": "Réduire la charge temporairement",
+          "details": "Limiter le fonctionnement aux heures fraîches"
+        },
+        {
+          "action": "Vérifier le système de refroidissement",
+          "details": "Contrôler les ventilateurs et dissipateurs"
+        }
+      ],
+      "prevention": "Installez le contrôleur dans un endroit ventilé et ombragé."
+    },
+    "diagnosis_dry_run_protection": {
+      "title": "Protection contre le fonctionnement à sec",
+      "description": "Le système s'arrête pour protéger la pompe du manque d'eau.",
+      "severity": "medium",
+      "causes": [
+        "Niveau d'eau trop bas",
+        "Pompe mal positionnée",
+        "Capteur de niveau défaillant",
+        "Aspiration bouchée"
+      ],
+      "solutions": [
+        {
+          "action": "Vérifier le niveau d'eau",
+          "details": "Contrôler la disponibilité d'eau dans la source"
+        },
+        {
+          "action": "Repositionner la pompe",
+          "details": "Descendre la pompe plus profondément"
+        },
+        {
+          "action": "Contrôler le capteur de niveau",
+          "details": "Vérifier le bon fonctionnement du capteur"
+        },
+        {
+          "action": "Nettoyer l'aspiration",
+          "details": "Éliminer les obstructions"
+        }
+      ],
+      "prevention": "Surveillez le niveau d'eau et maintenez la pompe à bonne profondeur."
+    },
+    "diagnosis_random_shutdowns": {
+      "title": "Arrêts aléatoires du système",
+      "description": "Le système s'arrête de façon imprévisible sans cause apparente.",
+      "severity": "high",
+      "causes": [
+        "Défaut électronique intermittent",
+        "Problème de connexion",
+        "Surchauffe intermittente",
+        "Défaillance de composant"
+      ],
+      "solutions": [
+        {
+          "action": "Vérifier toutes les connexions",
+          "details": "Resserrer et nettoyer tous les contacts"
+        },
+        {
+          "action": "Surveiller la température",
+          "details": "Contrôler si les arrêts correspondent à des pics de chaleur"
+        },
+        {
+          "action": "Tester les composants",
+          "details": "Vérifier l'état du contrôleur et de la pompe"
+        },
+        {
+          "action": "Faire appel à un technicien",
+          "details": "Diagnostic professionnel pour identifier la cause"
+        }
+      ],
+      "prevention": "Effectuez une maintenance préventive régulière."
+    },
+    "diagnosis_long_term_failure": {
+      "title": "Panne de longue durée",
+      "description": "Le système ne fonctionne plus depuis longtemps.",
+      "severity": "critical",
+      "causes": [
+        "Défaillance majeure non réparée",
+        "Abandon du système",
+        "Problème structurel",
+        "Manque de maintenance"
+      ],
+      "solutions": [
+        {
+          "action": "Faire un diagnostic complet",
+          "details": "Évaluer l'état de tous les composants"
+        },
+        {
+          "action": "Identifier les défaillances",
+          "details": "Lister tous les problèmes à résoudre"
+        },
+        {
+          "action": "Planifier la remise en service",
+          "details": "Établir un plan de réparation"
+        },
+        {
+          "action": "Considérer le remplacement",
+          "details": "Évaluer si une rénovation complète est nécessaire"
+        }
+      ],
+      "prevention": "Ne laissez jamais un système en panne sans intervention."
+    },
+    "diagnosis_progressive_failure": {
+      "title": "Défaillance progressive",
+      "description": "Le système se dégrade progressivement avec des performances décroissantes.",
+      "severity": "medium",
+      "causes": [
+        "Usure normale des composants",
+        "Maintenance insuffisante",
+        "Vieillissement du système",
+        "Conditions d'utilisation difficiles"
+      ],
+      "solutions": [
+        {
+          "action": "Identifier les composants usés",
+          "details": "Déterminer quels éléments se dégradent"
+        },
+        {
+          "action": "Planifier les remplacements",
+          "details": "Programmer le renouvellement des pièces usées"
+        },
+        {
+          "action": "Intensifier la maintenance",
+          "details": "Augmenter la fréquence d'entretien"
+        },
+        {
+          "action": "Optimiser l'utilisation",
+          "details": "Adapter l'usage pour préserver le système"
+        }
+      ],
+      "prevention": "Effectuez une maintenance préventive rigoureuse."
+    },
+    "diagnosis_new_system_issues": {
+      "title": "Problèmes de système neuf",
+      "description": "Des dysfonctionnements apparaissent sur une installation récente.",
+      "severity": "high",
+      "causes": [
+        "Défaut d'installation",
+        "Composant défaillant",
+        "Configuration incorrecte",
+        "Problème de mise en service"
+      ],
+      "solutions": [
+        {
+          "action": "Contacter l'installateur",
+          "details": "Faire jouer la garantie d'installation"
+        },
+        {
+          "action": "Vérifier la configuration",
+          "details": "Contrôler tous les paramètres du système"
+        },
+        {
+          "action": "Tester tous les composants",
+          "details": "Vérifier le bon fonctionnement de chaque élément"
+        },
+        {
+          "action": "Documenter les problèmes",
+          "details": "Tenir un registre pour le suivi de garantie"
+        }
+      ],
+      "prevention": "Exigez une mise en service complète et des tests de performance."
+    },
+    "diagnosis_aging_system": {
+      "title": "Système vieillissant",
+      "description": "Le système montre des signes de vieillissement normal.",
+      "severity": "medium",
+      "causes": [
+        "Usure normale des composants",
+        "Fin de vie de certains éléments",
+        "Dégradation progressive",
+        "Évolution technologique"
+      ],
+      "solutions": [
+        {
+          "action": "Planifier la rénovation",
+          "details": "Prévoir le remplacement des composants usés"
+        },
+        {
+          "action": "Intensifier la maintenance",
+          "details": "Surveiller plus étroitement le système"
+        },
+        {
+          "action": "Évaluer la modernisation",
+          "details": "Considérer l'upgrade vers des technologies plus récentes"
+        },
+        {
+          "action": "Optimiser l'existant",
+          "details": "Améliorer les performances avec l'équipement actuel"
+        }
+      ],
+      "prevention": "Planifiez le renouvellement des équipements selon leur durée de vie."
+    },
+    "diagnosis_maintenance_needed": {
+      "title": "Maintenance urgente nécessaire",
+      "description": "Le manque de maintenance affecte le fonctionnement du système.",
+      "severity": "high",
+      "causes": [
+        "Aucun entretien effectué",
+        "Négligence de la maintenance",
+        "Manque de connaissances",
+        "Accumulation de problèmes"
+      ],
+      "solutions": [
+        {
+          "action": "Effectuer une maintenance complète",
+          "details": "Nettoyer, vérifier et ajuster tous les composants"
+        },
+        {
+          "action": "Remplacer les éléments usés",
+          "details": "Changer les pièces en fin de vie"
+        },
+        {
+          "action": "Établir un plan de maintenance",
+          "details": "Créer un calendrier d'entretien régulier"
+        },
+        {
+          "action": "Former à la maintenance",
+          "details": "Apprendre les gestes d'entretien de base"
+        }
+      ],
+      "prevention": "Établissez et respectez un programme de maintenance dès l'installation."
+    },
+    "diagnosis_irregular_maintenance": {
+      "title": "Maintenance irrégulière",
+      "description": "L'entretien sporadique ne suffit pas à maintenir les performances.",
+      "severity": "medium",
+      "causes": [
+        "Maintenance non planifiée",
+        "Entretien insuffisant",
+        "Manque de régularité",
+        "Procédures incomplètes"
+      ],
+      "solutions": [
+        {
+          "action": "Créer un planning de maintenance",
+          "details": "Établir un calendrier précis d'entretien"
+        },
+        {
+          "action": "Définir les procédures",
+          "details": "Lister toutes les opérations à effectuer"
+        },
+        {
+          "action": "Former aux bonnes pratiques",
+          "details": "Apprendre les techniques d'entretien appropriées"
+        },
+        {
+          "action": "Suivre les performances",
+          "details": "Monitorer l'impact de la maintenance"
+        }
+      ],
+      "prevention": "Respectez scrupuleusement le planning de maintenance."
+    },
+    "diagnosis_external_factors": {
+      "title": "Facteurs externes affectant le système",
+      "description": "Des éléments extérieurs au système influencent ses performances.",
+      "severity": "medium",
+      "causes": ["Conditions environnementales", "Qualité de l'eau", "Variations saisonnières", "Facteurs géologiques"],
+      "solutions": [
+        {
+          "action": "Identifier les facteurs externes",
+          "details": "Analyser l'environnement et les conditions d'exploitation"
+        },
+        {
+          "action": "Adapter le système",
+          "details": "Modifier la configuration selon les contraintes"
+        },
+        {
+          "action": "Installer des protections",
+          "details": "Ajouter des dispositifs de protection adaptés"
+        },
+        {
+          "action": "Optimiser selon les conditions",
+          "details": "Ajuster l'utilisation aux contraintes externes"
+        }
+      ],
+      "prevention": "Étudiez l'environnement d'installation et adaptez le système."
+    },
+    "diagnosis_pump_wear_issue": {
+      "title": "Usure de la pompe",
+      "description": "La pompe montre des signes d'usure affectant ses performances.",
+      "severity": "medium",
+      "causes": [
+        "Usure normale des pièces mobiles",
+        "Fonctionnement en conditions difficiles",
+        "Maintenance insuffisante",
+        "Qualité de l'eau abrasive"
+      ],
+      "solutions": [
+        {
+          "action": "Évaluer l'état de la pompe",
+          "details": "Inspecter les composants internes"
+        },
+        {
+          "action": "Remplacer les pièces usées",
+          "details": "Changer les éléments défaillants"
+        },
+        {
+          "action": "Améliorer la filtration",
+          "details": "Installer des filtres pour protéger la pompe"
+        },
+        {
+          "action": "Planifier le remplacement",
+          "details": "Prévoir le changement de pompe si nécessaire"
+        }
+      ],
+      "prevention": "Maintenez la pompe régulièrement et filtrez l'eau si nécessaire."
+    },
+    "diagnosis_pump_inspection_required": {
+      "title": "Inspection de pompe requise",
+      "description": "Une inspection professionnelle de la pompe est nécessaire.",
+      "severity": "medium",
+      "causes": ["Symptômes non diagnostiqués", "Pompe inaccessible", "Problème complexe", "Maintenance préventive"],
+      "solutions": [
+        {
+          "action": "Faire appel à un spécialiste",
+          "details": "Contacter un technicien en pompage"
+        },
+        {
+          "action": "Planifier l'intervention",
+          "details": "Organiser la sortie et l'inspection de la pompe"
+        },
+        {
+          "action": "Préparer l'accès",
+          "details": "Faciliter l'intervention du technicien"
+        },
+        {
+          "action": "Documenter les observations",
+          "details": "Noter tous les symptômes observés"
+        }
+      ],
+      "prevention": "Planifiez des inspections régulières de la pompe."
+    },
+    "diagnosis_seasonal_water_shortage": {
+      "title": "Pénurie d'eau saisonnière",
+      "description": "Le niveau d'eau baisse naturellement en saison sèche.",
+      "severity": "low",
+      "causes": [
+        "Cycle saisonnier normal",
+        "Baisse de la nappe phréatique",
+        "Période de sécheresse",
+        "Phénomène naturel"
+      ],
+      "solutions": [
+        {
+          "action": "Adapter la consommation",
+          "details": "Réduire l'utilisation pendant la saison sèche"
+        },
+        {
+          "action": "Stocker plus d'eau",
+          "details": "Augmenter la capacité de stockage"
+        },
+        {
+          "action": "Optimiser le pompage",
+          "details": "Pomper aux heures de meilleure récupération"
+        },
+        {
+          "action": "Attendre la saison des pluies",
+          "details": "Le niveau remontera naturellement"
+        }
+      ],
+      "prevention": "Planifiez l'utilisation selon les cycles saisonniers."
+    },
+    "diagnosis_technical_issue_pump": {
+      "title": "Problème technique du système de pompage",
+      "description": "Un défaut technique affecte le système malgré de bonnes conditions.",
+      "severity": "high",
+      "causes": ["Défaillance de composant", "Problème électrique", "Défaut mécanique", "Configuration incorrecte"],
+      "solutions": [
+        {
+          "action": "Diagnostiquer systématiquement",
+          "details": "Tester chaque composant individuellement"
+        },
+        {
+          "action": "Vérifier les connexions",
+          "details": "Contrôler tout le câblage électrique"
+        },
+        {
+          "action": "Tester la pompe",
+          "details": "Vérifier le fonctionnement mécanique"
+        },
+        {
+          "action": "Faire appel à un professionnel",
+          "details": "Consulter un spécialiste si nécessaire"
+        }
+      ],
+      "prevention": "Effectuez une maintenance préventive régulière."
+    },
+    "diagnosis_permanent_issue": {
+      "title": "Problème permanent du système",
+      "description": "Le dysfonctionnement persiste indépendamment des conditions externes.",
+      "severity": "high",
+      "causes": ["Défaut structurel", "Composant défaillant", "Installation incorrecte", "Problème de conception"],
+      "solutions": [
+        {
+          "action": "Faire un diagnostic complet",
+          "details": "Analyser tous les aspects du système"
+        },
+        {
+          "action": "Identifier la cause racine",
+          "details": "Déterminer l'origine du problème permanent"
+        },
+        {
+          "action": "Planifier la correction",
+          "details": "Établir un plan de réparation définitive"
+        },
+        {
+          "action": "Considérer la refonte",
+          "details": "Évaluer si une modification majeure est nécessaire"
+        }
+      ],
+      "prevention": "Effectuez une étude approfondie avant toute installation."
+    },
+    "diagnosis_pipe_blockage": {
+      "title": "Obstruction des canalisations",
+      "description": "Les tuyaux sont bouchés, empêchant la circulation de l'eau.",
+      "severity": "medium",
+      "causes": ["Accumulation de sédiments", "Dépôts calcaires", "Corps étrangers", "Biofilm ou algues"],
+      "solutions": [
+        {
+          "action": "Localiser l'obstruction",
+          "details": "Identifier où se situe le bouchon"
+        },
+        {
+          "action": "Nettoyer les canalisations",
+          "details": "Utiliser des méthodes de débouchage appropriées"
+        },
+        {
+          "action": "Installer des filtres",
+          "details": "Prévenir les futures obstructions"
+        },
+        {
+          "action": "Remplacer les sections bouchées",
+          "details": "Changer les tuyaux irréparables"
+        }
+      ],
+      "prevention": "Installez des filtres et effectuez un nettoyage régulier."
+    },
+    "diagnosis_pump_mechanical_issue": {
+      "title": "Problème mécanique de la pompe",
+      "description": "Un défaut mécanique empêche le bon fonctionnement de la pompe.",
+      "severity": "high",
+      "causes": ["Usure des roulements", "Défaut d'étanchéité", "Roue endommagée", "Blocage mécanique"],
+      "solutions": [
+        {
+          "action": "Inspecter la pompe",
+          "details": "Examiner tous les composants mécaniques"
+        },
+        {
+          "action": "Remplacer les pièces usées",
+          "details": "Changer les éléments défaillants"
+        },
+        {
+          "action": "Réviser complètement",
+          "details": "Effectuer une remise à neuf si nécessaire"
+        },
+        {
+          "action": "Considérer le remplacement",
+          "details": "Installer une nouvelle pompe si irréparable"
+        }
+      ],
+      "prevention": "Effectuez une maintenance mécanique régulière."
+    },
+    "diagnosis_system_inspection_needed": {
+      "title": "Inspection complète du système nécessaire",
+      "description": "Une inspection professionnelle de tout le système est requise.",
+      "severity": "medium",
+      "causes": ["Diagnostic complexe", "Problèmes multiples", "Système inaccessible", "Expertise requise"],
+      "solutions": [
+        {
+          "action": "Contacter un professionnel",
+          "details": "Faire appel à un spécialiste en pompage solaire"
+        },
+        {
+          "action": "Préparer l'intervention",
+          "details": "Faciliter l'accès à tous les composants"
+        },
+        {
+          "action": "Documenter l'historique",
+          "details": "Rassembler toutes les informations sur le système"
+        },
+        {
+          "action": "Planifier les réparations",
+          "details": "Organiser les interventions selon les conclusions"
+        }
+      ],
+      "prevention": "Planifiez des inspections préventives régulières."
+    },
+    "diagnosis_controller_configuration": {
+      "title": "Configuration du contrôleur à ajuster",
+      "description": "Les paramètres du contrôleur ne sont pas optimaux.",
+      "severity": "medium",
+      "causes": [
+        "Configuration d'usine générique",
+        "Paramètres non adaptés",
+        "Évolution des conditions",
+        "Mauvaise configuration initiale"
+      ],
+      "solutions": [
+        {
+          "action": "Réviser les paramètres",
+          "details": "Ajuster selon les conditions réelles"
+        },
+        {
+          "action": "Optimiser les seuils",
+          "details": "Configurer les niveaux de démarrage/arrêt"
+        },
+        {
+          "action": "Programmer les cycles",
+          "details": "Définir les horaires de fonctionnement"
+        },
+        {
+          "action": "Tester les modifications",
+          "details": "Valider chaque changement de configuration"
+        }
+      ],
+      "prevention": "Configurez correctement le contrôleur dès l'installation."
+    },
+    "diagnosis_insufficient_voltage": {
+      "title": "Tension insuffisante pour le démarrage",
+      "description": "La tension disponible est en dessous du seuil de démarrage de la pompe.",
+      "severity": "medium",
+      "causes": [
+        "Ensoleillement insuffisant",
+        "Panneaux sous-dimensionnés",
+        "Seuil de démarrage trop élevé",
+        "Pertes dans le câblage"
+      ],
+      "solutions": [
+        {
+          "action": "Attendre un meilleur ensoleillement",
+          "details": "Le système démarrera avec plus de soleil"
+        },
+        {
+          "action": "Réduire le seuil de démarrage",
+          "details": "Ajuster les paramètres si possible"
+        },
+        {
+          "action": "Ajouter des panneaux",
+          "details": "Augmenter la puissance solaire installée"
+        },
+        {
+          "action": "Optimiser le câblage",
+          "details": "Réduire les pertes de tension"
+        }
+      ],
+      "prevention": "Dimensionnez correctement les panneaux selon la pompe."
+    },
+    "diagnosis_monitoring_missing": {
+      "title": "Système de monitoring manquant",
+      "description": "Il n'y a pas assez d'informations pour diagnostiquer le problème.",
+      "severity": "low",
+      "causes": ["Pas de système de mesure", "Affichage défaillant", "Capteurs manquants", "Configuration incomplète"],
+      "solutions": [
+        {
+          "action": "Installer un système de monitoring",
+          "details": "Ajouter des dispositifs de mesure"
+        },
+        {
+          "action": "Réparer l'affichage",
+          "details": "Remettre en service l'écran du contrôleur"
+        },
+        {
+          "action": "Ajouter des capteurs",
+          "details": "Installer les mesures manquantes"
+        },
+        {
+          "action": "Utiliser des instruments externes",
+          "details": "Mesurer avec des appareils portables"
+        }
+      ],
+      "prevention": "Installez un système de monitoring complet dès le départ."
+    },
+    "diagnosis_panel_failure": {
+      "title": "Défaillance des panneaux solaires",
+      "description": "Les panneaux solaires ne produisent pas d'électricité.",
+      "severity": "high",
+      "causes": ["Panneaux endommagés", "Connexions défaillantes", "Défaut de fabrication", "Dommage par intempérie"],
+      "solutions": [
+        {
+          "action": "Tester chaque panneau",
+          "details": "Mesurer la production de chaque module"
+        },
+        {
+          "action": "Vérifier les connexions",
+          "details": "Contrôler tous les câbles et connecteurs"
+        },
+        {
+          "action": "Remplacer les panneaux défaillants",
+          "details": "Changer les modules qui ne produisent plus"
+        },
+        {
+          "action": "Vérifier la garantie",
+          "details": "Faire jouer la garantie fabricant si applicable"
+        }
+      ],
+      "prevention": "Protégez les panneaux et effectuez des contrôles réguliers."
+    },
+    "diagnosis_connection_repair_needed": {
+      "title": "Réparation des connexions nécessaire",
+      "description": "Les connexions électriques sont défaillantes et doivent être réparées.",
+      "severity": "medium",
+      "causes": ["Corrosion des contacts", "Câbles endommagés", "Connecteurs défaillants", "Mauvais serrage"],
+      "solutions": [
+        {
+          "action": "Nettoyer les connexions",
+          "details": "Éliminer la corrosion et l'oxydation"
+        },
+        {
+          "action": "Remplacer les câbles abîmés",
+          "details": "Changer les conducteurs endommagés"
+        },
+        {
+          "action": "Resserrer toutes les bornes",
+          "details": "Vérifier le serrage de toutes les connexions"
+        },
+        {
+          "action": "Protéger contre l'humidité",
+          "details": "Améliorer l'étanchéité des connexions"
+        }
+      ],
+      "prevention": "Protégez les connexions de l'humidité et vérifiez-les régulièrement."
+    },
+    "diagnosis_electrical_inspection_needed": {
+      "title": "Inspection électrique nécessaire",
+      "description": "Une vérification professionnelle du système électrique est requise.",
+      "severity": "medium",
+      "causes": [
+        "Problème électrique complexe",
+        "Sécurité à vérifier",
+        "Diagnostic spécialisé requis",
+        "Installation suspecte"
+      ],
+      "solutions": [
+        {
+          "action": "Faire appel à un électricien",
+          "details": "Consulter un professionnel qualifié"
+        },
+        {
+          "action": "Vérifier la sécurité",
+          "details": "Contrôler la mise à la terre et les protections"
+        },
+        {
+          "action": "Tester l'isolement",
+          "details": "Mesurer la résistance d'isolement"
+        },
+        {
+          "action": "Mettre aux normes",
+          "details": "Corriger les défauts de conformité"
+        }
+      ],
+      "prevention": "Respectez les normes électriques et faites vérifier l'installation."
+    },
+    "diagnosis_recent_modification_pump": {
+      "title": "Problème lié à une modification récente",
+      "description": "Le dysfonctionnement est probablement lié à un changement récent.",
+      "severity": "medium",
+      "causes": [
+        "Modification incorrecte",
+        "Nouveau composant incompatible",
+        "Erreur de configuration",
+        "Dommage lors des travaux"
+      ],
+      "solutions": [
+        {
+          "action": "Annuler la dernière modification",
+          "details": "Revenir à la configuration précédente"
+        },
+        {
+          "action": "Vérifier la compatibilité",
+          "details": "S'assurer que les nouveaux éléments sont adaptés"
+        },
+        {
+          "action": "Contrôler les nouvelles connexions",
+          "details": "Vérifier tous les nouveaux branchements"
+        },
+        {
+          "action": "Tester progressivement",
+          "details": "Réintroduire les modifications une par une"
+        }
+      ],
+      "prevention": "Documentez toutes les modifications et testez-les individuellement."
+    },
+    "diagnosis_sudden_failure": {
+      "title": "Panne soudaine du système",
+      "description": "Le système s'est arrêté brutalement sans cause apparente.",
+      "severity": "high",
+      "causes": ["Défaillance de composant", "Surtension", "Surchauffe", "Défaut électrique"],
+      "solutions": [
+        {
+          "action": "Vérifier les protections",
+          "details": "Contrôler si des protections se sont déclenchées"
+        },
+        {
+          "action": "Tester l'alimentation",
+          "details": "Vérifier la continuité de l'alimentation électrique"
+        },
+        {
+          "action": "Inspecter visuellement",
+          "details": "Rechercher des signes de dommage visible"
+        },
+        {
+          "action": "Faire un diagnostic systématique",
+          "details": "Tester chaque composant individuellement"
+        }
+      ],
+      "prevention": "Installez des protections adéquates contre les surtensions."
+    },
+    "diagnosis_weather_damage": {
+      "title": "Dommages causés par les intempéries",
+      "description": "Le système a été endommagé par un orage ou des conditions météorologiques extrêmes.",
+      "severity": "high",
+      "causes": ["Foudre", "Surtension", "Inondation", "Vent violent"],
+      "solutions": [
+        {
+          "action": "Évaluer les dommages",
+          "details": "Inspecter tous les composants pour identifier les dégâts"
+        },
+        {
+          "action": "Vérifier les assurances",
+          "details": "Voir si les dommages sont couverts"
+        },
+        {
+          "action": "Remplacer les éléments endommagés",
+          "details": "Changer tous les composants défaillants"
+        },
+        {
+          "action": "Améliorer les protections",
+          "details": "Installer des dispositifs de protection renforcés"
+        }
+      ],
+      "prevention": "Installez des protections contre la foudre et les surtensions."
+    },
+    "diagnosis_well_maintained_system": {
+      "title": "Système bien entretenu avec problème ponctuel",
+      "description": "Le système est bien maintenu mais présente un dysfonctionnement temporaire.",
+      "severity": "low",
+      "causes": ["Problème ponctuel", "Usure normale", "Condition exceptionnelle", "Réglage à ajuster"],
+      "solutions": [
+        {
+          "action": "Identifier le problème spécifique",
+          "details": "Localiser précisément la cause du dysfonctionnement"
+        },
+        {
+          "action": "Effectuer la correction nécessaire",
+          "details": "Appliquer la solution appropriée"
+        },
+        {
+          "action": "Continuer la maintenance régulière",
+          "details": "Maintenir le niveau d'entretien actuel"
+        },
+        {
+          "action": "Surveiller l'évolution",
+          "details": "Vérifier que le problème ne se reproduit pas"
+        }
+      ],
+      "prevention": "Continuez les bonnes pratiques de maintenance."
+    },
+    "diagnosis_pump_depth_issue": {
+      "title": "Problème de profondeur de pompe",
+      "description": "La pompe n'est pas positionnée à la bonne profondeur dans le puits.",
+      "severity": "medium",
+      "causes": ["Installation incorrecte", "Baisse du niveau d'eau", "Pompe remontée", "Calcul de profondeur erroné"],
+      "solutions": [
+        {
+          "action": "Mesurer la profondeur d'eau",
+          "details": "Déterminer le niveau statique et dynamique"
+        },
+        {
+          "action": "Repositionner la pompe",
+          "details": "Descendre la pompe à la profondeur optimale"
+        },
+        {
+          "action": "Vérifier la fixation",
+          "details": "S'assurer que la pompe ne peut pas remonter"
+        },
+        {
+          "action": "Calculer la profondeur optimale",
+          "details": "Déterminer la position idéale selon les conditions"
+        }
+      ],
+      "prevention": "Calculez correctement la profondeur d'installation dès le départ."
+    },
+    "diagnosis_depth_verification_needed": {
+      "title": "Vérification de profondeur nécessaire",
+      "description": "Il faut contrôler la position de la pompe dans le puits.",
+      "severity": "medium",
+      "causes": ["Position inconnue", "Installation ancienne", "Documentation manquante", "Doute sur la profondeur"],
+      "solutions": [
+        {
+          "action": "Mesurer la profondeur actuelle",
+          "details": "Déterminer où se trouve la pompe"
+        },
+        {
+          "action": "Évaluer le niveau d'eau",
+          "details": "Mesurer la hauteur d'eau disponible"
+        },
+        {
+          "action": "Calculer la position optimale",
+          "details": "Déterminer où la pompe devrait être"
+        },
+        {
+          "action": "Ajuster si nécessaire",
+          "details": "Repositionner la pompe si besoin"
+        }
+      ],
+      "prevention": "Documentez toujours la profondeur d'installation."
+    }
+  }
+}

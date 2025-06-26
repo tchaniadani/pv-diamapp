@@ -1,0 +1,737 @@
+{
+  "systemType": "autonome",
+  "start": {
+    "id": "question_power_status",
+    "text": "Y a-t-il une coupure de courant totale ou partielle dans votre installation ?",
+    "help": "Vérifiez si vos appareils fonctionnent normalement ou s'il y a des dysfonctionnements",
+    "answers": [
+      {
+        "text": "Coupure totale",
+        "description": "Aucun appareil ne fonctionne",
+        "icon": "🔴",
+        "next": "question_battery_voltage"
+      },
+      {
+        "text": "Coupure partielle",
+        "description": "Certains appareils fonctionnent",
+        "icon": "🟡",
+        "next": "question_load_type"
+      },
+      {
+        "text": "Incertain",
+        "description": "Je ne suis pas sûr",
+        "icon": "❓",
+        "next": "question_basic_check"
+      }
+    ]
+  },
+  "questions": {
+    "question_battery_voltage": {
+      "id": "question_battery_voltage",
+      "text": "Quelle est la tension affichée sur vos batteries ?",
+      "help": "Regardez l'affichage du régulateur ou mesurez avec un multimètre",
+      "answers": [
+        {
+          "text": "Moins de 11V (système 12V) ou 22V (système 24V)",
+          "description": "Tension très faible",
+          "icon": "🔋",
+          "next": "diagnosis_battery_deep_discharge"
+        },
+        {
+          "text": "Entre 11-12V (12V) ou 22-24V (24V)",
+          "description": "Tension faible",
+          "icon": "🔋",
+          "next": "question_charging_status"
+        },
+        {
+          "text": "Tension normale (>12V ou >24V)",
+          "description": "Batteries semblent OK",
+          "icon": "✅",
+          "next": "question_inverter_status"
+        },
+        {
+          "text": "Pas d'affichage",
+          "description": "Impossible de voir la tension",
+          "icon": "❌",
+          "next": "diagnosis_system_failure"
+        }
+      ]
+    },
+    "question_charging_status": {
+      "id": "question_charging_status",
+      "text": "Le régulateur indique-t-il une charge en cours ?",
+      "help": "Vérifiez les voyants ou l'écran du régulateur MPPT",
+      "answers": [
+        {
+          "text": "Oui, charge en cours",
+          "description": "Voyant de charge allumé",
+          "icon": "🔄",
+          "next": "diagnosis_battery_aging"
+        },
+        {
+          "text": "Non, pas de charge",
+          "description": "Aucun voyant de charge",
+          "icon": "❌",
+          "next": "question_solar_production"
+        },
+        {
+          "text": "Charge intermittente",
+          "description": "Charge qui s'arrête et reprend",
+          "icon": "⚡",
+          "next": "diagnosis_unstable_charging"
+        }
+      ]
+    },
+    "question_solar_production": {
+      "id": "question_solar_production",
+      "text": "Y a-t-il du soleil et les panneaux sont-ils propres ?",
+      "help": "Vérifiez l'ensoleillement et l'état de propreté des panneaux",
+      "answers": [
+        {
+          "text": "Bon ensoleillement, panneaux propres",
+          "description": "Conditions optimales",
+          "icon": "☀️",
+          "next": "diagnosis_regulator_failure"
+        },
+        {
+          "text": "Panneaux sales ou ombragés",
+          "description": "Obstruction des panneaux",
+          "icon": "🌫️",
+          "next": "diagnosis_panel_obstruction"
+        },
+        {
+          "text": "Temps nuageux",
+          "description": "Faible ensoleillement",
+          "icon": "☁️",
+          "next": "diagnosis_weather_condition"
+        }
+      ]
+    },
+    "question_inverter_status": {
+      "id": "question_inverter_status",
+      "text": "L'onduleur affiche-t-il des voyants ou des codes d'erreur ?",
+      "help": "Regardez l'écran et les voyants de l'onduleur",
+      "answers": [
+        {
+          "text": "Voyant vert, fonctionne normalement",
+          "description": "Onduleur OK",
+          "icon": "🟢",
+          "next": "question_load_connection"
+        },
+        {
+          "text": "Voyant rouge ou code d'erreur",
+          "description": "Problème détecté",
+          "icon": "🔴",
+          "next": "diagnosis_inverter_error"
+        },
+        {
+          "text": "Aucun affichage",
+          "description": "Onduleur éteint",
+          "icon": "⚫",
+          "next": "diagnosis_inverter_failure"
+        }
+      ]
+    },
+    "question_load_connection": {
+      "id": "question_load_connection",
+      "text": "Les appareils sont-ils correctement branchés et allumés ?",
+      "help": "Vérifiez les prises et interrupteurs des appareils",
+      "answers": [
+        {
+          "text": "Tout est bien branché",
+          "description": "Connexions OK",
+          "icon": "🔌",
+          "next": "diagnosis_load_overload"
+        },
+        {
+          "text": "Problème de connexion",
+          "description": "Prises ou câbles défaillants",
+          "icon": "⚡",
+          "next": "diagnosis_connection_issue"
+        }
+      ]
+    },
+    "question_load_type": {
+      "id": "question_load_type",
+      "text": "Quels types d'appareils ne fonctionnent pas ?",
+      "help": "Identifiez si ce sont des appareils spécifiques ou tous",
+      "answers": [
+        {
+          "text": "Appareils à forte consommation",
+          "description": "Moteurs, chauffage, etc.",
+          "icon": "⚡",
+          "next": "diagnosis_power_limitation"
+        },
+        {
+          "text": "Tous les appareils sur certaines prises",
+          "description": "Problème de circuit",
+          "icon": "🔌",
+          "next": "diagnosis_circuit_issue"
+        },
+        {
+          "text": "Appareils sensibles (électronique)",
+          "description": "Ordinateurs, TV, etc.",
+          "icon": "💻",
+          "next": "diagnosis_power_quality"
+        }
+      ]
+    },
+    "question_basic_check": {
+      "id": "question_basic_check",
+      "text": "Avez-vous vérifié tous les disjoncteurs et fusibles ?",
+      "help": "Contrôlez le tableau électrique et les protections",
+      "answers": [
+        {
+          "text": "Tout est en position ON",
+          "description": "Protections OK",
+          "icon": "✅",
+          "next": "question_recent_changes"
+        },
+        {
+          "text": "Un disjoncteur a sauté",
+          "description": "Protection déclenchée",
+          "icon": "⚠️",
+          "next": "diagnosis_protection_triggered"
+        },
+        {
+          "text": "Pas encore vérifié",
+          "description": "À contrôler",
+          "icon": "🔍",
+          "next": "diagnosis_check_protections"
+        }
+      ]
+    },
+    "question_recent_changes": {
+      "id": "question_recent_changes",
+      "text": "Y a-t-il eu des modifications récentes sur l'installation ?",
+      "help": "Nouveaux appareils, travaux, orages, etc.",
+      "answers": [
+        {
+          "text": "Oui, récemment",
+          "description": "Changements récents",
+          "icon": "🔧",
+          "next": "diagnosis_recent_modification"
+        },
+        {
+          "text": "Non, rien de nouveau",
+          "description": "Aucun changement",
+          "icon": "❌",
+          "next": "diagnosis_systematic_check"
+        }
+      ]
+    }
+  },
+  "diagnoses": {
+    "diagnosis_battery_deep_discharge": {
+      "title": "Décharge profonde des batteries",
+      "description": "Vos batteries sont en décharge profonde, ce qui peut les endommager définitivement.",
+      "severity": "critical",
+      "causes": [
+        "Consommation excessive par rapport à la production",
+        "Défaillance du système de charge",
+        "Batteries vieillissantes",
+        "Période prolongée sans soleil"
+      ],
+      "solutions": [
+        {
+          "action": "Arrêter immédiatement toute consommation",
+          "details": "Débranchez tous les appareils pour éviter d'endommager davantage les batteries"
+        },
+        {
+          "action": "Recharger les batteries avec un chargeur externe",
+          "details": "Utilisez un chargeur de batterie adapté pour remonter la tension"
+        },
+        {
+          "action": "Tester la capacité des batteries",
+          "details": "Une fois rechargées, vérifiez si elles tiennent encore la charge"
+        },
+        {
+          "action": "Réviser le dimensionnement du système",
+          "details": "Le système est peut-être sous-dimensionné par rapport aux besoins"
+        }
+      ],
+      "prevention": "Installez un système de surveillance des batteries et évitez de les décharger en dessous de 50% de leur capacité."
+    },
+    "diagnosis_battery_aging": {
+      "title": "Vieillissement des batteries",
+      "description": "Les batteries se chargent mais ne maintiennent plus leur capacité initiale.",
+      "severity": "medium",
+      "causes": [
+        "Usure normale des batteries (5-7 ans de vie)",
+        "Cycles de charge/décharge répétés",
+        "Conditions de température défavorables",
+        "Maintenance insuffisante"
+      ],
+      "solutions": [
+        {
+          "action": "Tester la capacité réelle des batteries",
+          "details": "Effectuer un test de décharge contrôlée pour mesurer la capacité restante"
+        },
+        {
+          "action": "Égaliser les batteries (si plomb-acide)",
+          "details": "Effectuer une charge d'égalisation pour équilibrer les éléments"
+        },
+        {
+          "action": "Planifier le remplacement",
+          "details": "Si la capacité est inférieure à 70%, prévoir le remplacement"
+        },
+        {
+          "action": "Optimiser la consommation",
+          "details": "Réduire temporairement la consommation en attendant le remplacement"
+        }
+      ],
+      "prevention": "Maintenez les batteries dans des conditions optimales de température et effectuez un entretien régulier."
+    },
+    "diagnosis_regulator_failure": {
+      "title": "Défaillance du régulateur de charge",
+      "description": "Le régulateur MPPT ne charge plus les batteries malgré une production solaire disponible.",
+      "severity": "high",
+      "causes": [
+        "Panne interne du régulateur",
+        "Surtension d'entrée",
+        "Surchauffe du régulateur",
+        "Défaut de connexion"
+      ],
+      "solutions": [
+        {
+          "action": "Vérifier les connexions du régulateur",
+          "details": "Contrôler le serrage et l'état des bornes d'entrée et de sortie"
+        },
+        {
+          "action": "Mesurer la tension d'entrée PV",
+          "details": "Vérifier que la tension des panneaux est dans les limites du régulateur"
+        },
+        {
+          "action": "Contrôler la température du régulateur",
+          "details": "S'assurer qu'il n'y a pas de surchauffe, améliorer la ventilation si nécessaire"
+        },
+        {
+          "action": "Remplacer le régulateur si défaillant",
+          "details": "Si les tests confirment la panne, procéder au remplacement",
+          "warning": "Respecter les caractéristiques techniques lors du remplacement"
+        }
+      ],
+      "prevention": "Installez le régulateur dans un endroit ventilé et protégé des intempéries."
+    },
+    "diagnosis_panel_obstruction": {
+      "title": "Obstruction ou salissure des panneaux",
+      "description": "Les panneaux solaires ne produisent pas à leur capacité maximale à cause d'obstructions.",
+      "severity": "low",
+      "causes": [
+        "Accumulation de poussière ou saleté",
+        "Ombrage par végétation ou constructions",
+        "Fientes d'oiseaux",
+        "Dépôts atmosphériques"
+      ],
+      "solutions": [
+        {
+          "action": "Nettoyer les panneaux",
+          "details": "Utiliser de l'eau claire et une brosse douce, éviter les produits chimiques"
+        },
+        {
+          "action": "Éliminer les sources d'ombrage",
+          "details": "Tailler la végétation ou déplacer les obstacles si possible"
+        },
+        {
+          "action": "Installer des dispositifs anti-oiseaux",
+          "details": "Mettre en place des protections pour éviter les fientes"
+        },
+        {
+          "action": "Planifier un nettoyage régulier",
+          "details": "Établir un calendrier de maintenance préventive"
+        }
+      ],
+      "prevention": "Nettoyez les panneaux régulièrement et surveillez la croissance de la végétation environnante."
+    },
+    "diagnosis_weather_condition": {
+      "title": "Conditions météorologiques défavorables",
+      "description": "La production solaire est réduite à cause du mauvais temps.",
+      "severity": "low",
+      "causes": [
+        "Couverture nuageuse importante",
+        "Saison avec faible ensoleillement",
+        "Conditions météorologiques temporaires",
+        "Brouillard ou brume"
+      ],
+      "solutions": [
+        {
+          "action": "Réduire la consommation temporairement",
+          "details": "Utiliser uniquement les appareils essentiels pendant cette période"
+        },
+        {
+          "action": "Attendre l'amélioration météo",
+          "details": "La production reprendra avec le retour du soleil"
+        },
+        {
+          "action": "Utiliser une source d'appoint si disponible",
+          "details": "Groupe électrogène ou connexion réseau temporaire"
+        },
+        {
+          "action": "Vérifier les prévisions météo",
+          "details": "Planifier la consommation selon les prévisions d'ensoleillement"
+        }
+      ],
+      "prevention": "Dimensionnez le système avec une autonomie suffisante pour les périodes de faible ensoleillement."
+    },
+    "diagnosis_inverter_error": {
+      "title": "Erreur de l'onduleur",
+      "description": "L'onduleur affiche un code d'erreur ou un voyant de défaut.",
+      "severity": "high",
+      "causes": ["Surcharge de l'onduleur", "Surchauffe", "Tension d'entrée incorrecte", "Défaut interne"],
+      "solutions": [
+        {
+          "action": "Noter le code d'erreur affiché",
+          "details": "Consulter le manuel pour interpréter le code spécifique"
+        },
+        {
+          "action": "Vérifier la charge connectée",
+          "details": "S'assurer que la puissance demandée ne dépasse pas la capacité"
+        },
+        {
+          "action": "Contrôler la ventilation",
+          "details": "Vérifier que l'onduleur n'est pas en surchauffe"
+        },
+        {
+          "action": "Redémarrer l'onduleur",
+          "details": "Éteindre puis rallumer après quelques minutes"
+        }
+      ],
+      "prevention": "Ne surchargez jamais l'onduleur et assurez-vous d'une ventilation adéquate."
+    },
+    "diagnosis_inverter_failure": {
+      "title": "Panne complète de l'onduleur",
+      "description": "L'onduleur ne s'allume plus et n'affiche rien.",
+      "severity": "critical",
+      "causes": [
+        "Défaillance électronique interne",
+        "Fusible grillé",
+        "Problème d'alimentation",
+        "Dommage par surtension"
+      ],
+      "solutions": [
+        {
+          "action": "Vérifier l'alimentation de l'onduleur",
+          "details": "Contrôler la tension d'entrée DC depuis les batteries"
+        },
+        {
+          "action": "Contrôler les fusibles",
+          "details": "Vérifier et remplacer les fusibles si nécessaire"
+        },
+        {
+          "action": "Tester avec un multimètre",
+          "details": "Mesurer les tensions d'entrée et vérifier la continuité des circuits"
+        },
+        {
+          "action": "Contacter le service technique",
+          "details": "Si aucune solution simple ne fonctionne, faire appel à un professionnel",
+          "warning": "Ne pas ouvrir l'onduleur, risque d'électrocution"
+        }
+      ],
+      "prevention": "Protégez l'onduleur avec des dispositifs de protection contre les surtensions."
+    },
+    "diagnosis_load_overload": {
+      "title": "Surcharge du système",
+      "description": "La puissance demandée dépasse la capacité de l'installation.",
+      "severity": "medium",
+      "causes": [
+        "Trop d'appareils allumés simultanément",
+        "Appareils à forte consommation",
+        "Sous-dimensionnement de l'onduleur",
+        "Démarrage simultané de moteurs"
+      ],
+      "solutions": [
+        {
+          "action": "Réduire la charge immédiatement",
+          "details": "Éteindre les appareils non essentiels"
+        },
+        {
+          "action": "Échelonner l'utilisation des appareils",
+          "details": "Éviter de faire fonctionner tous les appareils en même temps"
+        },
+        {
+          "action": "Identifier les gros consommateurs",
+          "details": "Mesurer la consommation de chaque appareil"
+        },
+        {
+          "action": "Envisager un upgrade du système",
+          "details": "Augmenter la capacité de l'onduleur si nécessaire"
+        }
+      ],
+      "prevention": "Calculez correctement vos besoins en puissance lors du dimensionnement."
+    },
+    "diagnosis_connection_issue": {
+      "title": "Problème de connexion électrique",
+      "description": "Défaut dans le câblage ou les connexions de l'installation.",
+      "severity": "medium",
+      "causes": ["Connexions desserrées", "Câbles endommagés", "Corrosion des bornes", "Mauvais contact"],
+      "solutions": [
+        {
+          "action": "Vérifier toutes les connexions",
+          "details": "Contrôler le serrage de toutes les bornes et connecteurs"
+        },
+        {
+          "action": "Inspecter les câbles",
+          "details": "Rechercher des signes de dommage, brûlure ou usure"
+        },
+        {
+          "action": "Nettoyer les bornes",
+          "details": "Éliminer la corrosion et appliquer de la graisse de contact"
+        },
+        {
+          "action": "Remplacer les éléments défaillants",
+          "details": "Changer les câbles ou connecteurs endommagés"
+        }
+      ],
+      "prevention": "Effectuez un contrôle régulier des connexions et protégez-les de l'humidité."
+    },
+    "diagnosis_power_limitation": {
+      "title": "Limitation de puissance",
+      "description": "Le système ne peut pas alimenter les appareils à forte consommation.",
+      "severity": "medium",
+      "causes": [
+        "Onduleur sous-dimensionné",
+        "Batteries faibles",
+        "Protection de surcharge activée",
+        "Câblage insuffisant"
+      ],
+      "solutions": [
+        {
+          "action": "Vérifier la capacité de l'onduleur",
+          "details": "S'assurer que la puissance de l'onduleur est suffisante"
+        },
+        {
+          "action": "Contrôler l'état des batteries",
+          "details": "Batteries faibles = puissance disponible réduite"
+        },
+        {
+          "action": "Utiliser les gros appareils séparément",
+          "details": "Éviter le fonctionnement simultané d'appareils puissants"
+        },
+        {
+          "action": "Programmer l'utilisation",
+          "details": "Utiliser les appareils énergivores aux heures de forte production"
+        }
+      ],
+      "prevention": "Dimensionnez correctement l'onduleur selon vos besoins en puissance de pointe."
+    },
+    "diagnosis_circuit_issue": {
+      "title": "Problème de circuit électrique",
+      "description": "Défaut sur un circuit spécifique de l'installation.",
+      "severity": "medium",
+      "causes": ["Disjoncteur défaillant", "Câblage du circuit endommagé", "Surcharge localisée", "Défaut d'isolement"],
+      "solutions": [
+        {
+          "action": "Identifier le circuit défaillant",
+          "details": "Tester chaque circuit individuellement"
+        },
+        {
+          "action": "Vérifier le disjoncteur",
+          "details": "Tester et remplacer si nécessaire"
+        },
+        {
+          "action": "Contrôler le câblage du circuit",
+          "details": "Vérifier l'intégrité des câbles et connexions"
+        },
+        {
+          "action": "Mesurer la résistance d'isolement",
+          "details": "Détecter d'éventuels défauts d'isolement"
+        }
+      ],
+      "prevention": "Respectez les normes de câblage et ne surchargez pas les circuits."
+    },
+    "diagnosis_power_quality": {
+      "title": "Problème de qualité de l'énergie",
+      "description": "La qualité du courant fourni n'est pas adaptée aux appareils sensibles.",
+      "severity": "medium",
+      "causes": ["Onduleur à onde modifiée", "Fluctuations de tension", "Harmoniques", "Instabilité de fréquence"],
+      "solutions": [
+        {
+          "action": "Vérifier le type d'onduleur",
+          "details": "Les appareils sensibles nécessitent un onduleur à onde pure"
+        },
+        {
+          "action": "Mesurer la qualité du signal",
+          "details": "Contrôler la tension, fréquence et forme d'onde"
+        },
+        {
+          "action": "Installer un onduleur à onde pure",
+          "details": "Remplacer si l'onduleur actuel n'est pas adapté"
+        },
+        {
+          "action": "Utiliser des filtres",
+          "details": "Installer des conditionneurs de ligne pour les appareils sensibles"
+        }
+      ],
+      "prevention": "Choisissez un onduleur à onde sinusoïdale pure pour les appareils électroniques."
+    },
+    "diagnosis_protection_triggered": {
+      "title": "Protection électrique déclenchée",
+      "description": "Un disjoncteur ou fusible a sauté pour protéger l'installation.",
+      "severity": "medium",
+      "causes": ["Surcharge momentanée", "Court-circuit", "Défaut d'isolement", "Démarrage d'un gros moteur"],
+      "solutions": [
+        {
+          "action": "Identifier la cause du déclenchement",
+          "details": "Vérifier quel circuit ou appareil a causé le problème"
+        },
+        {
+          "action": "Débrancher les appareils suspects",
+          "details": "Isoler les équipements potentiellement défaillants"
+        },
+        {
+          "action": "Réarmer progressivement",
+          "details": "Remettre en service un appareil à la fois"
+        },
+        {
+          "action": "Remplacer la protection si défaillante",
+          "details": "Changer le disjoncteur ou fusible si nécessaire"
+        }
+      ],
+      "prevention": "Respectez les calibres des protections et évitez les surcharges."
+    },
+    "diagnosis_check_protections": {
+      "title": "Vérification des protections nécessaire",
+      "description": "Il faut contrôler l'état de toutes les protections électriques.",
+      "severity": "low",
+      "causes": ["Contrôle de routine nécessaire", "Diagnostic systématique", "Recherche de panne"],
+      "solutions": [
+        {
+          "action": "Vérifier tous les disjoncteurs",
+          "details": "S'assurer qu'ils sont tous en position ON"
+        },
+        {
+          "action": "Contrôler les fusibles",
+          "details": "Vérifier visuellement et tester la continuité"
+        },
+        {
+          "action": "Tester les différentiels",
+          "details": "Appuyer sur le bouton test des disjoncteurs différentiels"
+        },
+        {
+          "action": "Noter l'état de chaque protection",
+          "details": "Faire un inventaire complet pour le diagnostic"
+        }
+      ],
+      "prevention": "Effectuez ce contrôle régulièrement dans le cadre de la maintenance."
+    },
+    "diagnosis_recent_modification": {
+      "title": "Problème lié à une modification récente",
+      "description": "Le dysfonctionnement est probablement lié à un changement récent.",
+      "severity": "medium",
+      "causes": [
+        "Nouvel appareil incompatible",
+        "Modification du câblage",
+        "Changement de configuration",
+        "Dommage lors de travaux"
+      ],
+      "solutions": [
+        {
+          "action": "Annuler la dernière modification",
+          "details": "Revenir à la configuration précédente qui fonctionnait"
+        },
+        {
+          "action": "Vérifier la compatibilité",
+          "details": "S'assurer que les nouveaux éléments sont compatibles"
+        },
+        {
+          "action": "Contrôler les nouvelles connexions",
+          "details": "Vérifier que tous les branchements sont corrects"
+        },
+        {
+          "action": "Tester progressivement",
+          "details": "Réintroduire les modifications une par une"
+        }
+      ],
+      "prevention": "Documentez toutes les modifications et testez-les individuellement."
+    },
+    "diagnosis_systematic_check": {
+      "title": "Diagnostic systématique nécessaire",
+      "description": "Il faut procéder à un contrôle complet de l'installation.",
+      "severity": "medium",
+      "causes": ["Panne intermittente", "Cause non évidente", "Problème complexe", "Vieillissement de l'installation"],
+      "solutions": [
+        {
+          "action": "Contrôler la production solaire",
+          "details": "Mesurer tension et courant des panneaux"
+        },
+        {
+          "action": "Tester le régulateur",
+          "details": "Vérifier son fonctionnement et ses paramètres"
+        },
+        {
+          "action": "Contrôler les batteries",
+          "details": "Mesurer tension, densité et température"
+        },
+        {
+          "action": "Tester l'onduleur",
+          "details": "Vérifier ses performances et sa configuration"
+        },
+        {
+          "action": "Faire appel à un professionnel",
+          "details": "Si le problème persiste, contacter un technicien qualifié"
+        }
+      ],
+      "prevention": "Effectuez une maintenance préventive régulière pour éviter les pannes."
+    },
+    "diagnosis_system_failure": {
+      "title": "Panne générale du système",
+      "description": "Défaillance majeure affectant l'ensemble de l'installation.",
+      "severity": "critical",
+      "causes": [
+        "Panne du régulateur principal",
+        "Défaut majeur de câblage",
+        "Dommage par foudre",
+        "Défaillance multiple de composants"
+      ],
+      "solutions": [
+        {
+          "action": "Sécuriser l'installation",
+          "details": "Couper toutes les alimentations pour éviter les risques"
+        },
+        {
+          "action": "Faire un diagnostic professionnel",
+          "details": "Contacter immédiatement un technicien qualifié"
+        },
+        {
+          "action": "Vérifier les assurances",
+          "details": "Voir si les dommages sont couverts par l'assurance"
+        },
+        {
+          "action": "Prévoir une solution temporaire",
+          "details": "Groupe électrogène ou connexion réseau d'urgence"
+        }
+      ],
+      "prevention": "Installez des protections contre la foudre et effectuez une maintenance régulière."
+    },
+    "diagnosis_unstable_charging": {
+      "title": "Charge instable des batteries",
+      "description": "Le processus de charge s'interrompt et reprend de façon intermittente.",
+      "severity": "medium",
+      "causes": [
+        "Connexions défaillantes",
+        "Régulateur défectueux",
+        "Batteries en fin de vie",
+        "Température excessive"
+      ],
+      "solutions": [
+        {
+          "action": "Vérifier toutes les connexions",
+          "details": "Resserrer et nettoyer toutes les bornes"
+        },
+        {
+          "action": "Contrôler la température",
+          "details": "Vérifier que batteries et régulateur ne surchauffent pas"
+        },
+        {
+          "action": "Tester les batteries individuellement",
+          "details": "Identifier si une batterie est défaillante"
+        },
+        {
+          "action": "Vérifier les paramètres du régulateur",
+          "details": "S'assurer que la configuration est correcte"
+        }
+      ],
+      "prevention": "Maintenez les connexions propres et surveillez la température des composants."
+    }
+  }
+}

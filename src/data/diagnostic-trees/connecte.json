@@ -1,0 +1,1190 @@
+{
+  "systemType": "connecte",
+  "start": {
+    "id": "question_production_injection",
+    "text": "Votre système injecte-t-il de l'électricité dans le réseau ENEO ?",
+    "help": "Vérifiez si l'onduleur indique une injection vers le réseau ou seulement une consommation",
+    "answers": [
+      {
+        "text": "Oui, injection normale",
+        "description": "Surplus injecté dans le réseau",
+        "icon": "⚡",
+        "next": "question_consumption_coverage"
+      },
+      {
+        "text": "Non, pas d'injection",
+        "description": "Aucun surplus produit",
+        "icon": "❌",
+        "next": "question_production_level"
+      },
+      {
+        "text": "Injection intermittente",
+        "description": "Injection qui s'arrête et reprend",
+        "icon": "🔄",
+        "next": "question_grid_stability"
+      },
+      {
+        "text": "Ne sais pas",
+        "description": "Pas d'information disponible",
+        "icon": "❓",
+        "next": "question_inverter_display"
+      }
+    ]
+  },
+  "questions": {
+    "question_consumption_coverage": {
+      "id": "question_consumption_coverage",
+      "text": "La production solaire couvre-t-elle votre consommation actuelle ?",
+      "help": "Comparez la production affichée avec votre consommation instantanée",
+      "answers": [
+        {
+          "text": "Oui, avec surplus",
+          "description": "Production > Consommation",
+          "icon": "📈",
+          "next": "diagnosis_optimal_operation"
+        },
+        {
+          "text": "Juste équilibrée",
+          "description": "Production = Consommation",
+          "icon": "⚖️",
+          "next": "diagnosis_balanced_system"
+        },
+        {
+          "text": "Insuffisante",
+          "description": "Production < Consommation",
+          "icon": "📉",
+          "next": "question_time_of_day"
+        }
+      ]
+    },
+    "question_production_level": {
+      "id": "question_production_level",
+      "text": "Quelle est la production solaire actuelle affichée ?",
+      "help": "Regardez la puissance PV instantanée sur l'onduleur",
+      "answers": [
+        {
+          "text": "Production normale pour l'heure",
+          "description": "Conforme aux attentes",
+          "icon": "☀️",
+          "next": "question_high_consumption"
+        },
+        {
+          "text": "Production faible ou nulle",
+          "description": "Moins que prévu",
+          "icon": "🌫️",
+          "next": "question_weather_conditions"
+        },
+        {
+          "text": "Production instable",
+          "description": "Fluctuations importantes",
+          "icon": "📊",
+          "next": "diagnosis_production_instability"
+        },
+        {
+          "text": "Pas d'affichage de production",
+          "description": "Information non disponible",
+          "icon": "❌",
+          "next": "diagnosis_monitoring_issue"
+        }
+      ]
+    },
+    "question_grid_stability": {
+      "id": "question_grid_stability",
+      "text": "Le réseau ENEO est-il stable dans votre zone ?",
+      "help": "Vérifiez s'il y a des coupures fréquentes ou des variations de tension",
+      "answers": [
+        {
+          "text": "Réseau stable",
+          "description": "Pas de problème ENEO",
+          "icon": "🔌",
+          "next": "diagnosis_inverter_grid_issue"
+        },
+        {
+          "text": "Coupures fréquentes",
+          "description": "Délestages réguliers",
+          "icon": "⚡",
+          "next": "diagnosis_grid_instability_impact"
+        },
+        {
+          "text": "Tension instable",
+          "description": "Variations de tension",
+          "icon": "📈",
+          "next": "diagnosis_voltage_protection"
+        }
+      ]
+    },
+    "question_inverter_display": {
+      "id": "question_inverter_display",
+      "text": "L'onduleur affiche-t-il des informations de fonctionnement ?",
+      "help": "Vérifiez l'écran, les voyants et les données disponibles",
+      "answers": [
+        {
+          "text": "Affichage normal",
+          "description": "Toutes les infos disponibles",
+          "icon": "📱",
+          "next": "question_data_interpretation"
+        },
+        {
+          "text": "Affichage partiel",
+          "description": "Certaines infos manquantes",
+          "icon": "📊",
+          "next": "diagnosis_partial_monitoring"
+        },
+        {
+          "text": "Pas d'affichage",
+          "description": "Écran éteint ou défaillant",
+          "icon": "⚫",
+          "next": "diagnosis_display_failure"
+        },
+        {
+          "text": "Codes d'erreur",
+          "description": "Messages d'erreur affichés",
+          "icon": "🚨",
+          "next": "diagnosis_error_codes_present"
+        }
+      ]
+    },
+    "question_time_of_day": {
+      "id": "question_time_of_day",
+      "text": "À quel moment de la journée observez-vous ce problème ?",
+      "help": "L'heure influence la production solaire disponible",
+      "answers": [
+        {
+          "text": "Matin ou soir",
+          "description": "Faible ensoleillement",
+          "icon": "🌅",
+          "next": "diagnosis_normal_low_production"
+        },
+        {
+          "text": "Milieu de journée",
+          "description": "Pic de production attendu",
+          "icon": "☀️",
+          "next": "question_panel_conditions"
+        },
+        {
+          "text": "Toute la journée",
+          "description": "Problème permanent",
+          "icon": "🕐",
+          "next": "diagnosis_system_undersized"
+        }
+      ]
+    },
+    "question_high_consumption": {
+      "id": "question_high_consumption",
+      "text": "Avez-vous des appareils à forte consommation en fonctionnement ?",
+      "help": "Identifiez les gros consommateurs actuellement allumés",
+      "answers": [
+        {
+          "text": "Oui, gros consommateurs actifs",
+          "description": "Climatisation, chauffage, etc.",
+          "icon": "🏠",
+          "next": "diagnosis_high_consumption_normal"
+        },
+        {
+          "text": "Consommation habituelle",
+          "description": "Appareils normaux",
+          "icon": "💡",
+          "next": "question_system_sizing"
+        },
+        {
+          "text": "Consommation très faible",
+          "description": "Peu d'appareils allumés",
+          "icon": "🔋",
+          "next": "diagnosis_consumption_monitoring"
+        }
+      ]
+    },
+    "question_weather_conditions": {
+      "id": "question_weather_conditions",
+      "text": "Quelles sont les conditions météorologiques actuelles ?",
+      "help": "L'ensol eillement affecte directement la production",
+      "answers": [
+        {
+          "text": "Temps ensoleillé",
+          "description": "Bonnes conditions",
+          "icon": "☀️",
+          "next": "question_panel_obstruction"
+        },
+        {
+          "text": "Temps nuageux",
+          "description": "Ensoleillement réduit",
+          "icon": "☁️",
+          "next": "diagnosis_weather_impact_grid"
+        },
+        {
+          "text": "Conditions variables",
+          "description": "Soleil intermittent",
+          "icon": "🌤️",
+          "next": "diagnosis_variable_weather"
+        }
+      ]
+    },
+    "question_panel_conditions": {
+      "id": "question_panel_conditions",
+      "text": "Les panneaux solaires sont-ils propres et sans ombrage ?",
+      "help": "Vérifiez visuellement l'état et l'exposition des panneaux",
+      "answers": [
+        {
+          "text": "Panneaux propres, pas d'ombre",
+          "description": "Conditions optimales",
+          "icon": "✨",
+          "next": "diagnosis_technical_issue"
+        },
+        {
+          "text": "Panneaux sales",
+          "description": "Nettoyage nécessaire",
+          "icon": "🧽",
+          "next": "diagnosis_panel_cleaning_needed"
+        },
+        {
+          "text": "Ombrage présent",
+          "description": "Obstruction partielle",
+          "icon": "🌳",
+          "next": "diagnosis_shading_issue"
+        }
+      ]
+    },
+    "question_system_sizing": {
+      "id": "question_system_sizing",
+      "text": "Le système a-t-il été dimensionné pour couvrir vos besoins actuels ?",
+      "help": "Comparez la puissance installée avec vos besoins réels",
+      "answers": [
+        {
+          "text": "Oui, bien dimensionné",
+          "description": "Taille adaptée aux besoins",
+          "icon": "✅",
+          "next": "question_consumption_increase"
+        },
+        {
+          "text": "Sous-dimensionné",
+          "description": "Trop petit pour les besoins",
+          "icon": "📉",
+          "next": "diagnosis_system_expansion_needed"
+        },
+        {
+          "text": "Ne sais pas",
+          "description": "Dimensionnement inconnu",
+          "icon": "❓",
+          "next": "diagnosis_sizing_evaluation"
+        }
+      ]
+    },
+    "question_data_interpretation": {
+      "id": "question_data_interpretation",
+      "text": "Savez-vous interpréter les données affichées par l'onduleur ?",
+      "help": "Comprenez-vous les valeurs de production, consommation et injection ?",
+      "answers": [
+        {
+          "text": "Oui, je comprends",
+          "description": "Données claires",
+          "icon": "📊",
+          "next": "diagnosis_user_education_complete"
+        },
+        {
+          "text": "Partiellement",
+          "description": "Besoin d'aide",
+          "icon": "🤔",
+          "next": "diagnosis_user_training_needed"
+        },
+        {
+          "text": "Non, pas du tout",
+          "description": "Formation nécessaire",
+          "icon": "❓",
+          "next": "diagnosis_complete_training_needed"
+        }
+      ]
+    },
+    "question_panel_obstruction": {
+      "id": "question_panel_obstruction",
+      "text": "Y a-t-il des obstructions sur ou près des panneaux ?",
+      "help": "Vérifiez la présence de saleté, feuilles, ou objets sur les panneaux",
+      "answers": [
+        {
+          "text": "Panneaux dégagés",
+          "description": "Aucune obstruction",
+          "icon": "🆓",
+          "next": "diagnosis_electrical_issue"
+        },
+        {
+          "text": "Obstructions mineures",
+          "description": "Feuilles, poussière",
+          "icon": "🍃",
+          "next": "diagnosis_minor_obstruction"
+        },
+        {
+          "text": "Obstructions importantes",
+          "description": "Ombrage significatif",
+          "icon": "🌳",
+          "next": "diagnosis_major_obstruction"
+        }
+      ]
+    },
+    "question_consumption_increase": {
+      "id": "question_consumption_increase",
+      "text": "Votre consommation a-t-elle augmenté récemment ?",
+      "help": "Nouveaux appareils, changement d'habitudes, etc.",
+      "answers": [
+        {
+          "text": "Oui, consommation en hausse",
+          "description": "Nouveaux besoins",
+          "icon": "📈",
+          "next": "diagnosis_consumption_growth"
+        },
+        {
+          "text": "Non, consommation stable",
+          "description": "Habitudes inchangées",
+          "icon": "📊",
+          "next": "diagnosis_system_degradation"
+        },
+        {
+          "text": "Consommation réduite",
+          "description": "Moins d'utilisation",
+          "icon": "📉",
+          "next": "diagnosis_efficiency_improvement"
+        }
+      ]
+    }
+  },
+  "diagnoses": {
+    "diagnosis_optimal_operation": {
+      "title": "Fonctionnement optimal du système",
+      "description": "Votre système connecté au réseau fonctionne parfaitement.",
+      "severity": "low",
+      "causes": ["Système bien dimensionné", "Conditions optimales", "Configuration correcte", "Maintenance à jour"],
+      "solutions": [
+        {
+          "action": "Maintenir la surveillance",
+          "details": "Continuer à monitorer les performances quotidiennes"
+        },
+        {
+          "action": "Optimiser la consommation",
+          "details": "Utiliser les appareils énergivores pendant les heures de production"
+        },
+        {
+          "action": "Planifier la maintenance",
+          "details": "Suivre le calendrier de maintenance préventive"
+        },
+        {
+          "action": "Documenter les performances",
+          "details": "Tenir un registre des productions pour détecter les évolutions"
+        }
+      ],
+      "prevention": "Continuez les bonnes pratiques et la surveillance régulière."
+    },
+    "diagnosis_balanced_system": {
+      "title": "Système équilibré",
+      "description": "La production solaire correspond exactement à votre consommation.",
+      "severity": "low",
+      "causes": ["Dimensionnement précis", "Consommation adaptée", "Conditions normales", "Utilisation optimisée"],
+      "solutions": [
+        {
+          "action": "Optimiser les horaires de consommation",
+          "details": "Décaler certains usages pour créer du surplus"
+        },
+        {
+          "action": "Surveiller l'évolution",
+          "details": "Vérifier que l'équilibre se maintient dans le temps"
+        },
+        {
+          "action": "Considérer l'extension",
+          "details": "Évaluer l'ajout de panneaux pour créer du surplus"
+        },
+        {
+          "action": "Améliorer l'efficacité",
+          "details": "Remplacer les appareils énergivores par des modèles efficaces"
+        }
+      ],
+      "prevention": "Surveillez l'évolution de vos besoins énergétiques."
+    },
+    "diagnosis_production_instability": {
+      "title": "Production solaire instable",
+      "description": "La production des panneaux fluctue de manière anormale.",
+      "severity": "medium",
+      "causes": ["Ombrage intermittent", "Connexions défaillantes", "Problème d'onduleur", "Défaut de panneaux"],
+      "solutions": [
+        {
+          "action": "Identifier les sources d'ombrage",
+          "details": "Éliminer les obstructions variables"
+        },
+        {
+          "action": "Vérifier les connexions DC",
+          "details": "Contrôler tous les connecteurs et câbles"
+        },
+        {
+          "action": "Tester l'onduleur",
+          "details": "Vérifier le bon fonctionnement du MPPT"
+        },
+        {
+          "action": "Analyser les données de production",
+          "details": "Identifier les patterns de fluctuation"
+        }
+      ],
+      "prevention": "Effectuez une maintenance régulière des connexions et surveillez l'environnement."
+    },
+    "diagnosis_monitoring_issue": {
+      "title": "Problème de monitoring",
+      "description": "Les données de production ne sont pas disponibles ou fiables.",
+      "severity": "medium",
+      "causes": [
+        "Défaut de l'afficheur",
+        "Problème de communication",
+        "Capteurs défaillants",
+        "Configuration incorrecte"
+      ],
+      "solutions": [
+        {
+          "action": "Vérifier les connexions de monitoring",
+          "details": "Contrôler les câbles de communication"
+        },
+        {
+          "action": "Redémarrer le système de monitoring",
+          "details": "Reset de l'onduleur et des dispositifs de mesure"
+        },
+        {
+          "action": "Calibrer les capteurs",
+          "details": "Effectuer une calibration des mesures"
+        },
+        {
+          "action": "Installer un monitoring externe",
+          "details": "Ajouter un système de surveillance indépendant"
+        }
+      ],
+      "prevention": "Vérifiez régulièrement le bon fonctionnement du système de monitoring."
+    },
+    "diagnosis_inverter_grid_issue": {
+      "title": "Problème de connexion onduleur-réseau",
+      "description": "L'onduleur a des difficultés à se synchroniser avec le réseau.",
+      "severity": "high",
+      "causes": [
+        "Paramètres de réseau incorrects",
+        "Qualité du réseau insuffisante",
+        "Défaut de l'onduleur",
+        "Protection de découplage activée"
+      ],
+      "solutions": [
+        {
+          "action": "Vérifier les paramètres réseau",
+          "details": "Contrôler la configuration de tension et fréquence"
+        },
+        {
+          "action": "Mesurer la qualité du réseau",
+          "details": "Vérifier tension, fréquence et harmoniques"
+        },
+        {
+          "action": "Contrôler les protections",
+          "details": "Vérifier que les protections de découplage ne sont pas activées"
+        },
+        {
+          "action": "Contacter ENEO si nécessaire",
+          "details": "Signaler les problèmes de qualité réseau"
+        }
+      ],
+      "prevention": "Installez des protections adaptées et surveillez la qualité du réseau."
+    },
+    "diagnosis_grid_instability_impact": {
+      "title": "Impact de l'instabilité du réseau",
+      "description": "Les coupures fréquentes d'ENEO perturbent le fonctionnement.",
+      "severity": "medium",
+      "causes": [
+        "Délestages fréquents",
+        "Réseau ENEO instable",
+        "Protections de l'onduleur sensibles",
+        "Temps de reconnexion longs"
+      ],
+      "solutions": [
+        {
+          "action": "Ajuster les paramètres de reconnexion",
+          "details": "Réduire les temps d'attente après coupure"
+        },
+        {
+          "action": "Installer un stabilisateur",
+          "details": "Améliorer la qualité de l'alimentation réseau"
+        },
+        {
+          "action": "Considérer un système hybride",
+          "details": "Ajouter des batteries pour l'autonomie"
+        },
+        {
+          "action": "Documenter les coupures",
+          "details": "Tenir un registre pour signaler à ENEO"
+        }
+      ],
+      "prevention": "Adaptez le système aux conditions locales du réseau."
+    },
+    "diagnosis_voltage_protection": {
+      "title": "Protection contre les variations de tension",
+      "description": "L'onduleur se déconnecte à cause des variations de tension réseau.",
+      "severity": "medium",
+      "causes": [
+        "Tension réseau hors limites",
+        "Seuils de protection trop stricts",
+        "Problème de câblage réseau",
+        "Surcharge du transformateur local"
+      ],
+      "solutions": [
+        {
+          "action": "Mesurer la tension réseau",
+          "details": "Contrôler les variations sur 24h"
+        },
+        {
+          "action": "Ajuster les seuils de protection",
+          "details": "Élargir les plages acceptables si autorisé"
+        },
+        {
+          "action": "Installer un régulateur de tension",
+          "details": "Stabiliser l'alimentation réseau"
+        },
+        {
+          "action": "Signaler à ENEO",
+          "details": "Rapporter les problèmes de qualité réseau"
+        }
+      ],
+      "prevention": "Surveillez la qualité du réseau et installez des protections adaptées."
+    },
+    "diagnosis_partial_monitoring": {
+      "title": "Monitoring partiel du système",
+      "description": "Certaines informations de fonctionnement ne sont pas disponibles.",
+      "severity": "low",
+      "causes": [
+        "Configuration incomplète",
+        "Capteurs manquants",
+        "Problème de communication",
+        "Fonctionnalité non activée"
+      ],
+      "solutions": [
+        {
+          "action": "Compléter la configuration",
+          "details": "Activer toutes les fonctions de monitoring"
+        },
+        {
+          "action": "Installer les capteurs manquants",
+          "details": "Ajouter les dispositifs de mesure nécessaires"
+        },
+        {
+          "action": "Vérifier les connexions",
+          "details": "Contrôler tous les câbles de communication"
+        },
+        {
+          "action": "Mettre à jour le firmware",
+          "details": "Installer la dernière version du logiciel"
+        }
+      ],
+      "prevention": "Installez un système de monitoring complet dès le départ."
+    },
+    "diagnosis_display_failure": {
+      "title": "Défaillance de l'affichage",
+      "description": "L'écran de l'onduleur ne fonctionne plus.",
+      "severity": "medium",
+      "causes": ["Défaut de l'écran LCD", "Problème électronique", "Dommage physique", "Fin de vie du composant"],
+      "solutions": [
+        {
+          "action": "Vérifier l'alimentation de l'afficheur",
+          "details": "Contrôler que l'écran reçoit bien l'alimentation"
+        },
+        {
+          "action": "Utiliser le monitoring à distance",
+          "details": "Accéder aux données via application mobile ou web"
+        },
+        {
+          "action": "Remplacer l'afficheur",
+          "details": "Faire remplacer l'écran par un technicien"
+        },
+        {
+          "action": "Installer un monitoring externe",
+          "details": "Ajouter un système de surveillance indépendant"
+        }
+      ],
+      "prevention": "Protégez l'onduleur des conditions extrêmes et chocs."
+    },
+    "diagnosis_error_codes_present": {
+      "title": "Codes d'erreur détectés",
+      "description": "L'onduleur affiche des messages d'erreur spécifiques.",
+      "severity": "high",
+      "causes": [
+        "Défaut technique identifié",
+        "Problème de configuration",
+        "Condition anormale détectée",
+        "Protection activée"
+      ],
+      "solutions": [
+        {
+          "action": "Noter tous les codes d'erreur",
+          "details": "Relever précisément tous les messages affichés"
+        },
+        {
+          "action": "Consulter le manuel technique",
+          "details": "Interpréter les codes selon la documentation"
+        },
+        {
+          "action": "Appliquer les corrections recommandées",
+          "details": "Suivre les procédures de résolution"
+        },
+        {
+          "action": "Contacter le support technique",
+          "details": "Faire appel au fabricant si nécessaire"
+        }
+      ],
+      "prevention": "Surveillez régulièrement l'affichage pour détecter les erreurs rapidement."
+    },
+    "diagnosis_normal_low_production": {
+      "title": "Production faible normale",
+      "description": "La faible production correspond aux conditions d'ensoleillement.",
+      "severity": "low",
+      "causes": [
+        "Heure de faible ensoleillement",
+        "Position du soleil défavorable",
+        "Saison avec jours courts",
+        "Fonctionnement normal"
+      ],
+      "solutions": [
+        {
+          "action": "Adapter la consommation",
+          "details": "Utiliser les appareils énergivores aux heures de pointe"
+        },
+        {
+          "action": "Programmer les équipements",
+          "details": "Automatiser l'utilisation selon la production"
+        },
+        {
+          "action": "Optimiser l'orientation",
+          "details": "Vérifier si l'orientation des panneaux est optimale"
+        },
+        {
+          "action": "Surveiller l'évolution saisonnière",
+          "details": "Comparer avec les données des années précédentes"
+        }
+      ],
+      "prevention": "Planifiez votre consommation selon les variations saisonnières."
+    },
+    "diagnosis_system_undersized": {
+      "title": "Système sous-dimensionné",
+      "description": "La puissance installée est insuffisante pour vos besoins.",
+      "severity": "medium",
+      "causes": [
+        "Dimensionnement initial incorrect",
+        "Augmentation des besoins",
+        "Estimation de consommation erronée",
+        "Conditions réelles différentes des prévisions"
+      ],
+      "solutions": [
+        {
+          "action": "Évaluer les besoins réels",
+          "details": "Analyser la consommation sur plusieurs mois"
+        },
+        {
+          "action": "Optimiser la consommation",
+          "details": "Réduire les gaspillages et améliorer l'efficacité"
+        },
+        {
+          "action": "Planifier l'extension",
+          "details": "Ajouter des panneaux pour augmenter la production"
+        },
+        {
+          "action": "Échelonner les usages",
+          "details": "Répartir la consommation sur la journée"
+        }
+      ],
+      "prevention": "Dimensionnez avec une marge de sécurité et prévoyez l'évolution des besoins."
+    },
+    "diagnosis_high_consumption_normal": {
+      "title": "Consommation élevée normale",
+      "description": "La forte consommation explique l'absence de surplus.",
+      "severity": "low",
+      "causes": [
+        "Appareils énergivores en fonctionnement",
+        "Pic de consommation temporaire",
+        "Utilisation intensive normale",
+        "Saison de forte consommation"
+      ],
+      "solutions": [
+        {
+          "action": "Programmer les gros consommateurs",
+          "details": "Utiliser climatisation, chauffe-eau aux heures de forte production"
+        },
+        {
+          "action": "Étaler la consommation",
+          "details": "Éviter l'utilisation simultanée d'appareils puissants"
+        },
+        {
+          "action": "Améliorer l'efficacité énergétique",
+          "details": "Remplacer par des appareils plus efficaces"
+        },
+        {
+          "action": "Considérer l'extension du système",
+          "details": "Ajouter des panneaux si la consommation est permanente"
+        }
+      ],
+      "prevention": "Planifiez l'utilisation des gros consommateurs selon la production solaire."
+    },
+    "diagnosis_consumption_monitoring": {
+      "title": "Surveillance de la consommation nécessaire",
+      "description": "Il faut analyser plus précisément votre profil de consommation.",
+      "severity": "low",
+      "causes": ["Consommation cachée", "Appareils en veille", "Fuites électriques", "Mauvaise estimation des besoins"],
+      "solutions": [
+        {
+          "action": "Installer un compteur de consommation",
+          "details": "Mesurer précisément votre consommation réelle"
+        },
+        {
+          "action": "Faire un audit énergétique",
+          "details": "Identifier tous les postes de consommation"
+        },
+        {
+          "action": "Détecter les consommations cachées",
+          "details": "Rechercher les appareils en veille ou défaillants"
+        },
+        {
+          "action": "Optimiser les réglages",
+          "details": "Ajuster les paramètres des appareils"
+        }
+      ],
+      "prevention": "Surveillez régulièrement votre consommation pour détecter les anomalies."
+    },
+    "diagnosis_weather_impact_grid": {
+      "title": "Impact météorologique normal",
+      "description": "La production réduite est due aux conditions météorologiques.",
+      "severity": "low",
+      "causes": [
+        "Couverture nuageuse",
+        "Saison peu ensoleillée",
+        "Conditions temporaires",
+        "Variation météorologique normale"
+      ],
+      "solutions": [
+        {
+          "action": "Adapter la consommation",
+          "details": "Réduire l'utilisation pendant les périodes nuageuses"
+        },
+        {
+          "action": "Utiliser le réseau en complément",
+          "details": "Laisser ENEO compenser la production manquante"
+        },
+        {
+          "action": "Surveiller les prévisions météo",
+          "details": "Planifier selon les prévisions d'ensoleillement"
+        },
+        {
+          "action": "Analyser les données saisonnières",
+          "details": "Comparer avec les performances des années précédentes"
+        }
+      ],
+      "prevention": "Dimensionnez le système en tenant compte des variations saisonnières."
+    },
+    "diagnosis_variable_weather": {
+      "title": "Conditions météorologiques variables",
+      "description": "L'alternance soleil/nuages cause des variations de production.",
+      "severity": "low",
+      "causes": [
+        "Météo instable",
+        "Passages nuageux fréquents",
+        "Conditions saisonnières",
+        "Phénomène météorologique normal"
+      ],
+      "solutions": [
+        {
+          "action": "Accepter les variations",
+          "details": "C'est un fonctionnement normal par temps variable"
+        },
+        {
+          "action": "Utiliser le lissage du réseau",
+          "details": "Le réseau ENEO compense automatiquement"
+        },
+        {
+          "action": "Surveiller les moyennes",
+          "details": "Évaluer les performances sur des périodes plus longues"
+        },
+        {
+          "action": "Optimiser selon les prévisions",
+          "details": "Adapter l'utilisation selon la météo prévue"
+        }
+      ],
+      "prevention": "C'est un comportement normal, aucune action préventive nécessaire."
+    },
+    "diagnosis_technical_issue": {
+      "title": "Problème technique du système",
+      "description": "Un défaut technique affecte la production malgré de bonnes conditions.",
+      "severity": "high",
+      "causes": ["Défaut de l'onduleur", "Problème de câblage", "Panneaux défaillants", "Connexions défectueuses"],
+      "solutions": [
+        {
+          "action": "Vérifier l'onduleur",
+          "details": "Contrôler le fonctionnement et les paramètres"
+        },
+        {
+          "action": "Tester les connexions DC",
+          "details": "Vérifier tous les câbles et connecteurs"
+        },
+        {
+          "action": "Mesurer la production par string",
+          "details": "Identifier les panneaux ou groupes défaillants"
+        },
+        {
+          "action": "Faire appel à un technicien",
+          "details": "Diagnostic professionnel si le problème persiste"
+        }
+      ],
+      "prevention": "Effectuez une maintenance préventive régulière."
+    },
+    "diagnosis_panel_cleaning_needed": {
+      "title": "Nettoyage des panneaux nécessaire",
+      "description": "La saleté sur les panneaux réduit significativement la production.",
+      "severity": "low",
+      "causes": ["Accumulation de poussière", "Dépôts atmosphériques", "Fientes d'oiseaux", "Pollution locale"],
+      "solutions": [
+        {
+          "action": "Nettoyer les panneaux",
+          "details": "Utiliser de l'eau claire et une brosse douce"
+        },
+        {
+          "action": "Planifier un nettoyage régulier",
+          "details": "Établir un calendrier selon l'environnement"
+        },
+        {
+          "action": "Installer des protections",
+          "details": "Dispositifs anti-oiseaux si nécessaire"
+        },
+        {
+          "action": "Surveiller l'impact",
+          "details": "Mesurer l'amélioration après nettoyage"
+        }
+      ],
+      "prevention": "Nettoyez régulièrement, surtout en saison sèche."
+    },
+    "diagnosis_shading_issue": {
+      "title": "Problème d'ombrage",
+      "description": "Des ombres réduisent la production des panneaux solaires.",
+      "severity": "medium",
+      "causes": ["Végétation qui a grandi", "Nouvelles constructions", "Objets déplacés", "Changement d'environnement"],
+      "solutions": [
+        {
+          "action": "Identifier les sources d'ombre",
+          "details": "Localiser précisément les obstructions"
+        },
+        {
+          "action": "Éliminer les ombrages",
+          "details": "Tailler la végétation, déplacer les objets"
+        },
+        {
+          "action": "Optimiser la configuration",
+          "details": "Utiliser des optimiseurs de puissance si nécessaire"
+        },
+        {
+          "action": "Considérer le déplacement",
+          "details": "Repositionner les panneaux si possible"
+        }
+      ],
+      "prevention": "Surveillez l'évolution de l'environnement et planifiez l'entretien."
+    },
+    "diagnosis_system_expansion_needed": {
+      "title": "Extension du système nécessaire",
+      "description": "Il faut augmenter la puissance installée pour couvrir vos besoins.",
+      "severity": "medium",
+      "causes": [
+        "Besoins sous-estimés initialement",
+        "Augmentation de la consommation",
+        "Évolution du mode de vie",
+        "Nouveaux équipements"
+      ],
+      "solutions": [
+        {
+          "action": "Évaluer l'espace disponible",
+          "details": "Vérifier la possibilité d'ajouter des panneaux"
+        },
+        {
+          "action": "Calculer l'extension nécessaire",
+          "details": "Dimensionner l'ajout selon les besoins réels"
+        },
+        {
+          "action": "Vérifier la compatibilité",
+          "details": "S'assurer que l'onduleur peut gérer plus de panneaux"
+        },
+        {
+          "action": "Planifier l'investissement",
+          "details": "Évaluer le coût et la rentabilité de l'extension"
+        }
+      ],
+      "prevention": "Dimensionnez avec une marge dès l'installation initiale."
+    },
+    "diagnosis_sizing_evaluation": {
+      "title": "Évaluation du dimensionnement nécessaire",
+      "description": "Il faut analyser si le système est adapté à vos besoins.",
+      "severity": "low",
+      "causes": [
+        "Dimensionnement initial inconnu",
+        "Évolution des besoins",
+        "Manque de données de référence",
+        "Installation sans étude préalable"
+      ],
+      "solutions": [
+        {
+          "action": "Analyser la consommation",
+          "details": "Étudier vos factures ENEO sur 12 mois"
+        },
+        {
+          "action": "Mesurer la production",
+          "details": "Relever les données de production sur plusieurs mois"
+        },
+        {
+          "action": "Calculer le taux de couverture",
+          "details": "Déterminer le pourcentage de besoins couverts"
+        },
+        {
+          "action": "Faire une étude de dimensionnement",
+          "details": "Consulter un professionnel pour une évaluation complète"
+        }
+      ],
+      "prevention": "Effectuez toujours une étude de dimensionnement avant installation."
+    },
+    "diagnosis_user_education_complete": {
+      "title": "Utilisateur bien formé",
+      "description": "Vous maîtrisez bien l'utilisation et le suivi de votre système.",
+      "severity": "low",
+      "causes": [
+        "Formation initiale réussie",
+        "Bonne compréhension technique",
+        "Expérience d'utilisation",
+        "Documentation bien assimilée"
+      ],
+      "solutions": [
+        {
+          "action": "Continuer la surveillance",
+          "details": "Maintenir le suivi régulier des performances"
+        },
+        {
+          "action": "Partager l'expérience",
+          "details": "Aider d'autres utilisateurs si possible"
+        },
+        {
+          "action": "Se tenir informé",
+          "details": "Suivre les évolutions technologiques"
+        },
+        {
+          "action": "Optimiser en continu",
+          "details": "Chercher des améliorations possibles"
+        }
+      ],
+      "prevention": "Maintenez vos connaissances à jour."
+    },
+    "diagnosis_user_training_needed": {
+      "title": "Formation complémentaire nécessaire",
+      "description": "Une formation supplémentaire vous aiderait à mieux utiliser votre système.",
+      "severity": "low",
+      "causes": [
+        "Formation initiale incomplète",
+        "Système complexe",
+        "Documentation insuffisante",
+        "Évolution des fonctionnalités"
+      ],
+      "solutions": [
+        {
+          "action": "Consulter la documentation",
+          "details": "Étudier le manuel utilisateur complet"
+        },
+        {
+          "action": "Demander une formation",
+          "details": "Contacter l'installateur pour une session complémentaire"
+        },
+        {
+          "action": "Rejoindre des communautés",
+          "details": "Échanger avec d'autres utilisateurs"
+        },
+        {
+          "action": "Suivre des tutoriels",
+          "details": "Utiliser les ressources en ligne disponibles"
+        }
+      ],
+      "prevention": "Prévoyez une formation complète lors de l'installation."
+    },
+    "diagnosis_complete_training_needed": {
+      "title": "Formation complète nécessaire",
+      "description": "Une formation approfondie est indispensable pour bien utiliser votre système.",
+      "severity": "medium",
+      "causes": [
+        "Aucune formation initiale",
+        "Système très complexe",
+        "Manque de connaissances techniques",
+        "Installation sans accompagnement"
+      ],
+      "solutions": [
+        {
+          "action": "Organiser une formation complète",
+          "details": "Faire appel à l'installateur ou un formateur qualifié"
+        },
+        {
+          "action": "Étudier la documentation de base",
+          "details": "Commencer par les notions fondamentales"
+        },
+        {
+          "action": "Demander un accompagnement",
+          "details": "Bénéficier d'un suivi personnalisé"
+        },
+        {
+          "action": "Apprendre progressivement",
+          "details": "Maîtriser une fonction à la fois"
+        }
+      ],
+      "prevention": "Exigez une formation complète lors de toute installation."
+    },
+    "diagnosis_electrical_issue": {
+      "title": "Problème électrique du système",
+      "description": "Un défaut électrique affecte le fonctionnement malgré de bonnes conditions.",
+      "severity": "high",
+      "causes": ["Défaut de câblage DC", "Connecteurs défaillants", "Problème d'onduleur", "Défaut de mise à la terre"],
+      "solutions": [
+        {
+          "action": "Vérifier toutes les connexions",
+          "details": "Contrôler le serrage et l'état des bornes"
+        },
+        {
+          "action": "Tester la continuité des circuits",
+          "details": "Mesurer la résistance des câbles"
+        },
+        {
+          "action": "Contrôler l'isolement",
+          "details": "Vérifier l'absence de défaut d'isolement"
+        },
+        {
+          "action": "Faire appel à un électricien",
+          "details": "Diagnostic professionnel si nécessaire"
+        }
+      ],
+      "prevention": "Effectuez une maintenance électrique régulière."
+    },
+    "diagnosis_minor_obstruction": {
+      "title": "Obstructions mineures",
+      "description": "De petites obstructions réduisent légèrement la production.",
+      "severity": "low",
+      "causes": ["Feuilles mortes", "Poussière accumulée", "Petits débris", "Dépôts légers"],
+      "solutions": [
+        {
+          "action": "Nettoyer régulièrement",
+          "details": "Enlever les feuilles et débris"
+        },
+        {
+          "action": "Installer des protections",
+          "details": "Grillages ou dispositifs pour éviter l'accumulation"
+        },
+        {
+          "action": "Surveiller l'impact",
+          "details": "Mesurer la différence avant/après nettoyage"
+        },
+        {
+          "action": "Planifier la maintenance",
+          "details": "Établir un calendrier de nettoyage"
+        }
+      ],
+      "prevention": "Nettoyage régulier et surveillance de l'environnement."
+    },
+    "diagnosis_major_obstruction": {
+      "title": "Obstructions importantes",
+      "description": "Des obstructions significatives réduisent fortement la production.",
+      "severity": "medium",
+      "causes": ["Ombrage par bâtiments", "Végétation dense", "Objets volumineux", "Modifications de l'environnement"],
+      "solutions": [
+        {
+          "action": "Éliminer les obstructions",
+          "details": "Supprimer ou déplacer les obstacles"
+        },
+        {
+          "action": "Repositionner les panneaux",
+          "details": "Changer l'emplacement si possible"
+        },
+        {
+          "action": "Installer des optimiseurs",
+          "details": "Minimiser l'impact de l'ombrage partiel"
+        },
+        {
+          "action": "Reconfigurer le système",
+          "details": "Adapter l'installation à la nouvelle situation"
+        }
+      ],
+      "prevention": "Étudiez l'évolution possible de l'environnement avant installation."
+    },
+    "diagnosis_consumption_growth": {
+      "title": "Croissance de la consommation",
+      "description": "L'augmentation de vos besoins dépasse la production disponible.",
+      "severity": "medium",
+      "causes": ["Nouveaux équipements", "Changement d'habitudes", "Évolution du foyer", "Nouveaux besoins"],
+      "solutions": [
+        {
+          "action": "Analyser la nouvelle consommation",
+          "details": "Identifier les postes d'augmentation"
+        },
+        {
+          "action": "Optimiser l'utilisation",
+          "details": "Programmer les nouveaux équipements"
+        },
+        {
+          "action": "Évaluer l'extension du système",
+          "details": "Calculer l'ajout de panneaux nécessaire"
+        },
+        {
+          "action": "Améliorer l'efficacité",
+          "details": "Remplacer les anciens équipements énergivores"
+        }
+      ],
+      "prevention": "Anticipez l'évolution de vos besoins lors du dimensionnement."
+    },
+    "diagnosis_system_degradation": {
+      "title": "Dégradation du système",
+      "description": "Les performances du système diminuent avec le temps.",
+      "severity": "medium",
+      "causes": [
+        "Vieillissement des panneaux",
+        "Dégradation de l'onduleur",
+        "Usure des connexions",
+        "Accumulation de défauts mineurs"
+      ],
+      "solutions": [
+        {
+          "action": "Effectuer un diagnostic complet",
+          "details": "Évaluer l'état de tous les composants"
+        },
+        {
+          "action": "Nettoyer et maintenir",
+          "details": "Maintenance approfondie de l'installation"
+        },
+        {
+          "action": "Remplacer les éléments usés",
+          "details": "Changer les composants en fin de vie"
+        },
+        {
+          "action": "Planifier la rénovation",
+          "details": "Prévoir le renouvellement des équipements"
+        }
+      ],
+      "prevention": "Effectuez une maintenance préventive régulière."
+    },
+    "diagnosis_efficiency_improvement": {
+      "title": "Amélioration de l'efficacité",
+      "description": "Votre consommation a diminué, créant plus de surplus.",
+      "severity": "low",
+      "causes": [
+        "Remplacement d'équipements",
+        "Amélioration des habitudes",
+        "Isolation thermique",
+        "Optimisation énergétique"
+      ],
+      "solutions": [
+        {
+          "action": "Maximiser l'autoconsommation",
+          "details": "Utiliser le surplus pour de nouveaux usages"
+        },
+        {
+          "action": "Optimiser l'injection",
+          "details": "Maximiser la vente du surplus si possible"
+        },
+        {
+          "action": "Considérer de nouveaux équipements",
+          "details": "Chauffe-eau solaire, véhicule électrique, etc."
+        },
+        {
+          "action": "Documenter les améliorations",
+          "details": "Mesurer les gains obtenus"
+        }
+      ],
+      "prevention": "Continuez les efforts d'efficacité énergétique."
+    }
+  }
+}

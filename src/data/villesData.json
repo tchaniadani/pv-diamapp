@@ -1,0 +1,72 @@
+[
+  {
+    "nom": "Yaoundé",
+    "irradiance": 4.8,
+    "azimut": 0,
+    "orientation": "plein sud",
+    "inclinaison": 10
+  },
+  {
+    "nom": "Douala",
+    "irradiance": 4.6,
+    "azimut": 0,
+    "orientation": "plein sud",
+    "inclinaison": 12
+  },
+  {
+    "nom": "Garoua",
+    "irradiance": 5.6,
+    "azimut": 0,
+    "orientation": "plein sud",
+    "inclinaison": 15
+  },
+  {
+    "nom": "Maroua",
+    "irradiance": 5.8,
+    "azimut": 5,
+    "orientation": "sud légèrement est",
+    "inclinaison": 17
+  },
+  {
+    "nom": "Ngaoundéré",
+    "irradiance": 5.2,
+    "azimut": 0,
+    "orientation": "plein sud",
+    "inclinaison": 14
+  },
+  {
+    "nom": "Bamenda",
+    "irradiance": 4.7,
+    "azimut": 0,
+    "orientation": "plein sud",
+    "inclinaison": 12
+  },
+  {
+    "nom": "Bafoussam",
+    "irradiance": 4.9,
+    "azimut": 0,
+    "orientation": "plein sud",
+    "inclinaison": 13
+  },
+  {
+    "nom": "Kribi",
+    "irradiance": 4.5,
+    "azimut": 0,
+    "orientation": "plein sud",
+    "inclinaison": 10
+  },
+  {
+    "nom": "Ebolowa",
+    "irradiance": 4.6,
+    "azimut": 0,
+    "orientation": "plein sud",
+    "inclinaison": 11
+  },
+  {
+    "nom": "Bertoua",
+    "irradiance": 5.0,
+    "azimut": 0,
+    "orientation": "plein sud",
+    "inclinaison": 13
+  }
+]

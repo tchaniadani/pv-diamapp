@@ -1,0 +1,152 @@
+[
+  {
+    "marque": "Victron",
+    "modele": "SmartSolar MPPT 100/30",
+    "puissance": 30,
+    "type": "MPPT",
+    "codes_erreur": {
+      "ERR1": {
+        "description": "Tension batterie trop élevée",
+        "causes_possibles": ["Batteries en surcharge", "Réglages incorrects", "Défaut de régulation"],
+        "solutions": [
+          "Vérifier les paramètres de charge",
+          "Contrôler la tension des batteries",
+          "Ajuster les seuils de tension",
+          "Vérifier les connexions"
+        ],
+        "severite": "high"
+      },
+      "ERR2": {
+        "description": "Tension batterie trop faible",
+        "causes_possibles": ["Batteries déchargées", "Consommation excessive", "Défaut de charge"],
+        "solutions": [
+          "Réduire la consommation",
+          "Vérifier l'état des batteries",
+          "Contrôler le système de charge",
+          "Augmenter la capacité de charge si nécessaire"
+        ],
+        "severite": "medium"
+      },
+      "ERR3": {
+        "description": "Surchauffe du contrôleur",
+        "causes_possibles": ["Température ambiante élevée", "Ventilation insuffisante", "Surcharge du contrôleur"],
+        "solutions": [
+          "Améliorer la ventilation",
+          "Réduire la charge",
+          "Vérifier la température ambiante",
+          "Installer un ventilateur si nécessaire"
+        ],
+        "severite": "high"
+      }
+    }
+  },
+  {
+    "marque": "Victron",
+    "modele": "SmartSolar MPPT 150/60",
+    "puissance": 60,
+    "type": "MPPT",
+    "codes_erreur": {
+      "ERR1": {
+        "description": "Tension batterie trop élevée",
+        "causes_possibles": [
+          "Paramètres de charge incorrects",
+          "Batteries défaillantes",
+          "Sonde de température défectueuse"
+        ],
+        "solutions": [
+          "Vérifier les paramètres via l'application VictronConnect",
+          "Contrôler l'état des batteries",
+          "Vérifier la sonde de température",
+          "Recalibrer les seuils de tension"
+        ],
+        "severite": "high"
+      },
+      "ERR4": {
+        "description": "Court-circuit en sortie",
+        "causes_possibles": ["Court-circuit dans le câblage", "Défaut dans la charge", "Connexions défaillantes"],
+        "solutions": [
+          "Vérifier le câblage de sortie",
+          "Contrôler les connexions",
+          "Isoler la charge défaillante",
+          "Remplacer les câbles endommagés"
+        ],
+        "severite": "high"
+      }
+    }
+  },
+  {
+    "marque": "EPEVER",
+    "modele": "Tracer 4210AN",
+    "puissance": 40,
+    "type": "MPPT",
+    "codes_erreur": {
+      "E01": {
+        "description": "Surtension PV",
+        "causes_possibles": ["Tension panneaux trop élevée", "Configuration incorrecte", "Température trop basse"],
+        "solutions": [
+          "Vérifier la configuration des panneaux",
+          "Contrôler la tension à vide",
+          "Ajuster le nombre de panneaux en série",
+          "Vérifier la température ambiante"
+        ],
+        "severite": "high"
+      },
+      "E02": {
+        "description": "Surtension batterie",
+        "causes_possibles": ["Batteries en surcharge", "Paramètres incorrects", "Défaut de régulation"],
+        "solutions": [
+          "Ajuster les paramètres de charge",
+          "Vérifier l'état des batteries",
+          "Contrôler les seuils de tension",
+          "Vérifier les connexions"
+        ],
+        "severite": "high"
+      },
+      "E03": {
+        "description": "Surcharge de sortie",
+        "causes_possibles": ["Consommation excessive", "Court-circuit partiel", "Défaut dans la charge"],
+        "solutions": [
+          "Réduire la charge connectée",
+          "Vérifier les connexions de sortie",
+          "Contrôler les appareils connectés",
+          "Vérifier l'absence de court-circuit"
+        ],
+        "severite": "medium"
+      }
+    }
+  },
+  {
+    "marque": "Morningstar",
+    "modele": "TriStar MPPT-60",
+    "puissance": 60,
+    "type": "MPPT",
+    "codes_erreur": {
+      "F1": {
+        "description": "Défaut de sonde de température batterie",
+        "causes_possibles": ["Sonde déconnectée", "Sonde défaillante", "Câblage de la sonde endommagé"],
+        "solutions": [
+          "Vérifier la connexion de la sonde",
+          "Tester la sonde de température",
+          "Remplacer la sonde si nécessaire",
+          "Vérifier le câblage"
+        ],
+        "severite": "medium"
+      },
+      "F2": {
+        "description": "Défaut de communication",
+        "causes_possibles": [
+          "Problème de communication série",
+          "Câble de communication défaillant",
+          "Interférence électromagnétique"
+        ],
+        "solutions": [
+          "Vérifier les connexions de communication",
+          "Remplacer le câble de communication",
+          "Éloigner des sources d'interférence",
+          "Redémarrer le contrôleur"
+        ],
+        "severite": "low"
+      }
+    }
+  }
+]

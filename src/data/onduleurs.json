@@ -1,0 +1,160 @@
+[
+  {
+    "marque": "SMA",
+    "modele": "Sunny Boy 3.0",
+    "puissance": 3,
+    "type": "string",
+    "codes_erreur": {
+      "E01": {
+        "description": "Tension DC trop élevée",
+        "causes_possibles": [
+          "Tension des panneaux supérieure aux limites",
+          "Problème de régulation interne",
+          "Température ambiante trop basse"
+        ],
+        "solutions": [
+          "Vérifier la configuration des panneaux",
+          "Contrôler la température de fonctionnement",
+          "Vérifier les connexions DC",
+          "Contacter le support technique si le problème persiste"
+        ],
+        "severite": "high"
+      },
+      "E02": {
+        "description": "Tension DC trop faible",
+        "causes_possibles": ["Ensoleillement insuffisant", "Panneaux défaillants", "Connexions défectueuses"],
+        "solutions": [
+          "Vérifier l'ensoleillement",
+          "Contrôler les connexions DC",
+          "Tester individuellement les panneaux",
+          "Nettoyer les panneaux si nécessaire"
+        ],
+        "severite": "medium"
+      },
+      "E05": {
+        "description": "Défaut d'isolement",
+        "causes_possibles": ["Humidité dans les connexions", "Câbles endommagés", "Défaut dans les panneaux"],
+        "solutions": [
+          "Vérifier l'étanchéité des connexions",
+          "Contrôler l'état des câbles",
+          "Mesurer la résistance d'isolement",
+          "Remplacer les composants défaillants"
+        ],
+        "severite": "high"
+      }
+    }
+  },
+  {
+    "marque": "SMA",
+    "modele": "Sunny Boy 5.0",
+    "puissance": 5,
+    "type": "string",
+    "codes_erreur": {
+      "E01": {
+        "description": "Tension DC trop élevée",
+        "causes_possibles": [
+          "Configuration incorrecte des panneaux",
+          "Température ambiante trop basse",
+          "Défaut de régulation"
+        ],
+        "solutions": [
+          "Vérifier la configuration série/parallèle",
+          "Contrôler la température ambiante",
+          "Vérifier les paramètres de l'onduleur",
+          "Redémarrer l'onduleur"
+        ],
+        "severite": "high"
+      },
+      "E03": {
+        "description": "Surtension réseau",
+        "causes_possibles": ["Tension réseau instable", "Problème sur le réseau ENEO", "Défaut de protection"],
+        "solutions": [
+          "Vérifier la tension réseau",
+          "Contacter ENEO si nécessaire",
+          "Vérifier les protections AC",
+          "Attendre la stabilisation du réseau"
+        ],
+        "severite": "medium"
+      }
+    }
+  },
+  {
+    "marque": "Huawei",
+    "modele": "SUN2000-3KTL",
+    "puissance": 3,
+    "type": "string",
+    "codes_erreur": {
+      "2001": {
+        "description": "Surtension d'entrée PV",
+        "causes_possibles": [
+          "Tension PV supérieure à 600V",
+          "Configuration incorrecte des strings",
+          "Température trop basse"
+        ],
+        "solutions": [
+          "Vérifier la configuration des strings PV",
+          "Contrôler la tension à vide des panneaux",
+          "Ajuster le nombre de panneaux en série",
+          "Vérifier la température ambiante"
+        ],
+        "severite": "high"
+      },
+      "2011": {
+        "description": "Sous-tension d'entrée PV",
+        "causes_possibles": ["Ensoleillement insuffisant", "Panneaux sales ou ombragés", "Connexions défaillantes"],
+        "solutions": [
+          "Nettoyer les panneaux",
+          "Vérifier l'absence d'ombrage",
+          "Contrôler les connexions PV",
+          "Attendre un meilleur ensoleillement"
+        ],
+        "severite": "low"
+      },
+      "2021": {
+        "description": "Défaut d'isolement PV",
+        "causes_possibles": [
+          "Humidité dans les boîtiers de jonction",
+          "Câbles PV endommagés",
+          "Défaut dans les panneaux"
+        ],
+        "solutions": [
+          "Vérifier l'étanchéité des connexions",
+          "Inspecter les câbles PV",
+          "Mesurer la résistance d'isolement",
+          "Remplacer les composants défaillants"
+        ],
+        "severite": "high"
+      }
+    }
+  },
+  {
+    "marque": "Victron",
+    "modele": "MultiPlus-II 3000",
+    "puissance": 3,
+    "type": "hybride",
+    "codes_erreur": {
+      "F01": {
+        "description": "Surchauffe de l'onduleur",
+        "causes_possibles": ["Température ambiante trop élevée", "Ventilation insuffisante", "Surcharge de l'onduleur"],
+        "solutions": [
+          "Améliorer la ventilation",
+          "Réduire la charge",
+          "Vérifier la température ambiante",
+          "Nettoyer les filtres à air"
+        ],
+        "severite": "high"
+      },
+      "F02": {
+        "description": "Tension batterie trop faible",
+        "causes_possibles": ["Batteries déchargées", "Défaut de charge", "Batteries vieillissantes"],
+        "solutions": [
+          "Vérifier l'état de charge des batteries",
+          "Contrôler le système de charge",
+          "Tester la capacité des batteries",
+          "Remplacer les batteries si nécessaire"
+        ],
+        "severite": "medium"
+      }
+    }
+  }
+]

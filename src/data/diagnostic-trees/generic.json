@@ -1,0 +1,473 @@
+{
+  "systemType": "generic",
+  "start": {
+    "id": "question_general_problem",
+    "text": "Quel type de problème rencontrez-vous avec votre installation photovoltaïque ?",
+    "help": "Décrivez le symptôme principal que vous observez",
+    "answers": [
+      {
+        "text": "Pas de production d'électricité",
+        "description": "Le système ne produit rien",
+        "icon": "❌",
+        "next": "question_power_check"
+      },
+      {
+        "text": "Production faible",
+        "description": "Moins que d'habitude",
+        "icon": "📉",
+        "next": "question_conditions_check"
+      },
+      {
+        "text": "Fonctionnement intermittent",
+        "description": "Marche et s'arrête",
+        "icon": "🔄",
+        "next": "question_intermittent_pattern"
+      },
+      {
+        "text": "Autre problème",
+        "description": "Symptôme différent",
+        "icon": "❓",
+        "next": "diagnosis_professional_help"
+      }
+    ]
+  },
+  "questions": {
+    "question_power_check": {
+      "id": "question_power_check",
+      "text": "Y a-t-il des voyants allumés sur vos équipements ?",
+      "help": "Vérifiez l'onduleur, régulateur ou tout autre équipement",
+      "answers": [
+        {
+          "text": "Aucun voyant allumé",
+          "description": "Tout semble éteint",
+          "icon": "⚫",
+          "next": "diagnosis_no_power"
+        },
+        {
+          "text": "Voyants rouges ou d'erreur",
+          "description": "Signalisation d'alarme",
+          "icon": "🔴",
+          "next": "diagnosis_error_condition"
+        },
+        {
+          "text": "Voyants normaux",
+          "description": "Affichage habituel",
+          "icon": "🟢",
+          "next": "question_weather_check"
+        }
+      ]
+    },
+    "question_conditions_check": {
+      "id": "question_conditions_check",
+      "text": "Les conditions d'ensoleillement sont-elles bonnes ?",
+      "help": "Vérifiez s'il y a du soleil et si les panneaux sont propres",
+      "answers": [
+        {
+          "text": "Bon soleil, panneaux propres",
+          "description": "Conditions optimales",
+          "icon": "☀️",
+          "next": "diagnosis_technical_problem"
+        },
+        {
+          "text": "Panneaux sales ou ombragés",
+          "description": "Obstruction présente",
+          "icon": "🌫️",
+          "next": "diagnosis_cleaning_needed"
+        },
+        {
+          "text": "Temps nuageux",
+          "description": "Faible ensoleillement",
+          "icon": "☁️",
+          "next": "diagnosis_weather_normal"
+        }
+      ]
+    },
+    "question_intermittent_pattern": {
+      "id": "question_intermittent_pattern",
+      "text": "Le fonctionnement intermittent suit-il un pattern ?",
+      "help": "Observez si c'est lié au soleil, à l'heure, ou aléatoire",
+      "answers": [
+        {
+          "text": "Lié au soleil/nuages",
+          "description": "Suit l'ensoleillement",
+          "icon": "🌤️",
+          "next": "diagnosis_normal_solar_variation"
+        },
+        {
+          "text": "Arrêts aléatoires",
+          "description": "Pas de logique apparente",
+          "icon": "❓",
+          "next": "diagnosis_random_issues"
+        },
+        {
+          "text": "Cycles réguliers",
+          "description": "Pattern répétitif",
+          "icon": "🔄",
+          "next": "diagnosis_programmed_operation"
+        }
+      ]
+    },
+    "question_weather_check": {
+      "id": "question_weather_check",
+      "text": "Les conditions météorologiques sont-elles favorables ?",
+      "help": "Bon ensoleillement et pas d'obstacles",
+      "answers": [
+        {
+          "text": "Conditions excellentes",
+          "description": "Soleil et panneaux dégagés",
+          "icon": "☀️",
+          "next": "diagnosis_equipment_issue"
+        },
+        {
+          "text": "Conditions moyennes",
+          "description": "Soleil partiel",
+          "icon": "⛅",
+          "next": "diagnosis_partial_conditions"
+        },
+        {
+          "text": "Mauvaises conditions",
+          "description": "Nuageux ou obstrué",
+          "icon": "☁️",
+          "next": "diagnosis_poor_conditions"
+        }
+      ]
+    }
+  },
+  "diagnoses": {
+    "diagnosis_no_power": {
+      "title": "Absence totale d'alimentation",
+      "description": "Le système ne reçoit aucune alimentation électrique.",
+      "severity": "critical",
+      "causes": [
+        "Panne générale du système",
+        "Disjoncteur ouvert",
+        "Défaut majeur de câblage",
+        "Défaillance de l'onduleur principal"
+      ],
+      "solutions": [
+        {
+          "action": "Vérifier tous les disjoncteurs",
+          "details": "Contrôler que toutes les protections sont fermées"
+        },
+        {
+          "action": "Contrôler l'alimentation principale",
+          "details": "Vérifier l'arrivée électrique du système"
+        },
+        {
+          "action": "Inspecter visuellement",
+          "details": "Rechercher des signes de dommage évidents"
+        },
+        {
+          "action": "Faire appel à un professionnel",
+          "details": "Contacter un technicien qualifié immédiatement"
+        }
+      ],
+      "prevention": "Installez des protections adéquates et effectuez une maintenance régulière."
+    },
+    "diagnosis_error_condition": {
+      "title": "Condition d'erreur détectée",
+      "description": "Le système a détecté une anomalie et s'est mis en sécurité.",
+      "severity": "high",
+      "causes": [
+        "Protection de sécurité activée",
+        "Défaut technique détecté",
+        "Condition anormale de fonctionnement",
+        "Problème de configuration"
+      ],
+      "solutions": [
+        {
+          "action": "Noter tous les codes d'erreur",
+          "details": "Relever précisément tous les messages affichés"
+        },
+        {
+          "action": "Consulter la documentation",
+          "details": "Interpréter les codes selon les manuels"
+        },
+        {
+          "action": "Appliquer les procédures de reset",
+          "details": "Suivre les instructions de remise en service"
+        },
+        {
+          "action": "Contacter le support technique",
+          "details": "Faire appel au fabricant si nécessaire"
+        }
+      ],
+      "prevention": "Surveillez régulièrement les affichages et respectez les conditions d'utilisation."
+    },
+    "diagnosis_technical_problem": {
+      "title": "Problème technique du système",
+      "description": "Un défaut technique affecte les performances malgré de bonnes conditions.",
+      "severity": "high",
+      "causes": ["Défaillance de composant", "Problème de connexion", "Usure d'équipement", "Configuration incorrecte"],
+      "solutions": [
+        {
+          "action": "Effectuer un diagnostic systématique",
+          "details": "Tester chaque composant individuellement"
+        },
+        {
+          "action": "Vérifier toutes les connexions",
+          "details": "Contrôler le câblage et les bornes"
+        },
+        {
+          "action": "Mesurer les performances",
+          "details": "Quantifier les écarts par rapport à la normale"
+        },
+        {
+          "action": "Faire appel à un spécialiste",
+          "details": "Consulter un technicien en photovoltaïque"
+        }
+      ],
+      "prevention": "Effectuez une maintenance préventive régulière."
+    },
+    "diagnosis_cleaning_needed": {
+      "title": "Nettoyage et dégagement nécessaires",
+      "description": "Les panneaux ou l'environnement nécessitent un entretien.",
+      "severity": "low",
+      "causes": ["Accumulation de saleté", "Ombrage par végétation", "Dépôts atmosphériques", "Obstructions diverses"],
+      "solutions": [
+        {
+          "action": "Nettoyer les panneaux",
+          "details": "Utiliser de l'eau claire et une brosse douce"
+        },
+        {
+          "action": "Éliminer les ombrages",
+          "details": "Tailler la végétation ou déplacer les obstacles"
+        },
+        {
+          "action": "Planifier un entretien régulier",
+          "details": "Établir un calendrier de nettoyage"
+        },
+        {
+          "action": "Surveiller l'environnement",
+          "details": "Contrôler régulièrement l'état des panneaux"
+        }
+      ],
+      "prevention": "Nettoyez régulièrement et surveillez la croissance de la végétation."
+    },
+    "diagnosis_weather_normal": {
+      "title": "Conditions météorologiques défavorables",
+      "description": "La production réduite est normale compte tenu de la météo.",
+      "severity": "low",
+      "causes": [
+        "Temps nuageux",
+        "Faible ensoleillement",
+        "Saison défavorable",
+        "Conditions météorologiques temporaires"
+      ],
+      "solutions": [
+        {
+          "action": "Attendre l'amélioration météo",
+          "details": "La production reprendra avec le retour du soleil"
+        },
+        {
+          "action": "Adapter la consommation",
+          "details": "Réduire l'utilisation pendant les périodes difficiles"
+        },
+        {
+          "action": "Surveiller les prévisions",
+          "details": "Planifier selon les prévisions météorologiques"
+        },
+        {
+          "action": "Utiliser les sources alternatives",
+          "details": "Basculer sur le réseau ou les batteries si disponibles"
+        }
+      ],
+      "prevention": "Dimensionnez le système en tenant compte des variations saisonnières."
+    },
+    "diagnosis_normal_solar_variation": {
+      "title": "Variation normale liée au solaire",
+      "description": "Le fonctionnement intermittent correspond aux variations d'ensoleillement.",
+      "severity": "low",
+      "causes": [
+        "Passages nuageux",
+        "Variation naturelle du soleil",
+        "Fonctionnement normal",
+        "Système bien configuré"
+      ],
+      "solutions": [
+        {
+          "action": "Accepter les variations",
+          "details": "C'est un fonctionnement normal pour un système solaire"
+        },
+        {
+          "action": "Optimiser le stockage",
+          "details": "Améliorer la capacité de stockage si possible"
+        },
+        {
+          "action": "Adapter l'utilisation",
+          "details": "Programmer les appareils selon la production"
+        },
+        {
+          "action": "Surveiller les moyennes",
+          "details": "Évaluer les performances sur des périodes plus longues"
+        }
+      ],
+      "prevention": "C'est un comportement normal, aucune action préventive nécessaire."
+    },
+    "diagnosis_random_issues": {
+      "title": "Dysfonctionnements aléatoires",
+      "description": "Le système présente des arrêts imprévisibles sans logique apparente.",
+      "severity": "medium",
+      "causes": [
+        "Défaut électronique interm ittent",
+        "Problème de connexion",
+        "Surchauffe intermittente",
+        "Défaillance progressive"
+      ],
+      "solutions": [
+        {
+          "action": "Documenter les occurrences",
+          "details": "Noter les heures et conditions des arrêts"
+        },
+        {
+          "action": "Vérifier toutes les connexions",
+          "details": "Resserrer et nettoyer tous les contacts"
+        },
+        {
+          "action": "Contrôler la température",
+          "details": "Vérifier si les arrêts correspondent à des surchauffes"
+        },
+        {
+          "action": "Faire un diagnostic professionnel",
+          "details": "Consulter un technicien pour identifier la cause"
+        }
+      ],
+      "prevention": "Effectuez une maintenance préventive régulière et surveillez les conditions de fonctionnement."
+    },
+    "diagnosis_programmed_operation": {
+      "title": "Fonctionnement programmé",
+      "description": "Le système fonctionne selon une programmation ou des cycles automatiques.",
+      "severity": "low",
+      "causes": [
+        "Programmation horaire activée",
+        "Cycles de protection",
+        "Gestion automatique intelligente",
+        "Configuration optimisée"
+      ],
+      "solutions": [
+        {
+          "action": "Vérifier la programmation",
+          "details": "Contrôler les paramètres de cycles automatiques"
+        },
+        {
+          "action": "Ajuster si nécessaire",
+          "details": "Modifier la programmation selon les besoins"
+        },
+        {
+          "action": "Documenter les cycles",
+          "details": "Noter les horaires et conditions de fonctionnement"
+        },
+        {
+          "action": "Optimiser selon l'usage",
+          "details": "Adapter aux besoins réels"
+        }
+      ],
+      "prevention": "Révisez périodiquement la programmation selon l'évolution des besoins."
+    },
+    "diagnosis_equipment_issue": {
+      "title": "Problème d'équipement",
+      "description": "Un équipement du système présente un dysfonctionnement.",
+      "severity": "high",
+      "causes": ["Défaillance d'onduleur", "Problème de régulateur", "Défaut de batterie", "Usure de composant"],
+      "solutions": [
+        {
+          "action": "Identifier l'équipement défaillant",
+          "details": "Localiser précisément le composant en panne"
+        },
+        {
+          "action": "Vérifier les garanties",
+          "details": "Contrôler si l'équipement est encore sous garantie"
+        },
+        {
+          "action": "Planifier le remplacement",
+          "details": "Organiser la réparation ou le changement"
+        },
+        {
+          "action": "Installer une solution temporaire",
+          "details": "Mettre en place un contournement si possible"
+        }
+      ],
+      "prevention": "Respectez les conditions d'utilisation et effectuez la maintenance recommandée."
+    },
+    "diagnosis_partial_conditions": {
+      "title": "Conditions partiellement favorables",
+      "description": "Les conditions ne sont pas optimales mais acceptables.",
+      "severity": "low",
+      "causes": ["Ensoleillement partiel", "Léger ombrage", "Conditions moyennes", "Fonctionnement normal réduit"],
+      "solutions": [
+        {
+          "action": "Optimiser ce qui est possible",
+          "details": "Améliorer les conditions contrôlables"
+        },
+        {
+          "action": "Adapter les attentes",
+          "details": "Ajuster selon les conditions réelles"
+        },
+        {
+          "action": "Surveiller l'évolution",
+          "details": "Contrôler si les conditions s'améliorent"
+        },
+        {
+          "action": "Planifier les améliorations",
+          "details": "Prévoir les optimisations possibles"
+        }
+      ],
+      "prevention": "Optimisez l'installation pour maximiser les performances dans toutes les conditions."
+    },
+    "diagnosis_poor_conditions": {
+      "title": "Conditions défavorables",
+      "description": "Les conditions actuelles ne permettent pas un fonctionnement optimal.",
+      "severity": "low",
+      "causes": ["Mauvais temps", "Ombrage important", "Conditions saisonnières", "Facteurs environnementaux"],
+      "solutions": [
+        {
+          "action": "Attendre l'amélioration",
+          "details": "Les conditions peuvent s'améliorer naturellement"
+        },
+        {
+          "action": "Utiliser les alternatives",
+          "details": "Basculer sur d'autres sources d'énergie"
+        },
+        {
+          "action": "Réduire la consommation",
+          "details": "Limiter l'utilisation pendant cette période"
+        },
+        {
+          "action": "Planifier les améliorations",
+          "details": "Prévoir des modifications pour réduire l'impact"
+        }
+      ],
+      "prevention": "Dimensionnez le système en tenant compte des conditions les plus défavorables."
+    },
+    "diagnosis_professional_help": {
+      "title": "Assistance professionnelle recommandée",
+      "description": "Le problème nécessite l'intervention d'un technicien qualifié.",
+      "severity": "medium",
+      "causes": [
+        "Problème complexe",
+        "Diagnostic spécialisé requis",
+        "Sécurité à considérer",
+        "Expertise technique nécessaire"
+      ],
+      "solutions": [
+        {
+          "action": "Contacter un professionnel",
+          "details": "Faire appel à un technicien en photovoltaïque"
+        },
+        {
+          "action": "Préparer l'intervention",
+          "details": "Rassembler toutes les informations sur le système"
+        },
+        {
+          "action": "Documenter le problème",
+          "details": "Noter tous les symptômes observés"
+        },
+        {
+          "action": "Sécuriser l'installation",
+          "details": "Mettre le système en sécurité en attendant"
+        }
+      ],
+      "prevention": "Planifiez des inspections préventives régulières par un professionnel."
+    }
+  }
+}
