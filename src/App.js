@@ -27,7 +27,7 @@ function App() {
               className={activeTab === 'sizing' ? 'active' : ''} 
               onClick={() => setActiveTab('sizing')}
             >
-              ➗✖️Outils de Dimensionnement
+              ➗📐Outils de Dimensionnement
             </li>
             <li 
               className={activeTab === 'estimation' ? 'active' : ''} 
@@ -46,7 +46,7 @@ function App() {
       </main>
 
       <footer className="app-footer">
-        <p>&copy; {new Date().getFullYear()} 🟢🟡PV DiaMapp - Tous droits réservés</p>
+        <p>&copy; {new Date().getFullYear()} 🟢🟡PV DiaMapp - Tous droits réservés (version 1.3)</p>
       </footer>
     </div>
   );

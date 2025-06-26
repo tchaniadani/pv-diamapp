@@ -37,6 +37,17 @@
           "Installer un ventilateur si nécessaire"
         ],
         "severite": "high"
+      },
+      "ERR4": {
+        "description": "Surtension PV",
+        "causes_possibles": ["Tension panneaux trop élevée", "Configuration incorrecte", "Température basse"],
+        "solutions": [
+          "Vérifier la configuration des panneaux",
+          "Contrôler la tension à vide",
+          "Ajuster le nombre de panneaux en série",
+          "Vérifier la température ambiante"
+        ],
+        "severite": "high"
       }
     }
   },
@@ -71,6 +82,17 @@
           "Remplacer les câbles endommagés"
         ],
         "severite": "high"
+      },
+      "ERR5": {
+        "description": "Défaut de communication",
+        "causes_possibles": ["Problème de réseau", "Câble défaillant", "Interférence électromagnétique"],
+        "solutions": [
+          "Vérifier les connexions de communication",
+          "Remplacer le câble de communication",
+          "Éliminer les sources d'interférence",
+          "Redémarrer le contrôleur"
+        ],
+        "severite": "medium"
       }
     }
   },
@@ -112,6 +134,47 @@
           "Vérifier l'absence de court-circuit"
         ],
         "severite": "medium"
+      },
+      "E04": {
+        "description": "Surchauffe du contrôleur",
+        "causes_possibles": ["Température ambiante élevée", "Ventilation insuffisante", "Surcharge"],
+        "solutions": [
+          "Améliorer la ventilation",
+          "Réduire la charge",
+          "Installer un ventilateur",
+          "Vérifier l'environnement d'installation"
+        ],
+        "severite": "high"
+      }
+    }
+  },
+  {
+    "marque": "EPEVER",
+    "modele": "Tracer 6415AN",
+    "puissance": 60,
+    "type": "MPPT",
+    "codes_erreur": {
+      "E01": {
+        "description": "Surtension PV",
+        "causes_possibles": ["Tension d'entrée excessive", "Configuration PV incorrecte", "Conditions extrêmes"],
+        "solutions": [
+          "Reconfigurer les strings PV",
+          "Vérifier les spécifications du contrôleur",
+          "Contrôler les conditions environnementales",
+          "Ajuster la configuration selon les limites"
+        ],
+        "severite": "high"
+      },
+      "E05": {
+        "description": "Défaut de sonde de température",
+        "causes_possibles": ["Sonde déconnectée", "Sonde défaillante", "Câblage endommagé"],
+        "solutions": [
+          "Vérifier la connexion de la sonde",
+          "Tester la sonde de température",
+          "Remplacer la sonde si nécessaire",
+          "Contrôler le câblage"
+        ],
+        "severite": "medium"
       }
     }
   },
@@ -146,6 +209,94 @@
           "Redémarrer le contrôleur"
         ],
         "severite": "low"
+      },
+      "F3": {
+        "description": "Surtension batterie",
+        "causes_possibles": ["Batteries en surcharge", "Paramètres incorrects", "Défaut de régulation"],
+        "solutions": [
+          "Ajuster les paramètres de charge",
+          "Vérifier l'état des batteries",
+          "Contrôler les seuils de tension",
+          "Recalibrer le contrôleur"
+        ],
+        "severite": "high"
+      },
+      "F4": {
+        "description": "Surchauffe du contrôleur",
+        "causes_possibles": ["Température excessive", "Ventilation insuffisante", "Surcharge"],
+        "solutions": [
+          "Améliorer la ventilation",
+          "Réduire la charge",
+          "Installer un système de refroidissement",
+          "Vérifier l'environnement d'installation"
+        ],
+        "severite": "high"
+      }
+    }
+  },
+  {
+    "marque": "Morningstar",
+    "modele": "ProStar MPPT-40",
+    "puissance": 40,
+    "type": "MPPT",
+    "codes_erreur": {
+      "F1": {
+        "description": "Défaut de sonde de température",
+        "causes_possibles": ["Sonde déconnectée", "Sonde défaillante", "Problème de câblage"],
+        "solutions": ["Reconnecter la sonde", "Tester la sonde", "Remplacer si défaillante", "Vérifier le câblage"],
+        "severite": "medium"
+      },
+      "F5": {
+        "description": "Défaut de charge",
+        "causes_possibles": ["Problème de connexion charge", "Surcharge", "Court-circuit"],
+        "solutions": [
+          "Vérifier les connexions de charge",
+          "Réduire la charge connectée",
+          "Contrôler l'absence de court-circuit",
+          "Tester la continuité des circuits"
+        ],
+        "severite": "high"
+      }
+    }
+  },
+  {
+    "marque": "Schneider",
+    "modele": "Conext MPPT 60 150",
+    "puissance": 60,
+    "type": "MPPT",
+    "codes_erreur": {
+      "A01": {
+        "description": "Surtension PV",
+        "causes_possibles": ["Tension d'entrée trop élevée", "Configuration incorrecte", "Conditions extrêmes"],
+        "solutions": [
+          "Vérifier la configuration PV",
+          "Contrôler la tension d'entrée",
+          "Ajuster le nombre de modules",
+          "Vérifier les conditions de température"
+        ],
+        "severite": "high"
+      },
+      "A02": {
+        "description": "Surtension batterie",
+        "causes_possibles": ["Surcharge des batteries", "Paramètres incorrects", "Défaut de régulation"],
+        "solutions": [
+          "Ajuster les paramètres de charge",
+          "Vérifier l'état des batteries",
+          "Contrôler la régulation",
+          "Reconfigurer les seuils"
+        ],
+        "severite": "high"
+      },
+      "A03": {
+        "description": "Surchauffe",
+        "causes_possibles": ["Température ambiante élevée", "Ventilation insuffisante", "Surcharge"],
+        "solutions": [
+          "Améliorer la ventilation",
+          "Réduire la charge",
+          "Installer un ventilateur",
+          "Vérifier l'environnement"
+        ],
+        "severite": "high"
       }
     }
   }

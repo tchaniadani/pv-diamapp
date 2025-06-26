@@ -41,6 +41,28 @@
           "Remplacer les composants défaillants"
         ],
         "severite": "high"
+      },
+      "E10": {
+        "description": "Surtension réseau",
+        "causes_possibles": ["Tension réseau ENEO trop élevée", "Problème de câblage AC", "Défaut de protection"],
+        "solutions": [
+          "Mesurer la tension réseau",
+          "Vérifier les connexions AC",
+          "Contrôler les protections",
+          "Contacter ENEO si tension anormale"
+        ],
+        "severite": "high"
+      },
+      "E11": {
+        "description": "Sous-tension réseau",
+        "causes_possibles": ["Tension réseau ENEO trop faible", "Chute de tension", "Problème de connexion"],
+        "solutions": [
+          "Mesurer la tension réseau",
+          "Vérifier les connexions AC",
+          "Contrôler la section des câbles",
+          "Signaler à ENEO si nécessaire"
+        ],
+        "severite": "medium"
       }
     }
   },
@@ -75,6 +97,21 @@
           "Attendre la stabilisation du réseau"
         ],
         "severite": "medium"
+      },
+      "E06": {
+        "description": "Défaut de mise à la terre",
+        "causes_possibles": [
+          "Connexion de terre défaillante",
+          "Résistance de terre trop élevée",
+          "Câble de terre endommagé"
+        ],
+        "solutions": [
+          "Vérifier la connexion de terre",
+          "Mesurer la résistance de terre",
+          "Contrôler l'état du câble de terre",
+          "Améliorer la mise à la terre si nécessaire"
+        ],
+        "severite": "high"
       }
     }
   },
@@ -124,6 +161,51 @@
           "Remplacer les composants défaillants"
         ],
         "severite": "high"
+      },
+      "2031": {
+        "description": "Surchauffe de l'onduleur",
+        "causes_possibles": ["Température ambiante élevée", "Ventilation insuffisante", "Défaut de refroidissement"],
+        "solutions": [
+          "Améliorer la ventilation",
+          "Réduire la température ambiante",
+          "Nettoyer les filtres à air",
+          "Vérifier le fonctionnement des ventilateurs"
+        ],
+        "severite": "high"
+      }
+    }
+  },
+  {
+    "marque": "Huawei",
+    "modele": "SUN2000-5KTL",
+    "puissance": 5,
+    "type": "string",
+    "codes_erreur": {
+      "2001": {
+        "description": "Surtension d'entrée PV",
+        "causes_possibles": [
+          "Tension PV supérieure aux limites",
+          "Configuration incorrecte",
+          "Conditions de température extrêmes"
+        ],
+        "solutions": [
+          "Reconfigurer les strings PV",
+          "Vérifier les spécifications techniques",
+          "Contrôler la température des panneaux",
+          "Ajuster le nombre de modules en série"
+        ],
+        "severite": "high"
+      },
+      "2041": {
+        "description": "Défaut de communication",
+        "causes_possibles": ["Problème de réseau", "Câble de communication défaillant", "Interférence"],
+        "solutions": [
+          "Vérifier les connexions réseau",
+          "Remplacer le câble de communication",
+          "Éliminer les sources d'interférence",
+          "Redémarrer le système de communication"
+        ],
+        "severite": "medium"
       }
     }
   },
@@ -154,6 +236,129 @@
           "Remplacer les batteries si nécessaire"
         ],
         "severite": "medium"
+      },
+      "F03": {
+        "description": "Tension batterie trop élevée",
+        "causes_possibles": ["Surcharge des batteries", "Défaut de régulation", "Paramètres incorrects"],
+        "solutions": [
+          "Vérifier les paramètres de charge",
+          "Contrôler le système de régulation",
+          "Ajuster les seuils de tension",
+          "Vérifier l'état des batteries"
+        ],
+        "severite": "high"
+      },
+      "F04": {
+        "description": "Surcharge de sortie",
+        "causes_possibles": ["Puissance demandée trop élevée", "Court-circuit en sortie", "Défaut d'appareil connecté"],
+        "solutions": [
+          "Réduire la charge connectée",
+          "Vérifier l'absence de court-circuit",
+          "Contrôler les appareils connectés",
+          "Répartir la charge sur plusieurs circuits"
+        ],
+        "severite": "high"
+      }
+    }
+  },
+  {
+    "marque": "Victron",
+    "modele": "MultiPlus-II 5000",
+    "puissance": 5,
+    "type": "hybride",
+    "codes_erreur": {
+      "F01": {
+        "description": "Surchauffe de l'onduleur",
+        "causes_possibles": ["Température excessive", "Ventilation bloquée", "Surcharge prolongée"],
+        "solutions": [
+          "Installer une ventilation forcée",
+          "Réduire la charge",
+          "Nettoyer les dissipateurs",
+          "Vérifier l'environnement d'installation"
+        ],
+        "severite": "high"
+      },
+      "F05": {
+        "description": "Défaut de synchronisation réseau",
+        "causes_possibles": ["Fréquence réseau instable", "Tension réseau variable", "Problème de phase"],
+        "solutions": [
+          "Vérifier la qualité du réseau ENEO",
+          "Contrôler les paramètres de synchronisation",
+          "Ajuster les tolérances de fréquence",
+          "Contacter ENEO si problème persistant"
+        ],
+        "severite": "medium"
+      }
+    }
+  },
+  {
+    "marque": "Fronius",
+    "modele": "Primo 3.0-1",
+    "puissance": 3,
+    "type": "string",
+    "codes_erreur": {
+      "101": {
+        "description": "Surtension DC",
+        "causes_possibles": ["Tension PV trop élevée", "Configuration incorrecte", "Température basse"],
+        "solutions": [
+          "Vérifier la configuration des modules",
+          "Contrôler la tension à vide",
+          "Ajuster le nombre de modules en série",
+          "Vérifier les conditions de température"
+        ],
+        "severite": "high"
+      },
+      "102": {
+        "description": "Sous-tension DC",
+        "causes_possibles": ["Ensoleillement faible", "Modules défaillants", "Connexions défectueuses"],
+        "solutions": [
+          "Attendre un meilleur ensoleillement",
+          "Vérifier les connexions DC",
+          "Tester les modules individuellement",
+          "Nettoyer les modules"
+        ],
+        "severite": "low"
+      },
+      "301": {
+        "description": "Surtension AC",
+        "causes_possibles": ["Tension réseau élevée", "Problème de câblage", "Défaut de protection"],
+        "solutions": [
+          "Mesurer la tension réseau",
+          "Vérifier le câblage AC",
+          "Contrôler les protections",
+          "Signaler à ENEO si nécessaire"
+        ],
+        "severite": "high"
+      }
+    }
+  },
+  {
+    "marque": "Fronius",
+    "modele": "Symo 5.0-3-M",
+    "puissance": 5,
+    "type": "string",
+    "codes_erreur": {
+      "101": {
+        "description": "Surtension DC",
+        "causes_possibles": ["Configuration PV incorrecte", "Température ambiante basse", "Défaut de régulation"],
+        "solutions": [
+          "Reconfigurer les strings PV",
+          "Vérifier les conditions environnementales",
+          "Contrôler les paramètres de l'onduleur",
+          "Ajuster la configuration selon les spécifications"
+        ],
+        "severite": "high"
+      },
+      "401": {
+        "description": "Défaut d'isolement",
+        "causes_possibles": ["Humidité dans l'installation", "Câbles endommagés", "Défaut dans les modules"],
+        "solutions": [
+          "Vérifier l'étanchéité de l'installation",
+          "Contrôler l'état des câbles",
+          "Mesurer la résistance d'isolement",
+          "Identifier et remplacer les composants défaillants"
+        ],
+        "severite": "high"
       }
     }
   }

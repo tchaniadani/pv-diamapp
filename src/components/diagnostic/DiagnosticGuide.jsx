@@ -19,7 +19,7 @@ const DiagnosticGuide = ({ systemType, onBack, onReset }) => {
 
         // Essayer de charger le fichier spécifique au type de système
         try {
-          data = await import(`../../data/diagnostic-trees/${systemType}.json`)
+          data = await import(`../../data/diagnostic-trees${systemType}.json`)
           console.log("Arbre chargé avec succès:", data.default)
         } catch (error) {
           console.warn(`Impossible de charger l'arbre pour ${systemType}, utilisation du générique:`, error)

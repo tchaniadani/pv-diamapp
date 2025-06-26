@@ -69,7 +69,7 @@ const SizingTools = () => {
 
   return (
     <div className="form-container">
-      <h1>➗✖️Outils de Dimensionnement</h1>
+      <h1>➗📐Outils de Dimensionnement</h1>
       <h3 className="petit-label">Effectuez un dimensionnement pour votre future installation.</h3>
 
       {currentStep === 'method' && (

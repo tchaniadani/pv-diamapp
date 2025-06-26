@@ -4,12 +4,12 @@ const SystemSchematic = ({ systemType, onComponentSelect, onBack }) => {
   const schematics = {
     autonome: {
       title: "Système Autonome",
-      description: "Cliquez sur un composant pour le diagnostiquer",
+      description: "Cliquez sur les composants diagnosticables (onduleur, régulateur)",
       components: [
-        { id: "panneaux", name: "Panneaux Solaires", x: 20, y: 10, width: 25, height: 15 },
-        { id: "regulateur", name: "Régulateur MPPT", x: 55, y: 25, width: 20, height: 10 },
-        { id: "batteries", name: "Batteries", x: 55, y: 50, width: 20, height: 20 },
-        { id: "onduleur", name: "Onduleur", x: 20, y: 70, width: 20, height: 15 },
+        { id: "panneaux", name: "Panneaux Solaires", x: 20, y: 10, width: 25, height: 15, clickable: false },
+        { id: "regulateur", name: "Régulateur MPPT", x: 55, y: 25, width: 20, height: 10, clickable: true },
+        { id: "batteries", name: "Batteries", x: 55, y: 50, width: 20, height: 20, clickable: false },
+        { id: "onduleur", name: "Onduleur", x: 20, y: 70, width: 20, height: 15, clickable: true },
       ],
       connections: [
         { from: { x: 32.5, y: 25 }, to: { x: 55, y: 30 } },
@@ -19,12 +19,12 @@ const SystemSchematic = ({ systemType, onComponentSelect, onBack }) => {
     },
     hybride: {
       title: "Système Hybride",
-      description: "Cliquez sur un composant pour le diagnostiquer",
+      description: "Cliquez sur les composants diagnosticables (onduleur hybride)",
       components: [
-        { id: "panneaux", name: "Panneaux Solaires", x: 15, y: 10, width: 25, height: 15 },
-        { id: "onduleur", name: "Onduleur Hybride", x: 50, y: 30, width: 25, height: 20 },
-        { id: "batteries", name: "Batteries", x: 15, y: 60, width: 20, height: 20 },
-        { id: "reseau", name: "Réseau ENEO", x: 80, y: 60, width: 15, height: 15 },
+        { id: "panneaux", name: "Panneaux Solaires", x: 15, y: 10, width: 25, height: 15, clickable: false },
+        { id: "onduleur", name: "Onduleur Hybride", x: 50, y: 30, width: 25, height: 20, clickable: true },
+        { id: "batteries", name: "Batteries", x: 15, y: 60, width: 20, height: 20, clickable: false },
+        { id: "reseau", name: "Réseau ENEO", x: 80, y: 60, width: 15, height: 15, clickable: false },
       ],
       connections: [
         { from: { x: 27.5, y: 25 }, to: { x: 62.5, y: 30 } },
@@ -34,11 +34,11 @@ const SystemSchematic = ({ systemType, onComponentSelect, onBack }) => {
     },
     connecte: {
       title: "Système Connecté au Réseau",
-      description: "Cliquez sur un composant pour le diagnostiquer",
+      description: "Cliquez sur les composants diagnosticables (onduleur string)",
       components: [
-        { id: "panneaux", name: "Panneaux Solaires", x: 20, y: 20, width: 25, height: 15 },
-        { id: "onduleur", name: "Onduleur String", x: 55, y: 35, width: 20, height: 15 },
-        { id: "reseau", name: "Réseau ENEO", x: 55, y: 65, width: 20, height: 15 },
+        { id: "panneaux", name: "Panneaux Solaires", x: 20, y: 20, width: 25, height: 15, clickable: false },
+        { id: "onduleur", name: "Onduleur String", x: 55, y: 35, width: 20, height: 15, clickable: true },
+        { id: "reseau", name: "Réseau ENEO", x: 55, y: 65, width: 20, height: 15, clickable: false },
       ],
       connections: [
         { from: { x: 32.5, y: 35 }, to: { x: 65, y: 35 } },
@@ -47,11 +47,11 @@ const SystemSchematic = ({ systemType, onComponentSelect, onBack }) => {
     },
     pompage: {
       title: "Système de Pompage Solaire",
-      description: "Cliquez sur un composant pour le diagnostiquer",
+      description: "Cliquez sur les composants diagnosticables (contrôleur de pompe)",
       components: [
-        { id: "panneaux", name: "Panneaux Solaires", x: 20, y: 15, width: 25, height: 15 },
-        { id: "controleur", name: "Contrôleur de Pompe", x: 55, y: 30, width: 20, height: 15 },
-        { id: "pompe", name: "Pompe Immergée", x: 55, y: 60, width: 20, height: 20 },
+        { id: "panneaux", name: "Panneaux Solaires", x: 20, y: 15, width: 25, height: 15, clickable: false },
+        { id: "controleur", name: "Contrôleur de Pompe", x: 55, y: 30, width: 20, height: 15, clickable: true },
+        { id: "pompe", name: "Pompe Immergée", x: 55, y: 60, width: 20, height: 20, clickable: false },
       ],
       connections: [
         { from: { x: 32.5, y: 30 }, to: { x: 65, y: 30 } },
@@ -64,6 +64,24 @@ const SystemSchematic = ({ systemType, onComponentSelect, onBack }) => {
 
   if (!currentSchematic) {
     return <div>Schéma non disponible pour ce type de système</div>
+  }
+
+  const handleComponentClick = (component) => {
+    if (!component.clickable) {
+      // Afficher un message pour les composants non cliquables
+      alert(
+        `${component.name} : Diagnostic non disponible pour ce composant. Seuls les onduleurs et contrôleurs sont diagnosticables par code d'erreur.`,
+      )
+      return
+    }
+
+    // Mapper les composants vers les types corrects pour la base de données
+    let componentType = component.id
+    if (component.id === "regulateur") {
+      componentType = "controleur" // Utiliser la même base de données que les contrôleurs
+    }
+
+    onComponentSelect(componentType)
   }
 
   return (
@@ -102,12 +120,13 @@ const SystemSchematic = ({ systemType, onComponentSelect, onBack }) => {
                 y={component.y}
                 width={component.width}
                 height={component.height}
-                fill="rgba(255, 255, 255, 0.2)"
-                stroke="#65bdb8"
+                fill={component.clickable ? "rgba(255, 255, 255, 0.3)" : "rgba(255, 255, 255, 0.1)"}
+                stroke={component.clickable ? "#65bdb8" : "#888888"}
                 strokeWidth="0.5"
                 rx="2"
-                className="component-rect"
-                onClick={() => onComponentSelect(component.id)}
+                className={component.clickable ? "component-rect clickable" : "component-rect non-clickable"}
+                onClick={() => handleComponentClick(component)}
+                style={{ cursor: component.clickable ? "pointer" : "default" }}
               />
               <text
                 x={component.x + component.width / 2}
@@ -115,12 +134,23 @@ const SystemSchematic = ({ systemType, onComponentSelect, onBack }) => {
                 textAnchor="middle"
                 dominantBaseline="middle"
                 fontSize="3"
-                fill="white"
-                className="component-text"
-                onClick={() => onComponentSelect(component.id)}
+                fill={component.clickable ? "white" : "#cccccc"}
+                className={component.clickable ? "component-text clickable" : "component-text non-clickable"}
+                onClick={() => handleComponentClick(component)}
+                style={{ cursor: component.clickable ? "pointer" : "default" }}
               >
                 {component.name}
               </text>
+              {/* Indicateur visuel pour les composants cliquables */}
+              {component.clickable && (
+                <circle
+                  cx={component.x + component.width - 3}
+                  cy={component.y + 3}
+                  r="1.5"
+                  fill="#00ff00"
+                  className="clickable-indicator"
+                />
+              )}
             </g>
           ))}
         </svg>
@@ -131,10 +161,21 @@ const SystemSchematic = ({ systemType, onComponentSelect, onBack }) => {
         <div className="legend-items">
           {currentSchematic.components.map((component) => (
             <div key={component.id} className="legend-item">
-              <div className="legend-color"></div>
-              <span>{component.name}</span>
+              <div
+                className="legend-color"
+                style={{
+                  backgroundColor: component.clickable ? "#65bdb8" : "#888888",
+                  opacity: component.clickable ? 1 : 0.5,
+                }}
+              ></div>
+              <span style={{ color: component.clickable ? "white" : "#cccccc" }}>
+                {component.name} {component.clickable && "🔍"}
+              </span>
             </div>
           ))}
+        </div>
+        <div className="legend-note">
+          <p>🔍 = Composant diagnosticable par code d'erreur</p>
         </div>
       </div>
 
