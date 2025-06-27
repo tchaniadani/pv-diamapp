@@ -1,0 +1,128 @@
+[
+  {
+    "marque": "Felicity Solar",
+    "modele": "LiFePO4 100Ah 12V",
+    "capacite": 100,
+    "tension": 12,
+    "type": "LiFePO4",
+    "codes_erreur": {
+      "E01": {
+        "description": "Surtension de charge",
+        "causes_possibles": ["Chargeur défaillant", "Paramètres incorrects", "Défaut BMS"],
+        "solutions": [
+          "Vérifier les paramètres du chargeur",
+          "Contrôler le BMS",
+          "Ajuster la tension de charge",
+          "Remplacer le chargeur si défaillant"
+        ],
+        "severite": "high"
+      },
+      "E02": {
+        "description": "Sous-tension critique",
+        "causes_possibles": ["Décharge profonde", "Consommation excessive", "Défaut cellule"],
+        "solutions": [
+          "Arrêter immédiatement la décharge",
+          "Recharger avec un chargeur adapté",
+          "Vérifier l'état des cellules",
+          "Remplacer si nécessaire"
+        ],
+        "severite": "critical"
+      },
+      "E03": {
+        "description": "Surchauffe batterie",
+        "causes_possibles": ["Courant excessif", "Température ambiante élevée", "Défaut refroidissement"],
+        "solutions": [
+          "Réduire le courant de charge/décharge",
+          "Améliorer la ventilation",
+          "Vérifier la température ambiante",
+          "Laisser refroidir avant utilisation"
+        ],
+        "severite": "high"
+      }
+    }
+  },
+  {
+    "marque": "Felicity Solar",
+    "modele": "LiFePO4 200Ah 24V",
+    "capacite": 200,
+    "tension": 24,
+    "type": "LiFePO4",
+    "codes_erreur": {
+      "E01": {
+        "description": "Surtension de charge",
+        "causes_possibles": ["Chargeur mal configuré", "Défaut BMS", "Paramètres incorrects"],
+        "solutions": [
+          "Reconfigurer le chargeur",
+          "Vérifier le BMS",
+          "Ajuster les paramètres de charge",
+          "Contrôler les connexions"
+        ],
+        "severite": "high"
+      },
+      "E04": {
+        "description": "Déséquilibre cellules",
+        "causes_possibles": ["Vieillissement inégal", "Défaut BMS", "Utilisation intensive"],
+        "solutions": [
+          "Effectuer un équilibrage",
+          "Laisser la batterie au repos 24h",
+          "Vérifier le BMS",
+          "Remplacer les cellules défaillantes"
+        ],
+        "severite": "medium"
+      }
+    }
+  },
+  {
+    "marque": "Growatt",
+    "modele": "ARK-2.5H-A1",
+    "capacite": 2500,
+    "tension": 51.2,
+    "type": "LiFePO4",
+    "codes_erreur": {
+      "001": {
+        "description": "Surtension pack batterie",
+        "causes_possibles": ["Charge excessive", "BMS défaillant", "Paramètres incorrects"],
+        "solutions": [
+          "Arrêter la charge immédiatement",
+          "Vérifier les paramètres de charge",
+          "Contrôler le BMS",
+          "Redémarrer le système"
+        ],
+        "severite": "high"
+      },
+      "002": {
+        "description": "Sous-tension pack batterie",
+        "causes_possibles": ["Décharge profonde", "Consommation excessive", "Défaut cellule"],
+        "solutions": [
+          "Réduire la consommation",
+          "Recharger immédiatement",
+          "Vérifier l'état des cellules",
+          "Ajuster les seuils de protection"
+        ],
+        "severite": "high"
+      },
+      "003": {
+        "description": "Surchauffe pack batterie",
+        "causes_possibles": ["Courant trop élevé", "Ventilation insuffisante", "Défaut refroidissement"],
+        "solutions": [
+          "Réduire le courant",
+          "Améliorer la ventilation",
+          "Vérifier le système de refroidissement",
+          "Laisser refroidir"
+        ],
+        "severite": "high"
+      },
+      "010": {
+        "description": "Défaut communication BMS",
+        "causes_possibles": ["Câble défaillant", "Interférence", "BMS défaillant"],
+        "solutions": [
+          "Vérifier les connexions de communication",
+          "Remplacer le câble de communication",
+          "Éliminer les interférences",
+          "Redémarrer le BMS"
+        ],
+        "severite": "medium"
+      }
+    }
+  }
+]

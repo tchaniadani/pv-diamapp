@@ -299,5 +299,191 @@
         "severite": "high"
       }
     }
+  },
+  {
+    "marque": "Growatt",
+    "modele": "ShineLink-X",
+    "puissance": 40,
+    "type": "MPPT",
+    "codes_erreur": {
+      "E01": {
+        "description": "Surtension PV",
+        "causes_possibles": ["Tension d'entrée PV trop élevée", "Configuration incorrecte", "Température basse"],
+        "solutions": [
+          "Vérifier la configuration des panneaux",
+          "Contrôler la tension à vide des modules",
+          "Ajuster le nombre de modules en série",
+          "Vérifier les conditions de température"
+        ],
+        "severite": "high"
+      },
+      "E02": {
+        "description": "Surtension batterie",
+        "causes_possibles": ["Batteries en surcharge", "Paramètres incorrects", "Défaut de régulation"],
+        "solutions": [
+          "Ajuster les paramètres de charge",
+          "Vérifier l'état des batteries",
+          "Contrôler les seuils de tension",
+          "Vérifier les connexions"
+        ],
+        "severite": "high"
+      },
+      "E03": {
+        "description": "Sous-tension batterie",
+        "causes_possibles": ["Batteries déchargées", "Consommation excessive", "Défaut de charge"],
+        "solutions": [
+          "Réduire la consommation",
+          "Vérifier l'état des batteries",
+          "Contrôler le système de charge",
+          "Augmenter la capacité de charge si nécessaire"
+        ],
+        "severite": "medium"
+      },
+      "E04": {
+        "description": "Surchauffe du contrôleur",
+        "causes_possibles": ["Température ambiante élevée", "Ventilation insuffisante", "Surcharge"],
+        "solutions": [
+          "Améliorer la ventilation",
+          "Réduire la charge",
+          "Installer un ventilateur",
+          "Vérifier l'environnement d'installation"
+        ],
+        "severite": "high"
+      },
+      "E05": {
+        "description": "Court-circuit en sortie",
+        "causes_possibles": ["Court-circuit dans le câblage", "Défaut dans la charge", "Connexions défaillantes"],
+        "solutions": [
+          "Vérifier le câblage de sortie",
+          "Contrôler les connexions",
+          "Isoler la charge défaillante",
+          "Remplacer les câbles endommagés"
+        ],
+        "severite": "high"
+      }
+    }
+  },
+  {
+    "marque": "Growatt",
+    "modele": "SmartCharge 60A",
+    "puissance": 60,
+    "type": "MPPT",
+    "codes_erreur": {
+      "E01": {
+        "description": "Surtension PV",
+        "causes_possibles": ["Tension PV supérieure aux limites", "Configuration incorrecte", "Conditions extrêmes"],
+        "solutions": [
+          "Reconfigurer les strings PV",
+          "Vérifier les spécifications techniques",
+          "Contrôler les conditions environnementales",
+          "Ajuster le nombre de modules"
+        ],
+        "severite": "high"
+      },
+      "E06": {
+        "description": "Défaut de communication",
+        "causes_possibles": ["Problème de réseau", "Câble défaillant", "Interférence électromagnétique"],
+        "solutions": [
+          "Vérifier les connexions de communication",
+          "Remplacer le câble de communication",
+          "Éliminer les sources d'interférence",
+          "Redémarrer le contrôleur"
+        ],
+        "severite": "medium"
+      }
+    }
+  },
+  {
+    "marque": "Felicity Solar",
+    "modele": "FS-MPPT-40A",
+    "puissance": 40,
+    "type": "MPPT",
+    "codes_erreur": {
+      "E01": {
+        "description": "Surtension PV",
+        "causes_possibles": ["Tension panneaux trop élevée", "Configuration incorrecte", "Température basse"],
+        "solutions": [
+          "Vérifier la configuration des panneaux",
+          "Contrôler la tension à vide",
+          "Ajuster le nombre de panneaux en série",
+          "Vérifier la température ambiante"
+        ],
+        "severite": "high"
+      },
+      "E02": {
+        "description": "Surtension batterie",
+        "causes_possibles": ["Batteries en surcharge", "Paramètres incorrects", "Défaut de régulation"],
+        "solutions": [
+          "Ajuster les paramètres de charge",
+          "Vérifier l'état des batteries",
+          "Contrôler les seuils de tension",
+          "Vérifier les connexions"
+        ],
+        "severite": "high"
+      },
+      "E03": {
+        "description": "Sous-tension batterie",
+        "causes_possibles": ["Batteries déchargées", "Consommation excessive", "Défaut de charge"],
+        "solutions": [
+          "Réduire la consommation",
+          "Vérifier l'état des batteries",
+          "Contrôler le système de charge",
+          "Augmenter la capacité de charge si nécessaire"
+        ],
+        "severite": "medium"
+      },
+      "E04": {
+        "description": "Surchauffe du contrôleur",
+        "causes_possibles": ["Température ambiante élevée", "Ventilation insuffisante", "Surcharge"],
+        "solutions": [
+          "Améliorer la ventilation",
+          "Réduire la charge",
+          "Installer un ventilateur",
+          "Vérifier l'environnement d'installation"
+        ],
+        "severite": "high"
+      },
+      "E05": {
+        "description": "Défaut de sonde de température",
+        "causes_possibles": ["Sonde déconnectée", "Sonde défaillante", "Câblage endommagé"],
+        "solutions": [
+          "Vérifier la connexion de la sonde",
+          "Tester la sonde de température",
+          "Remplacer la sonde si nécessaire",
+          "Contrôler le câblage"
+        ],
+        "severite": "medium"
+      }
+    }
+  },
+  {
+    "marque": "Felicity Solar",
+    "modele": "FS-MPPT-60A",
+    "puissance": 60,
+    "type": "MPPT",
+    "codes_erreur": {
+      "E01": {
+        "description": "Surtension PV",
+        "causes_possibles": ["Tension d'entrée excessive", "Configuration PV incorrecte", "Conditions extrêmes"],
+        "solutions": [
+          "Reconfigurer les strings PV",
+          "Vérifier les spécifications du contrôleur",
+          "Contrôler les conditions environnementales",
+          "Ajuster la configuration selon les limites"
+        ],
+        "severite": "high"
+      },
+      "E06": {
+        "description": "Court-circuit en sortie",
+        "causes_possibles": ["Court-circuit dans le câblage", "Défaut dans la charge", "Connexions défaillantes"],
+        "solutions": [
+          "Vérifier le câblage de sortie",
+          "Contrôler les connexions",
+          "Isoler la charge défaillante",
+          "Remplacer les câbles endommagés"
+        ],
+        "severite": "high"
+      }
+    }
   }
 ]

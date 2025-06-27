@@ -58,11 +58,11 @@ const MaintenanceCurative = ({ onBack }) => {
       <div className="curative-header">
         <h3>🚨 Maintenance Curative</h3>
         <div className="breadcrumb">
-          <span className={currentStep === "system-type" ? "active" : ""}>1. Type de système</span>
-          <span className={currentStep === "diagnostic-mode" ? "active" : ""}>2. Mode de diagnostic</span>
-          <span className={currentStep === "guided-diagnostic" ? "active" : ""}>3a. Diagnostic guidé</span>
-          <span className={currentStep === "schematic" ? "active" : ""}>3b. Identification</span>
-          <span className={currentStep === "diagnostic" ? "active" : ""}>4. Diagnostic</span>
+          <span className={currentStep === "system-type" ? "active" : ""}>1- Type de système</span>
+          <span className={currentStep === "diagnostic-mode" ? "active" : ""}>2- Mode de diagnostic</span>
+          <span className={currentStep === "guided-diagnostic" ? "active" : ""}>3a- Diagnostic guidé</span>
+          <span className={currentStep === "schematic" ? "active" : ""}>3b- Identification</span>
+          <span className={currentStep === "diagnostic" ? "active" : ""}>4- Diagnostic</span>
         </div>
       </div>
 

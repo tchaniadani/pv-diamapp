@@ -41,7 +41,7 @@ const DiagnosticModeSelector = ({ systemType, onModeSelect, onBack }) => {
   return (
     <div className="diagnostic-mode-selector">
       <h4>
-        →Choisissez votre mode de diagnostic pour un :{" "}
+        →Choisissez un mode de diagnostic pour votre {" "}
         <span className="system-type-highlight">{getSystemTypeName(systemType)}</span>
       </h4>
 
@@ -61,10 +61,10 @@ const DiagnosticModeSelector = ({ systemType, onModeSelect, onBack }) => {
             </div>
             <div className="mode-recommendation">
               {mode.id === "guided" && (
-                <span className="recommendation-badge recommended">🌟 Recommandé pour débutants</span>
+                <span className="recommendation-badge recommended">🌟 Recommandé si panne non spécifique</span>
               )}
               {mode.id === "schematic" && (
-                <span className="recommendation-badge expert">⚡ Pour utilisateurs expérimentés</span>
+                <span className="recommendation-badge expert">⚡ Recommandé si panne spécifique</span>
               )}
             </div>
           </div>

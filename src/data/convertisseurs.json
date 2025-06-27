@@ -1,0 +1,188 @@
+[
+  {
+    "marque": "Growatt",
+    "modele": "MIC 600TL-X",
+    "puissance": 600,
+    "type": "micro-onduleur",
+    "codes_erreur": {
+      "001": {
+        "description": "Surtension PV",
+        "causes_possibles": ["Tension d'entrée trop élevée", "Configuration incorrecte", "Température basse"],
+        "solutions": [
+          "Vérifier la configuration des panneaux",
+          "Contrôler la tension à vide",
+          "Ajuster selon les spécifications",
+          "Vérifier les conditions de température"
+        ],
+        "severite": "high"
+      },
+      "002": {
+        "description": "Sous-tension PV",
+        "causes_possibles": ["Ensoleillement insuffisant", "Panneaux défaillants", "Connexions défectueuses"],
+        "solutions": [
+          "Attendre un meilleur ensoleillement",
+          "Vérifier les connexions",
+          "Tester les panneaux individuellement",
+          "Nettoyer les panneaux"
+        ],
+        "severite": "low"
+      },
+      "003": {
+        "description": "Surtension réseau",
+        "causes_possibles": ["Tension réseau trop élevée", "Problème ENEO", "Défaut de protection"],
+        "solutions": [
+          "Mesurer la tension réseau",
+          "Contacter ENEO si nécessaire",
+          "Vérifier les protections",
+          "Attendre la stabilisation"
+        ],
+        "severite": "high"
+      },
+      "004": {
+        "description": "Sous-tension réseau",
+        "causes_possibles": ["Tension réseau trop faible", "Chute de tension", "Problème de connexion"],
+        "solutions": [
+          "Vérifier la tension réseau",
+          "Contrôler les connexions",
+          "Vérifier la section des câbles",
+          "Signaler à ENEO"
+        ],
+        "severite": "medium"
+      },
+      "005": {
+        "description": "Surchauffe convertisseur",
+        "causes_possibles": ["Température ambiante élevée", "Ventilation insuffisante", "Surcharge"],
+        "solutions": [
+          "Améliorer la ventilation",
+          "Réduire la température ambiante",
+          "Vérifier la charge",
+          "Nettoyer les dissipateurs"
+        ],
+        "severite": "high"
+      }
+    }
+  },
+  {
+    "marque": "Growatt",
+    "modele": "MIC 1000TL-X",
+    "puissance": 1000,
+    "type": "micro-onduleur",
+    "codes_erreur": {
+      "001": {
+        "description": "Surtension PV",
+        "causes_possibles": ["Tension PV supérieure aux limites", "Configuration incorrecte", "Conditions extrêmes"],
+        "solutions": [
+          "Reconfigurer selon les spécifications",
+          "Vérifier les conditions environnementales",
+          "Ajuster le nombre de panneaux",
+          "Contrôler la température"
+        ],
+        "severite": "high"
+      },
+      "006": {
+        "description": "Défaut d'isolement",
+        "causes_possibles": ["Humidité dans les connexions", "Câbles endommagés", "Défaut panneaux"],
+        "solutions": [
+          "Vérifier l'étanchéité",
+          "Contrôler l'état des câbles",
+          "Mesurer la résistance d'isolement",
+          "Remplacer les composants défaillants"
+        ],
+        "severite": "high"
+      }
+    }
+  },
+  {
+    "marque": "Felicity Solar",
+    "modele": "FS-DC-DC-600W",
+    "puissance": 600,
+    "type": "convertisseur DC-DC",
+    "codes_erreur": {
+      "E01": {
+        "description": "Surtension d'entrée",
+        "causes_possibles": ["Tension d'entrée trop élevée", "Configuration incorrecte", "Défaut de régulation"],
+        "solutions": [
+          "Vérifier la tension d'entrée",
+          "Ajuster la configuration",
+          "Contrôler la régulation",
+          "Vérifier les spécifications"
+        ],
+        "severite": "high"
+      },
+      "E02": {
+        "description": "Sous-tension d'entrée",
+        "causes_possibles": ["Source d'alimentation insuffisante", "Connexions défaillantes", "Charge excessive"],
+        "solutions": [
+          "Vérifier la source d'alimentation",
+          "Contrôler les connexions",
+          "Réduire la charge",
+          "Tester la continuité"
+        ],
+        "severite": "medium"
+      },
+      "E03": {
+        "description": "Surchauffe convertisseur",
+        "causes_possibles": ["Température ambiante élevée", "Ventilation insuffisante", "Surcharge"],
+        "solutions": [
+          "Améliorer la ventilation",
+          "Réduire la température ambiante",
+          "Diminuer la charge",
+          "Vérifier le refroidissement"
+        ],
+        "severite": "high"
+      },
+      "E04": {
+        "description": "Surcharge de sortie",
+        "causes_possibles": ["Charge trop importante", "Court-circuit partiel", "Défaut de charge"],
+        "solutions": [
+          "Réduire la charge connectée",
+          "Vérifier l'absence de court-circuit",
+          "Contrôler les appareils connectés",
+          "Tester la sortie à vide"
+        ],
+        "severite": "medium"
+      }
+    }
+  },
+  {
+    "marque": "Felicity Solar",
+    "modele": "FS-DC-AC-1500W",
+    "puissance": 1500,
+    "type": "convertisseur DC-AC",
+    "codes_erreur": {
+      "E01": {
+        "description": "Surtension batterie",
+        "causes_possibles": ["Tension batterie trop élevée", "Défaut de régulation", "Paramètres incorrects"],
+        "solutions": [
+          "Vérifier la tension des batteries",
+          "Contrôler la régulation",
+          "Ajuster les paramètres",
+          "Vérifier les connexions"
+        ],
+        "severite": "high"
+      },
+      "E02": {
+        "description": "Sous-tension batterie",
+        "causes_possibles": ["Batteries déchargées", "Consommation excessive", "Défaut de charge"],
+        "solutions": [
+          "Recharger les batteries",
+          "Réduire la consommation",
+          "Vérifier le système de charge",
+          "Contrôler l'état des batteries"
+        ],
+        "severite": "medium"
+      },
+      "E05": {
+        "description": "Défaut de synchronisation",
+        "causes_possibles": ["Fréquence incorrecte", "Problème de phase", "Défaut de référence"],
+        "solutions": [
+          "Vérifier la fréquence de sortie",
+          "Contrôler la synchronisation",
+          "Ajuster les paramètres",
+          "Redémarrer le convertisseur"
+        ],
+        "severite": "medium"
+      }
+    }
+  }
+]

@@ -361,5 +361,235 @@
         "severite": "high"
       }
     }
+  },
+  {
+    "marque": "Growatt",
+    "modele": "MIN 3000TL-X",
+    "puissance": 3,
+    "type": "string",
+    "codes_erreur": {
+      "001": {
+        "description": "Surtension PV",
+        "causes_possibles": ["Tension d'entrée PV trop élevée", "Configuration incorrecte", "Température basse"],
+        "solutions": [
+          "Vérifier la configuration des panneaux",
+          "Contrôler la tension à vide des modules",
+          "Ajuster le nombre de modules en série",
+          "Vérifier les conditions de température"
+        ],
+        "severite": "high"
+      },
+      "002": {
+        "description": "Défaut d'isolement PV",
+        "causes_possibles": ["Humidité dans les connexions", "Câbles PV endommagés", "Défaut dans les panneaux"],
+        "solutions": [
+          "Vérifier l'étanchéité des connexions",
+          "Inspecter les câbles PV",
+          "Mesurer la résistance d'isolement",
+          "Remplacer les composants défaillants"
+        ],
+        "severite": "high"
+      },
+      "003": {
+        "description": "Surtension réseau",
+        "causes_possibles": ["Tension réseau ENEO trop élevée", "Problème de câblage AC", "Défaut de protection"],
+        "solutions": [
+          "Mesurer la tension réseau",
+          "Vérifier les connexions AC",
+          "Contrôler les protections",
+          "Contacter ENEO si tension anormale"
+        ],
+        "severite": "high"
+      },
+      "004": {
+        "description": "Sous-tension réseau",
+        "causes_possibles": ["Tension réseau ENEO trop faible", "Chute de tension", "Problème de connexion"],
+        "solutions": [
+          "Mesurer la tension réseau",
+          "Vérifier les connexions AC",
+          "Contrôler la section des câbles",
+          "Signaler à ENEO si nécessaire"
+        ],
+        "severite": "medium"
+      },
+      "005": {
+        "description": "Surchauffe onduleur",
+        "causes_possibles": ["Température ambiante élevée", "Ventilation insuffisante", "Surcharge"],
+        "solutions": [
+          "Améliorer la ventilation",
+          "Réduire la température ambiante",
+          "Nettoyer les filtres à air",
+          "Vérifier la charge connectée"
+        ],
+        "severite": "high"
+      }
+    }
+  },
+  {
+    "marque": "Growatt",
+    "modele": "SPH 5000TL3 BH",
+    "puissance": 5,
+    "type": "hybride",
+    "codes_erreur": {
+      "001": {
+        "description": "Surtension PV",
+        "causes_possibles": ["Tension PV supérieure aux limites", "Configuration incorrecte", "Conditions extrêmes"],
+        "solutions": [
+          "Reconfigurer les strings PV",
+          "Vérifier les spécifications techniques",
+          "Contrôler les conditions environnementales",
+          "Ajuster le nombre de modules"
+        ],
+        "severite": "high"
+      },
+      "010": {
+        "description": "Tension batterie trop faible",
+        "causes_possibles": ["Batteries déchargées", "Défaut de charge", "Batteries vieillissantes"],
+        "solutions": [
+          "Vérifier l'état de charge des batteries",
+          "Contrôler le système de charge",
+          "Tester la capacité des batteries",
+          "Remplacer les batteries si nécessaire"
+        ],
+        "severite": "medium"
+      },
+      "011": {
+        "description": "Tension batterie trop élevée",
+        "causes_possibles": ["Surcharge des batteries", "Défaut de régulation", "Paramètres incorrects"],
+        "solutions": [
+          "Vérifier les paramètres de charge",
+          "Contrôler le système de régulation",
+          "Ajuster les seuils de tension",
+          "Vérifier l'état des batteries"
+        ],
+        "severite": "high"
+      },
+      "020": {
+        "description": "Défaut de communication batterie",
+        "causes_possibles": ["Problème de communication BMS", "Câble défaillant", "Interférence"],
+        "solutions": [
+          "Vérifier les connexions de communication",
+          "Remplacer le câble de communication",
+          "Éliminer les sources d'interférence",
+          "Redémarrer le système BMS"
+        ],
+        "severite": "medium"
+      }
+    }
+  },
+  {
+    "marque": "Felicity Solar",
+    "modele": "FS-3000GTI",
+    "puissance": 3,
+    "type": "string",
+    "codes_erreur": {
+      "E01": {
+        "description": "Surtension DC",
+        "causes_possibles": ["Tension PV trop élevée", "Configuration incorrecte des panneaux", "Température basse"],
+        "solutions": [
+          "Vérifier la configuration des panneaux",
+          "Contrôler la tension à vide",
+          "Ajuster le nombre de panneaux en série",
+          "Vérifier les conditions de température"
+        ],
+        "severite": "high"
+      },
+      "E02": {
+        "description": "Sous-tension DC",
+        "causes_possibles": ["Ensoleillement insuffisant", "Panneaux défaillants", "Connexions défectueuses"],
+        "solutions": [
+          "Vérifier l'ensoleillement",
+          "Contrôler les connexions DC",
+          "Tester individuellement les panneaux",
+          "Nettoyer les panneaux si nécessaire"
+        ],
+        "severite": "medium"
+      },
+      "E03": {
+        "description": "Surtension AC",
+        "causes_possibles": ["Tension réseau ENEO trop élevée", "Problème de câblage AC", "Défaut de protection"],
+        "solutions": [
+          "Mesurer la tension réseau",
+          "Vérifier les connexions AC",
+          "Contrôler les protections",
+          "Contacter ENEO si tension anormale"
+        ],
+        "severite": "high"
+      },
+      "E04": {
+        "description": "Sous-tension AC",
+        "causes_possibles": ["Tension réseau ENEO trop faible", "Chute de tension", "Problème de connexion"],
+        "solutions": [
+          "Mesurer la tension réseau",
+          "Vérifier les connexions AC",
+          "Contrôler la section des câbles",
+          "Signaler à ENEO si nécessaire"
+        ],
+        "severite": "medium"
+      },
+      "E05": {
+        "description": "Défaut d'isolement",
+        "causes_possibles": ["Humidité dans les connexions", "Câbles endommagés", "Défaut dans les panneaux"],
+        "solutions": [
+          "Vérifier l'étanchéité des connexions",
+          "Contrôler l'état des câbles",
+          "Mesurer la résistance d'isolement",
+          "Remplacer les composants défaillants"
+        ],
+        "severite": "high"
+      }
+    }
+  },
+  {
+    "marque": "Felicity Solar",
+    "modele": "FS-5000H",
+    "puissance": 5,
+    "type": "hybride",
+    "codes_erreur": {
+      "E01": {
+        "description": "Surtension PV",
+        "causes_possibles": ["Tension PV supérieure aux limites", "Configuration incorrecte", "Conditions extrêmes"],
+        "solutions": [
+          "Reconfigurer les strings PV",
+          "Vérifier les spécifications techniques",
+          "Contrôler les conditions environnementales",
+          "Ajuster le nombre de modules"
+        ],
+        "severite": "high"
+      },
+      "E10": {
+        "description": "Tension batterie faible",
+        "causes_possibles": ["Batteries déchargées", "Défaut de charge", "Batteries vieillissantes"],
+        "solutions": [
+          "Vérifier l'état de charge des batteries",
+          "Contrôler le système de charge",
+          "Tester la capacité des batteries",
+          "Remplacer les batteries si nécessaire"
+        ],
+        "severite": "medium"
+      },
+      "E11": {
+        "description": "Tension batterie élevée",
+        "causes_possibles": ["Surcharge des batteries", "Défaut de régulation", "Paramètres incorrects"],
+        "solutions": [
+          "Vérifier les paramètres de charge",
+          "Contrôler le système de régulation",
+          "Ajuster les seuils de tension",
+          "Vérifier l'état des batteries"
+        ],
+        "severite": "high"
+      },
+      "E20": {
+        "description": "Surchauffe onduleur",
+        "causes_possibles": ["Température ambiante élevée", "Ventilation insuffisante", "Surcharge"],
+        "solutions": [
+          "Améliorer la ventilation",
+          "Réduire la température ambiante",
+          "Nettoyer les filtres à air",
+          "Vérifier la charge connectée"
+        ],
+        "severite": "high"
+      }
+    }
   }
 ]

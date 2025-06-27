@@ -15,16 +15,24 @@ const DiagnosticGuide = ({ systemType, onBack, onReset }) => {
       setIsLoading(true)
       try {
         let data
-        console.log("Chargement de l'arbre pour le système:", systemType)
+        console.log("Chargement de l'arbre pour le système:", systemType);
 
         // Essayer de charger le fichier spécifique au type de système
-        try {
-          data = await import(`../../data/diagnostic-trees${systemType}.json`)
+       try {
+          // Correction du chemin d'import
+          const module = await import(`../../../src/data/diagnostic-trees/${systemType}.json`)
+          data = module
           console.log("Arbre chargé avec succès:", data.default)
         } catch (error) {
           console.warn(`Impossible de charger l'arbre pour ${systemType}, utilisation du générique:`, error)
           // Fallback vers un arbre générique
-          data = await import("../../data/diagnostic-trees/generic.json")
+          try {
+            const genericModule = await import("../../../src/data/diagnostic-trees/generic.json")
+            data = genericModule
+          } catch (genericError) {
+            console.error("Impossible de charger l'arbre générique:", genericError)
+            throw genericError
+          }
         }
 
         if (data && data.default) {
@@ -254,7 +262,7 @@ const DiagnosticGuide = ({ systemType, onBack, onReset }) => {
   return (
     <div className="diagnostic-guide">
       <div className="guide-header">
-        <h4>🧭 Diagnostic Guidé - {systemType}</h4>
+        <h4>🧭 Diagnostic Guidé - Système  {systemType}</h4>
         <div className="progress-indicator">
           Étape {questionHistory.length + 1} {finalDiagnosis && "- Diagnostic terminé"}
         </div>
@@ -285,8 +293,8 @@ const DiagnosticGuide = ({ systemType, onBack, onReset }) => {
       {currentQuestion && (
         <div className="current-question">
           <div className="question-card">
-            <div className="question-icon">❓</div>
-            <h5>Bienvenu(e), je suis l'assistant PV DiaMapp22222222222222 :</h5>
+            <div className="question-icon"><h1>👷🏾</h1></div>
+            <h5>Bienvenu(e), je suis l'assistant PV DiaMapp:</h5>
             <p className="question-text">{currentQuestion.text}</p>
 
             {currentQuestion.help && (

@@ -1,0 +1,146 @@
+[
+  {
+    "marque": "Grundfos",
+    "modele": "SQFlex 2.5-2",
+    "puissance": 350,
+    "type": "pompe solaire",
+    "codes_erreur": {
+      "E01": {
+        "description": "Manque d'eau",
+        "causes_possibles": ["Niveau d'eau trop bas", "Aspiration bouchée", "Clapet anti-retour défaillant"],
+        "solutions": [
+          "Vérifier le niveau d'eau dans le puits",
+          "Nettoyer l'aspiration",
+          "Contrôler le clapet anti-retour",
+          "Vérifier la profondeur de la pompe"
+        ],
+        "severite": "medium"
+      },
+      "E02": {
+        "description": "Surchauffe moteur",
+        "causes_possibles": ["Fonctionnement à sec", "Surcharge", "Défaut de refroidissement"],
+        "solutions": [
+          "Vérifier la présence d'eau",
+          "Contrôler la charge de la pompe",
+          "Améliorer le refroidissement",
+          "Laisser refroidir avant redémarrage"
+        ],
+        "severite": "high"
+      },
+      "E03": {
+        "description": "Tension d'alimentation incorrecte",
+        "causes_possibles": ["Tension trop basse", "Tension instable", "Problème de câblage"],
+        "solutions": [
+          "Vérifier la tension d'alimentation",
+          "Contrôler les connexions",
+          "Vérifier la section des câbles",
+          "Stabiliser l'alimentation"
+        ],
+        "severite": "medium"
+      },
+      "E04": {
+        "description": "Défaut de phase",
+        "causes_possibles": ["Phase manquante", "Déséquilibre des phases", "Problème de câblage"],
+        "solutions": [
+          "Vérifier toutes les phases",
+          "Contrôler l'équilibrage",
+          "Vérifier le câblage triphasé",
+          "Corriger les connexions"
+        ],
+        "severite": "high"
+      }
+    }
+  },
+  {
+    "marque": "Lorentz",
+    "modele": "PS2-600 C-SJ5-8",
+    "puissance": 600,
+    "type": "pompe solaire",
+    "codes_erreur": {
+      "F01": {
+        "description": "Sous-tension système",
+        "causes_possibles": ["Ensoleillement insuffisant", "Panneaux défaillants", "Connexions défectueuses"],
+        "solutions": [
+          "Attendre un meilleur ensoleillement",
+          "Vérifier les panneaux solaires",
+          "Contrôler les connexions DC",
+          "Nettoyer les panneaux"
+        ],
+        "severite": "low"
+      },
+      "F02": {
+        "description": "Surtension système",
+        "causes_possibles": ["Tension PV trop élevée", "Configuration incorrecte", "Défaut de régulation"],
+        "solutions": [
+          "Vérifier la configuration PV",
+          "Contrôler la tension des panneaux",
+          "Ajuster selon les spécifications",
+          "Vérifier la régulation"
+        ],
+        "severite": "high"
+      },
+      "F03": {
+        "description": "Fonctionnement à sec",
+        "causes_possibles": ["Manque d'eau", "Aspiration bouchée", "Niveau d'eau bas"],
+        "solutions": [
+          "Vérifier le niveau d'eau",
+          "Nettoyer l'aspiration",
+          "Contrôler la crépine",
+          "Ajuster la profondeur"
+        ],
+        "severite": "high"
+      },
+      "F04": {
+        "description": "Surchauffe contrôleur",
+        "causes_possibles": ["Température ambiante élevée", "Ventilation insuffisante", "Surcharge"],
+        "solutions": [
+          "Améliorer la ventilation",
+          "Réduire la température ambiante",
+          "Vérifier la charge",
+          "Installer un abri"
+        ],
+        "severite": "high"
+      }
+    }
+  },
+  {
+    "marque": "Felicity Solar",
+    "modele": "FS-PUMP-750W",
+    "puissance": 750,
+    "type": "pompe solaire",
+    "codes_erreur": {
+      "E01": {
+        "description": "Manque d'eau",
+        "causes_possibles": ["Niveau d'eau insuffisant", "Aspiration obstruée", "Clapet défaillant"],
+        "solutions": [
+          "Vérifier le niveau d'eau dans la source",
+          "Nettoyer l'aspiration et les filtres",
+          "Contrôler le clapet anti-retour",
+          "Ajuster la profondeur d'immersion"
+        ],
+        "severite": "medium"
+      },
+      "E02": {
+        "description": "Surchauffe moteur pompe",
+        "causes_possibles": ["Fonctionnement à sec prolongé", "Surcharge mécanique", "Défaut de refroidissement"],
+        "solutions": [
+          "Arrêter immédiatement la pompe",
+          "Vérifier la présence d'eau",
+          "Contrôler la charge mécanique",
+          "Laisser refroidir complètement"
+        ],
+        "severite": "high"
+      },
+      "E03": {
+        "description": "Sous-tension alimentation",
+        "causes_possibles": ["Ensoleillement insuffisant", "Panneaux sales", "Connexions défaillantes"],
+        "solutions": [
+          "Nettoyer les panneaux solaires",
+          "Vérifier les connexions DC",
+          "Attendre de meilleures conditions",
+          "Contrôler le câblage"]
+      
+        }
+    }
+  }
+]

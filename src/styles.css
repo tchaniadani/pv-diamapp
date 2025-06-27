@@ -2086,6 +2086,7 @@ text-decoration-line: underline;
   border: 1px solid #7fe6e6;
 }
 
+
 .system-type-highlight {
   color: var(--accent-color);
   font-weight: bold;
@@ -2236,6 +2237,7 @@ text-decoration-line: underline;
   font-size: 0.9rem;
   opacity: 0.8;
   display: block;
+  color : white;
 }
 
 .final-diagnosis {

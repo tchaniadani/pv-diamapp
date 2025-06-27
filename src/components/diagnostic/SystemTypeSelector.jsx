@@ -12,14 +12,14 @@ const SystemTypeSelector = ({ onSystemSelect, onBack }) => {
     {
       id: "hybride",
       name: "Système Hybride",
-      description: "Installation connectée au réseau avec batteries",
+      description: "Installation avec batteries connectée à au moins une autre source d'energie (groupe électrogène ou ENEO)",
       icon: "🔄",
       components: ["Panneaux", "Onduleur Hybride", "Batteries", "Réseau ENEO"],
     },
     {
       id: "connecte",
       name: "Système Connecté",
-      description: "Installation connectée au réseau sans batteries",
+      description: "Installation connectée au réseau ENEO",
       icon: "🔌",
       components: ["Panneaux", "Onduleur", "Réseau ENEO"],
     },
@@ -34,7 +34,7 @@ const SystemTypeSelector = ({ onSystemSelect, onBack }) => {
 
   return (
     <div className="system-type-selector">
-      <h4>→Sélectionnez le type de votre système photovoltaïque :</h4>
+      <h4>→Indiquez de quel type est votre installation photovoltaïque :</h4>
 
       <div className="system-types-grid">
         {systemTypes.map((system) => (

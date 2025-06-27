@@ -1,1001 +1,1026 @@
 {
   "systemType": "hybride",
   "start": {
-    "id": "question_power_source",
-    "text": "Votre installation fonctionne-t-elle sur batterie, réseau ENEO, ou les deux ?",
-    "help": "Vérifiez l'affichage de l'onduleur hybride pour voir la source d'alimentation active",
+    "id": "question_main_problem",
+    "text": "Quel type de problème rencontrez-vous avec votre installation photovoltaïque ?",
+    "help": "Sélectionnez le symptôme principal que vous observez sur votre système hybride",
     "answers": [
       {
-        "text": "Uniquement sur batterie",
-        "description": "Pas de réseau ENEO",
+        "text": "Problème avec les batteries",
+        "description": "Batteries qui ne se chargent pas ou se déchargent trop vite",
         "icon": "🔋",
-        "next": "question_battery_level"
+        "next": "question_battery_issue"
       },
       {
-        "text": "Uniquement sur réseau ENEO",
-        "description": "Batteries non utilisées",
-        "icon": "🔌",
-        "next": "question_battery_charging"
+        "text": "Problème avec l'onduleur hybride",
+        "description": "L'onduleur ne fonctionne pas correctement",
+        "icon": "⚡",
+        "next": "question_inverter_issue"
       },
       {
-        "text": "Bascule entre les deux",
-        "description": "Fonctionnement normal",
+        "text": "Problème de basculement réseau/batterie",
+        "description": "Le système ne bascule pas correctement entre les sources",
         "icon": "🔄",
         "next": "question_switching_issue"
       },
       {
-        "text": "Aucune alimentation",
-        "description": "Système complètement arrêté",
-        "icon": "❌",
-        "next": "question_grid_status"
+        "text": "Production solaire insuffisante",
+        "description": "Les panneaux ne produisent pas assez",
+        "icon": "☀️",
+        "next": "question_solar_production"
       }
     ]
   },
   "questions": {
-    "question_battery_level": {
-      "id": "question_battery_level",
-      "text": "Quel est le niveau de charge des batteries affiché ?",
-      "help": "Regardez l'écran de l'onduleur hybride ou l'application mobile",
+    "question_battery_issue": {
+      "id": "question_battery_issue",
+      "text": "Quel est le problème spécifique avec vos batteries ?",
+      "help": "Décrivez le comportement observé des batteries",
       "answers": [
         {
-          "text": "Moins de 20%",
-          "description": "Niveau critique",
-          "icon": "🔴",
-          "next": "diagnosis_battery_low_hybrid"
-        },
-        {
-          "text": "Entre 20% et 50%",
-          "description": "Niveau faible",
-          "icon": "🟡",
-          "next": "question_solar_charging"
-        },
-        {
-          "text": "Plus de 50%",
-          "description": "Niveau acceptable",
-          "icon": "🟢",
-          "next": "question_load_demand"
-        },
-        {
-          "text": "Pas d'affichage",
-          "description": "Information non disponible",
-          "icon": "❓",
-          "next": "diagnosis_display_issue"
-        }
-      ]
-    },
-    "question_battery_charging": {
-      "id": "question_battery_charging",
-      "text": "Les batteries se chargent-elles depuis le réseau ENEO ?",
-      "help": "Vérifiez si l'onduleur indique une charge des batteries",
-      "answers": [
-        {
-          "text": "Oui, charge en cours",
-          "description": "Charge depuis le réseau",
-          "icon": "⚡",
-          "next": "question_solar_priority"
-        },
-        {
-          "text": "Non, pas de charge",
-          "description": "Batteries non chargées",
-          "icon": "❌",
-          "next": "diagnosis_charging_disabled"
-        },
-        {
-          "text": "Charge intermittente",
-          "description": "Charge qui s'arrête et reprend",
-          "icon": "🔄",
-          "next": "diagnosis_unstable_grid_charging"
-        }
-      ]
-    },
-    "question_solar_charging": {
-      "id": "question_solar_charging",
-      "text": "Y a-t-il une production solaire visible sur l'affichage ?",
-      "help": "Vérifiez la puissance PV affichée sur l'onduleur",
-      "answers": [
-        {
-          "text": "Oui, production normale",
-          "description": "Panneaux produisent",
-          "icon": "☀️",
-          "next": "diagnosis_consumption_high"
-        },
-        {
-          "text": "Production faible ou nulle",
-          "description": "Peu ou pas de solaire",
-          "icon": "🌫️",
-          "next": "question_weather_panels"
-        },
-        {
-          "text": "Production intermittente",
-          "description": "Production instable",
-          "icon": "⚡",
-          "next": "diagnosis_solar_instability"
-        }
-      ]
-    },
-    "question_grid_status": {
-      "id": "question_grid_status",
-      "text": "Y a-t-il du courant sur le réseau ENEO ?",
-      "help": "Vérifiez si vos voisins ont de l'électricité ou testez une prise normale",
-      "answers": [
-        {
-          "text": "Oui, réseau ENEO disponible",
-          "description": "Pas de coupure ENEO",
-          "icon": "🔌",
-          "next": "diagnosis_inverter_failure_hybrid"
-        },
-        {
-          "text": "Non, coupure ENEO",
-          "description": "Délestage en cours",
-          "icon": "❌",
-          "next": "question_backup_mode"
-        },
-        {
-          "text": "Incertain",
-          "description": "À vérifier",
-          "icon": "❓",
-          "next": "diagnosis_check_grid_connection"
-        }
-      ]
-    },
-    "question_backup_mode": {
-      "id": "question_backup_mode",
-      "text": "L'onduleur devrait-il basculer automatiquement sur batteries ?",
-      "help": "En cas de coupure ENEO, le système hybride doit utiliser les batteries",
-      "answers": [
-        {
-          "text": "Oui, mais ne bascule pas",
-          "description": "Problème de basculement",
-          "icon": "⚠️",
-          "next": "diagnosis_switching_failure"
-        },
-        {
-          "text": "Batteries trop faibles",
-          "description": "Pas assez de charge",
+          "text": "Les batteries ne se chargent pas",
+          "description": "Pas de charge malgré la production solaire",
           "icon": "🔋",
-          "next": "diagnosis_insufficient_backup"
+          "next": "question_charging_problem"
         },
         {
-          "text": "Mode backup désactivé",
-          "description": "Configuration incorrecte",
-          "icon": "⚙️",
-          "next": "diagnosis_backup_disabled"
+          "text": "Les batteries se déchargent trop vite",
+          "description": "Autonomie réduite",
+          "icon": "📉",
+          "next": "question_discharge_problem"
+        },
+        {
+          "text": "Tension des batteries anormale",
+          "description": "Tension trop haute ou trop basse",
+          "icon": "⚡",
+          "next": "question_voltage_problem"
+        },
+        {
+          "text": "Messages d'erreur BMS",
+          "description": "Le système de gestion des batteries signale des erreurs",
+          "icon": "⚠️",
+          "next": "diagnosis_bms_error"
+        }
+      ]
+    },
+    "question_charging_problem": {
+      "id": "question_charging_problem",
+      "text": "Dans quelles conditions les batteries ne se chargent-elles pas ?",
+      "help": "Précisez les circonstances du problème de charge",
+      "answers": [
+        {
+          "text": "Jamais, même avec du soleil",
+          "description": "Aucune charge détectée",
+          "icon": "❌",
+          "next": "diagnosis_no_charging"
+        },
+        {
+          "text": "Seulement quand il y a beaucoup de soleil",
+          "description": "Charge partielle",
+          "icon": "☀️",
+          "next": "diagnosis_partial_charging"
+        },
+        {
+          "text": "Charge très lente",
+          "description": "Charge mais très lentement",
+          "icon": "🐌",
+          "next": "diagnosis_slow_charging"
+        }
+      ]
+    },
+    "question_discharge_problem": {
+      "id": "question_discharge_problem",
+      "text": "À quelle vitesse les batteries se déchargent-elles ?",
+      "help": "Comparez avec l'autonomie habituelle",
+      "answers": [
+        {
+          "text": "En quelques heures au lieu de jours",
+          "description": "Décharge très rapide",
+          "icon": "⚡",
+          "next": "diagnosis_fast_discharge"
+        },
+        {
+          "text": "Plus vite qu'avant mais pas dramatique",
+          "description": "Décharge accélérée",
+          "icon": "📉",
+          "next": "diagnosis_accelerated_discharge"
+        },
+        {
+          "text": "Décharge même quand pas d'utilisation",
+          "description": "Auto-décharge anormale",
+          "icon": "🔋",
+          "next": "diagnosis_self_discharge"
+        }
+      ]
+    },
+    "question_voltage_problem": {
+      "id": "question_voltage_problem",
+      "text": "Quelle est la tension anormale observée ?",
+      "help": "Relevez la tension affichée sur l'onduleur ou le BMS",
+      "answers": [
+        {
+          "text": "Tension trop élevée (>58V pour 48V)",
+          "description": "Surtension des batteries",
+          "icon": "⬆️",
+          "next": "diagnosis_battery_overvoltage"
+        },
+        {
+          "text": "Tension trop faible (<44V pour 48V)",
+          "description": "Sous-tension des batteries",
+          "icon": "⬇️",
+          "next": "diagnosis_battery_undervoltage"
+        },
+        {
+          "text": "Tension instable qui varie beaucoup",
+          "description": "Fluctuations importantes",
+          "icon": "📊",
+          "next": "diagnosis_voltage_instability"
+        }
+      ]
+    },
+    "question_inverter_issue": {
+      "id": "question_inverter_issue",
+      "text": "Quel est le problème avec votre onduleur hybride ?",
+      "help": "Décrivez le dysfonctionnement observé",
+      "answers": [
+        {
+          "text": "L'onduleur ne s'allume pas",
+          "description": "Aucun affichage, pas de fonctionnement",
+          "icon": "⚫",
+          "next": "question_inverter_power"
+        },
+        {
+          "text": "Codes d'erreur affichés",
+          "description": "Messages d'erreur sur l'écran",
+          "icon": "⚠️",
+          "next": "diagnosis_inverter_error_codes"
+        },
+        {
+          "text": "Pas de sortie AC",
+          "description": "Pas d'électricité en sortie",
+          "icon": "🔌",
+          "next": "question_ac_output_problem"
+        },
+        {
+          "text": "Surchauffe de l'onduleur",
+          "description": "L'onduleur devient très chaud",
+          "icon": "🌡️",
+          "next": "diagnosis_inverter_overheating"
+        }
+      ]
+    },
+    "question_inverter_power": {
+      "id": "question_inverter_power",
+      "text": "L'onduleur reçoit-il de l'alimentation ?",
+      "help": "Vérifiez les sources d'alimentation de l'onduleur",
+      "answers": [
+        {
+          "text": "Oui, batteries et panneaux connectés",
+          "description": "Alimentation présente",
+          "icon": "✅",
+          "next": "diagnosis_inverter_internal_failure"
+        },
+        {
+          "text": "Batteries déconnectées ou vides",
+          "description": "Pas d'alimentation batterie",
+          "icon": "🔋",
+          "next": "diagnosis_battery_power_issue"
+        },
+        {
+          "text": "Panneaux déconnectés",
+          "description": "Pas d'alimentation solaire",
+          "icon": "☀️",
+          "next": "diagnosis_solar_disconnection"
+        }
+      ]
+    },
+    "question_ac_output_problem": {
+      "id": "question_ac_output_problem",
+      "text": "Dans quel mode l'onduleur n'a-t-il pas de sortie AC ?",
+      "help": "Précisez si c'est en mode réseau, batterie ou les deux",
+      "answers": [
+        {
+          "text": "Aucune sortie en mode batterie",
+          "description": "Pas d'électricité sur batteries",
+          "icon": "🔋",
+          "next": "diagnosis_battery_mode_failure"
+        },
+        {
+          "text": "Aucune sortie en mode réseau",
+          "description": "Pas de passage du réseau ENEO",
+          "icon": "🏠",
+          "next": "diagnosis_grid_mode_failure"
+        },
+        {
+          "text": "Aucune sortie dans tous les modes",
+          "description": "Panne complète de sortie",
+          "icon": "❌",
+          "next": "diagnosis_complete_output_failure"
         }
       ]
     },
     "question_switching_issue": {
       "id": "question_switching_issue",
-      "text": "Le basculement entre sources se fait-il correctement ?",
-      "help": "Observez si les transitions sont fluides et automatiques",
+      "text": "Quel est le problème de basculement observé ?",
+      "help": "Décrivez comment le système se comporte lors des changements",
       "answers": [
         {
-          "text": "Basculement trop fréquent",
-          "description": "Commutations répétées",
+          "text": "Ne bascule pas sur batterie quand ENEO coupe",
+          "description": "Pas de basculement automatique",
           "icon": "🔄",
+          "next": "diagnosis_no_battery_switch"
+        },
+        {
+          "text": "Ne revient pas sur ENEO quand disponible",
+          "description": "Reste sur batterie",
+          "icon": "🏠",
+          "next": "diagnosis_no_grid_return"
+        },
+        {
+          "text": "Basculements trop fréquents",
+          "description": "Commutations incessantes",
+          "icon": "⚡",
           "next": "diagnosis_frequent_switching"
         },
         {
-          "text": "Basculement lent ou manuel",
-          "description": "Pas automatique",
-          "icon": "🐌",
-          "next": "diagnosis_slow_switching"
-        },
-        {
-          "text": "Coupures lors du basculement",
-          "description": "Interruptions momentanées",
-          "icon": "⚡",
+          "text": "Coupure lors du basculement",
+          "description": "Interruption pendant le changement",
+          "icon": "💡",
           "next": "diagnosis_switching_interruption"
         }
       ]
     },
-    "question_load_demand": {
-      "id": "question_load_demand",
-      "text": "Quelle est la consommation actuelle affichée ?",
-      "help": "Vérifiez la puissance consommée sur l'écran de l'onduleur",
+    "question_solar_production": {
+      "id": "question_solar_production",
+      "text": "Quelle est la baisse de production solaire observée ?",
+      "help": "Comparez avec la production habituelle",
       "answers": [
         {
-          "text": "Consommation très élevée",
-          "description": "Plus que la capacité",
-          "icon": "📈",
-          "next": "diagnosis_overload_hybrid"
+          "text": "Aucune production solaire",
+          "description": "0W même en plein soleil",
+          "icon": "❌",
+          "next": "diagnosis_no_solar_production"
         },
         {
-          "text": "Consommation normale",
-          "description": "Dans les limites",
-          "icon": "📊",
-          "next": "question_priority_settings"
-        },
-        {
-          "text": "Pas de consommation affichée",
-          "description": "Aucune charge détectée",
+          "text": "Production très réduite (>50% de baisse)",
+          "description": "Forte diminution",
           "icon": "📉",
-          "next": "diagnosis_load_detection_issue"
-        }
-      ]
-    },
-    "question_solar_priority": {
-      "id": "question_solar_priority",
-      "text": "Le système privilégie-t-il l'énergie solaire quand disponible ?",
-      "help": "En journée, le solaire devrait être prioritaire sur le réseau",
-      "answers": [
-        {
-          "text": "Oui, solaire prioritaire",
-          "description": "Fonctionnement normal",
-          "icon": "☀️",
-          "next": "diagnosis_normal_operation"
+          "next": "diagnosis_low_solar_production"
         },
         {
-          "text": "Non, utilise toujours le réseau",
-          "description": "Priorité incorrecte",
-          "icon": "🔌",
-          "next": "diagnosis_priority_issue"
-        },
-        {
-          "text": "Comportement incohérent",
-          "description": "Logique défaillante",
-          "icon": "❓",
-          "next": "diagnosis_logic_error"
-        }
-      ]
-    },
-    "question_weather_panels": {
-      "id": "question_weather_panels",
-      "text": "Les conditions météo et l'état des panneaux sont-ils optimaux ?",
-      "help": "Vérifiez l'ensoleillement et la propreté des panneaux",
-      "answers": [
-        {
-          "text": "Bon soleil, panneaux propres",
-          "description": "Conditions optimales",
-          "icon": "☀️",
-          "next": "diagnosis_solar_system_issue"
-        },
-        {
-          "text": "Panneaux sales ou ombragés",
-          "description": "Obstruction présente",
-          "icon": "🌫️",
-          "next": "diagnosis_panel_maintenance_needed"
-        },
-        {
-          "text": "Temps nuageux",
-          "description": "Faible ensoleillement",
-          "icon": "☁️",
-          "next": "diagnosis_weather_impact"
-        }
-      ]
-    },
-    "question_priority_settings": {
-      "id": "question_priority_settings",
-      "text": "Les paramètres de priorité énergétique sont-ils configurés ?",
-      "help": "Vérifiez la configuration des priorités dans les menus de l'onduleur",
-      "answers": [
-        {
-          "text": "Configuration correcte",
-          "description": "Paramètres OK",
-          "icon": "✅",
-          "next": "diagnosis_system_optimization"
-        },
-        {
-          "text": "Configuration à revoir",
-          "description": "Paramètres inadaptés",
-          "icon": "⚙️",
-          "next": "diagnosis_configuration_needed"
-        },
-        {
-          "text": "Ne sais pas configurer",
-          "description": "Aide nécessaire",
-          "icon": "❓",
-          "next": "diagnosis_configuration_help"
+          "text": "Production modérément réduite (<50%)",
+          "description": "Baisse modérée",
+          "icon": "📊",
+          "next": "diagnosis_moderate_solar_reduction"
         }
       ]
     }
   },
   "diagnoses": {
-    "diagnosis_battery_low_hybrid": {
-      "title": "Batteries en décharge critique",
-      "description": "Les batteries du système hybride sont à un niveau dangereusement bas.",
-      "severity": "critical",
+    "diagnosis_bms_error": {
+      "title": "Erreur du système de gestion des batteries (BMS)",
+      "description": "Le BMS détecte un problème avec les batteries et active ses protections.",
+      "severity": "high",
       "causes": [
-        "Consommation supérieure à la production et charge réseau",
-        "Défaillance du système de charge",
-        "Coupures ENEO prolongées",
+        "Déséquilibre des cellules de batterie",
+        "Température des batteries anormale",
+        "Courant de charge/décharge excessif",
+        "Défaut de communication BMS"
+      ],
+      "solutions": [
+        {
+          "action": "Noter tous les codes d'erreur BMS",
+          "details": "Relever précisément tous les messages affichés"
+        },
+        {
+          "action": "Vérifier la température des batteries",
+          "details": "S'assurer que les batteries ne sont pas trop chaudes ou froides"
+        },
+        {
+          "action": "Effectuer un équilibrage des cellules",
+          "details": "Laisser les batteries se rééquilibrer pendant 24h"
+        },
+        {
+          "action": "Redémarrer le système BMS",
+          "details": "Couper et remettre l'alimentation du BMS"
+        }
+      ],
+      "prevention": "Surveillez régulièrement l'état des batteries et évitez les décharges profondes."
+    },
+    "diagnosis_no_charging": {
+      "title": "Batteries ne se chargent pas",
+      "description": "Les batteries ne reçoivent aucune charge malgré la production solaire.",
+      "severity": "high",
+      "causes": [
+        "Fusible de charge des batteries grillé",
+        "Connexions batteries défaillantes",
+        "BMS en protection",
+        "Paramètres de charge incorrects"
+      ],
+      "solutions": [
+        {
+          "action": "Vérifier les fusibles de charge",
+          "details": "Contrôler et remplacer les fusibles entre onduleur et batteries"
+        },
+        {
+          "action": "Contrôler les connexions batteries",
+          "details": "Vérifier le serrage et l'état de toutes les connexions"
+        },
+        {
+          "action": "Réinitialiser le BMS",
+          "details": "Redémarrer le système de gestion des batteries"
+        },
+        {
+          "action": "Vérifier les paramètres de charge",
+          "details": "Contrôler la configuration de charge dans l'onduleur"
+        }
+      ],
+      "prevention": "Effectuez une maintenance régulière des connexions et surveillez l'état du BMS."
+    },
+    "diagnosis_partial_charging": {
+      "title": "Charge partielle des batteries",
+      "description": "Les batteries se chargent seulement dans certaines conditions.",
+      "severity": "medium",
+      "causes": [
+        "Puissance solaire insuffisante",
+        "Paramètres de charge trop restrictifs",
+        "Résistance élevée des connexions",
         "Batteries vieillissantes"
+      ],
+      "solutions": [
+        {
+          "action": "Optimiser les paramètres de charge",
+          "details": "Ajuster les seuils et courants de charge"
+        },
+        {
+          "action": "Nettoyer les connexions",
+          "details": "Éliminer l'oxydation et resserrer les connexions"
+        },
+        {
+          "action": "Tester la capacité des batteries",
+          "details": "Vérifier si les batteries maintiennent leur capacité"
+        },
+        {
+          "action": "Augmenter la puissance solaire si possible",
+          "details": "Considérer l'ajout de panneaux si nécessaire"
+        }
+      ],
+      "prevention": "Surveillez l'évolution de la capacité des batteries et maintenez les connexions propres."
+    },
+    "diagnosis_slow_charging": {
+      "title": "Charge lente des batteries",
+      "description": "Les batteries se chargent mais très lentement.",
+      "severity": "medium",
+      "causes": [
+        "Courant de charge limité",
+        "Résistance élevée du circuit",
+        "Température des batteries trop basse",
+        "Batteries en fin de vie"
+      ],
+      "solutions": [
+        {
+          "action": "Augmenter le courant de charge",
+          "details": "Ajuster les paramètres dans l'onduleur si possible"
+        },
+        {
+          "action": "Vérifier la température des batteries",
+          "details": "S'assurer que les batteries sont à température optimale"
+        },
+        {
+          "action": "Contrôler la résistance des câbles",
+          "details": "Vérifier que les câbles sont de section suffisante"
+        },
+        {
+          "action": "Tester l'état des batteries",
+          "details": "Évaluer si les batteries doivent être remplacées"
+        }
+      ],
+      "prevention": "Utilisez des câbles de section appropriée et maintenez les batteries à bonne température."
+    },
+    "diagnosis_fast_discharge": {
+      "title": "Décharge rapide des batteries",
+      "description": "Les batteries se déchargent beaucoup plus vite que normal.",
+      "severity": "high",
+      "causes": [
+        "Court-circuit interne dans les batteries",
+        "Consommation cachée importante",
+        "Défaut de l'onduleur",
+        "Batteries défaillantes"
+      ],
+      "solutions": [
+        {
+          "action": "Isoler les batteries",
+          "details": "Déconnecter les batteries et mesurer leur tension à vide"
+        },
+        {
+          "action": "Rechercher les consommations cachées",
+          "details": "Vérifier tous les équipements connectés"
+        },
+        {
+          "action": "Tester l'onduleur",
+          "details": "Vérifier que l'onduleur ne consomme pas anormalement"
+        },
+        {
+          "action": "Remplacer les batteries défaillantes",
+          "details": "Identifier et remplacer les éléments défaillants"
+        }
+      ],
+      "prevention": "Surveillez régulièrement la consommation et l'état des batteries."
+    },
+    "diagnosis_accelerated_discharge": {
+      "title": "Décharge accélérée des batteries",
+      "description": "L'autonomie des batteries diminue progressivement.",
+      "severity": "medium",
+      "causes": [
+        "Vieillissement naturel des batteries",
+        "Décharges profondes répétées",
+        "Température de fonctionnement élevée",
+        "Déséquilibre des cellules"
+      ],
+      "solutions": [
+        {
+          "action": "Effectuer un test de capacité",
+          "details": "Mesurer la capacité réelle des batteries"
+        },
+        {
+          "action": "Optimiser les paramètres de décharge",
+          "details": "Éviter les décharges trop profondes"
+        },
+        {
+          "action": "Améliorer la ventilation",
+          "details": "Réduire la température des batteries"
+        },
+        {
+          "action": "Équilibrer les cellules",
+          "details": "Effectuer un cycle d'équilibrage complet"
+        }
+      ],
+      "prevention": "Évitez les décharges profondes et maintenez une température modérée."
+    },
+    "diagnosis_self_discharge": {
+      "title": "Auto-décharge anormale des batteries",
+      "description": "Les batteries se déchargent même sans utilisation.",
+      "severity": "medium",
+      "causes": [
+        "Défaut interne des batteries",
+        "Consommation parasite du BMS",
+        "Fuite de courant dans l'installation",
+        "Batteries défectueuses"
+      ],
+      "solutions": [
+        {
+          "action": "Isoler complètement les batteries",
+          "details": "Déconnecter tous les circuits et mesurer la décharge"
+        },
+        {
+          "action": "Vérifier la consommation du BMS",
+          "details": "Mesurer le courant consommé par le système de gestion"
+        },
+        {
+          "action": "Rechercher les fuites de courant",
+          "details": "Contrôler l'isolement de tous les circuits"
+        },
+        {
+          "action": "Remplacer les batteries défectueuses",
+          "details": "Identifier et changer les éléments en auto-décharge"
+        }
+      ],
+      "prevention": "Utilisez des batteries de qualité et vérifiez régulièrement l'isolement."
+    },
+    "diagnosis_battery_overvoltage": {
+      "title": "Surtension des batteries",
+      "description": "La tension des batteries dépasse les limites normales.",
+      "severity": "high",
+      "causes": [
+        "Paramètres de charge trop élevés",
+        "Défaut du régulateur de charge",
+        "Sonde de température défaillante",
+        "BMS défaillant"
+      ],
+      "solutions": [
+        {
+          "action": "Réduire immédiatement la charge",
+          "details": "Arrêter la charge pour éviter les dommages"
+        },
+        {
+          "action": "Vérifier les paramètres de charge",
+          "details": "Ajuster les tensions de charge selon les spécifications"
+        },
+        {
+          "action": "Contrôler la sonde de température",
+          "details": "Vérifier que la compensation de température fonctionne"
+        },
+        {
+          "action": "Tester le BMS",
+          "details": "Vérifier que les protections du BMS fonctionnent"
+        }
+      ],
+      "prevention": "Configurez correctement les paramètres de charge et vérifiez les protections."
+    },
+    "diagnosis_battery_undervoltage": {
+      "title": "Sous-tension des batteries",
+      "description": "La tension des batteries est trop faible.",
+      "severity": "high",
+      "causes": [
+        "Décharge profonde des batteries",
+        "Batteries défaillantes",
+        "Consommation excessive",
+        "Problème de charge"
       ],
       "solutions": [
         {
           "action": "Réduire immédiatement la consommation",
-          "details": "Débrancher tous les appareils non essentiels"
+          "details": "Débrancher les charges non essentielles"
         },
         {
-          "action": "Forcer la charge depuis le réseau",
-          "details": "Activer la charge forcée si le réseau ENEO est disponible"
+          "action": "Recharger les batteries",
+          "details": "Utiliser une source de charge externe si nécessaire"
         },
         {
-          "action": "Vérifier les paramètres de charge",
-          "details": "S'assurer que la charge depuis le réseau est activée"
+          "action": "Tester l'état des batteries",
+          "details": "Vérifier si les batteries peuvent encore être récupérées"
         },
         {
-          "action": "Contrôler l'état des batteries",
-          "details": "Tester la capacité réelle des batteries"
+          "action": "Ajuster les seuils de protection",
+          "details": "Éviter les décharges trop profondes à l'avenir"
         }
       ],
-      "prevention": "Configurez des seuils d'alerte et activez la charge automatique depuis le réseau."
+      "prevention": "Surveillez la tension des batteries et évitez les décharges profondes."
     },
-    "diagnosis_charging_disabled": {
-      "title": "Charge des batteries désactivée",
-      "description": "Le système n'utilise pas le réseau ENEO pour charger les batteries.",
+    "diagnosis_voltage_instability": {
+      "title": "Instabilité de tension des batteries",
+      "description": "La tension des batteries fluctue de manière anormale.",
       "severity": "medium",
       "causes": [
-        "Paramètre de charge réseau désactivé",
-        "Horaires de charge restrictifs",
-        "Seuil de tension mal configuré",
-        "Mode économique activé"
-      ],
-      "solutions": [
-        {
-          "action": "Vérifier les paramètres de charge",
-          "details": "Activer la charge depuis le réseau dans les menus"
-        },
-        {
-          "action": "Configurer les horaires de charge",
-          "details": "Définir des plages horaires pour la charge réseau"
-        },
-        {
-          "action": "Ajuster les seuils de tension",
-          "details": "Configurer les niveaux de déclenchement de charge"
-        },
-        {
-          "action": "Consulter le manuel utilisateur",
-          "details": "Comprendre tous les paramètres de charge disponibles"
-        }
-      ],
-      "prevention": "Configurez correctement les paramètres de charge dès l'installation."
-    },
-    "diagnosis_unstable_grid_charging": {
-      "title": "Charge réseau instable",
-      "description": "La charge depuis le réseau ENEO s'interrompt de façon intermittente.",
-      "severity": "medium",
-      "causes": [
-        "Tension réseau instable",
-        "Coupures micro-délestages",
-        "Problème de connexion réseau",
-        "Protection de l'onduleur activée"
-      ],
-      "solutions": [
-        {
-          "action": "Mesurer la tension réseau",
-          "details": "Vérifier la stabilité de la tension ENEO"
-        },
-        {
-          "action": "Contrôler les connexions réseau",
-          "details": "Vérifier le câblage et les protections côté réseau"
-        },
-        {
-          "action": "Ajuster les seuils de tension",
-          "details": "Élargir la plage de tension acceptable si nécessaire"
-        },
-        {
-          "action": "Installer un stabilisateur",
-          "details": "Ajouter un régulateur de tension si le réseau est instable"
-        }
-      ],
-      "prevention": "Surveillez la qualité du réseau ENEO et installez des protections adaptées."
-    },
-    "diagnosis_consumption_high": {
-      "title": "Consommation supérieure à la production",
-      "description": "La demande énergétique dépasse la capacité de production solaire.",
-      "severity": "medium",
-      "causes": [
-        "Trop d'appareils en fonctionnement",
-        "Appareils énergivores utilisés en journée",
-        "Système solaire sous-dimensionné",
-        "Efficacité réduite des panneaux"
-      ],
-      "solutions": [
-        {
-          "action": "Optimiser l'utilisation des appareils",
-          "details": "Utiliser les gros consommateurs aux heures de forte production"
-        },
-        {
-          "action": "Programmer les charges",
-          "details": "Décaler l'utilisation selon la production solaire"
-        },
-        {
-          "action": "Évaluer l'ajout de panneaux",
-          "details": "Considérer l'extension du système solaire"
-        },
-        {
-          "action": "Utiliser le réseau en complément",
-          "details": "Laisser le système basculer sur ENEO quand nécessaire"
-        }
-      ],
-      "prevention": "Dimensionnez correctement le système selon vos habitudes de consommation."
-    },
-    "diagnosis_solar_instability": {
-      "title": "Production solaire instable",
-      "description": "La production des panneaux solaires fluctue de manière anormale.",
-      "severity": "medium",
-      "causes": [
-        "Ombrage intermittent",
         "Connexions défaillantes",
-        "Problème de régulateur MPPT",
-        "Panneaux partiellement défaillants"
+        "Déséquilibre des cellules",
+        "Problème de BMS",
+        "Interférences électromagnétiques"
       ],
       "solutions": [
         {
-          "action": "Identifier les sources d'ombrage",
-          "details": "Éliminer les obstructions variables (végétation, etc.)"
+          "action": "Vérifier toutes les connexions",
+          "details": "Contrôler et resserrer toutes les connexions"
         },
         {
-          "action": "Vérifier les connexions DC",
-          "details": "Contrôler tous les connecteurs et câbles PV"
+          "action": "Équilibrer les cellules",
+          "details": "Effectuer un cycle d'équilibrage complet"
         },
         {
-          "action": "Tester les panneaux individuellement",
-          "details": "Mesurer la production de chaque string"
+          "action": "Vérifier le BMS",
+          "details": "Contrôler le fonctionnement du système de gestion"
         },
         {
-          "action": "Contrôler l'onduleur hybride",
-          "details": "Vérifier le bon fonctionnement du MPPT intégré"
+          "action": "Éliminer les interférences",
+          "details": "Éloigner les sources d'interférence électromagnétique"
         }
       ],
-      "prevention": "Effectuez une maintenance régulière et surveillez la production."
+      "prevention": "Maintenez des connexions de qualité et effectuez un équilibrage régulier."
     },
-    "diagnosis_inverter_failure_hybrid": {
-      "title": "Défaillance de l'onduleur hybride",
-      "description": "L'onduleur hybride ne fonctionne plus malgré la présence du réseau.",
-      "severity": "critical",
+    "diagnosis_inverter_error_codes": {
+      "title": "Codes d'erreur de l'onduleur hybride",
+      "description": "L'onduleur affiche des codes d'erreur spécifiques.",
+      "severity": "medium",
       "causes": [
-        "Panne électronique interne",
-        "Surchauffe de l'onduleur",
-        "Défaut de protection",
-        "Problème d'alimentation"
+        "Problèmes détectés par l'onduleur",
+        "Paramètres hors limites",
+        "Défauts de fonctionnement",
+        "Problèmes de communication"
       ],
       "solutions": [
         {
-          "action": "Vérifier l'alimentation de l'onduleur",
-          "details": "Contrôler l'arrivée réseau et la connexion batteries"
+          "action": "Noter tous les codes d'erreur",
+          "details": "Relever précisément tous les messages affichés"
         },
         {
-          "action": "Contrôler la température",
-          "details": "S'assurer que l'onduleur n'est pas en surchauffe"
+          "action": "Consulter le manuel de l'onduleur",
+          "details": "Rechercher la signification des codes dans la documentation"
         },
         {
-          "action": "Redémarrer le système",
-          "details": "Effectuer un reset complet de l'onduleur"
+          "action": "Utiliser le diagnostic par schéma",
+          "details": "Sélectionner l'onduleur pour un diagnostic détaillé"
         },
         {
-          "action": "Contacter le service technique",
-          "details": "Faire appel au support du fabricant",
-          "warning": "Ne pas ouvrir l'onduleur, garantie et sécurité"
+          "action": "Redémarrer l'onduleur",
+          "details": "Éteindre et rallumer après quelques minutes"
         }
       ],
-      "prevention": "Maintenez une ventilation adéquate et effectuez les mises à jour firmware."
+      "prevention": "Surveillez régulièrement les affichages de l'onduleur."
     },
-    "diagnosis_switching_failure": {
-      "title": "Échec du basculement automatique",
-      "description": "Le système ne bascule pas automatiquement sur batteries lors des coupures.",
+    "diagnosis_inverter_overheating": {
+      "title": "Surchauffe de l'onduleur hybride",
+      "description": "L'onduleur devient trop chaud et peut se mettre en protection.",
       "severity": "high",
       "causes": [
-        "Défaut du commutateur de transfert",
-        "Configuration incorrecte",
-        "Batteries insuffisantes",
+        "Ventilation insuffisante",
+        "Température ambiante élevée",
+        "Surcharge de l'onduleur",
+        "Défaut de refroidissement"
+      ],
+      "solutions": [
+        {
+          "action": "Améliorer la ventilation",
+          "details": "Installer des ventilateurs ou améliorer l'aération"
+        },
+        {
+          "action": "Réduire la charge",
+          "details": "Diminuer la puissance demandée à l'onduleur"
+        },
+        {
+          "action": "Nettoyer les filtres",
+          "details": "Éliminer la poussière qui bloque la ventilation"
+        },
+        {
+          "action": "Vérifier l'environnement d'installation",
+          "details": "S'assurer que l'onduleur n'est pas exposé au soleil direct"
+        }
+      ],
+      "prevention": "Installez l'onduleur dans un endroit bien ventilé et à l'ombre."
+    },
+    "diagnosis_inverter_internal_failure": {
+      "title": "Défaillance interne de l'onduleur",
+      "description": "L'onduleur ne fonctionne pas malgré une alimentation correcte.",
+      "severity": "critical",
+      "causes": [
+        "Composants électroniques défaillants",
+        "Fusibles internes grillés",
+        "Problème de carte de contrôle",
+        "Défaut de fabrication"
+      ],
+      "solutions": [
+        {
+          "action": "Vérifier les fusibles internes",
+          "details": "Contrôler et remplacer les fusibles accessibles"
+        },
+        {
+          "action": "Vérifier la garantie",
+          "details": "Contrôler si l'onduleur est encore sous garantie"
+        },
+        {
+          "action": "Contacter le support technique",
+          "details": "Faire appel au service technique du fabricant"
+        },
+        {
+          "action": "Prévoir un remplacement",
+          "details": "Envisager le remplacement de l'onduleur"
+        }
+      ],
+      "prevention": "Protégez l'onduleur avec des dispositifs de protection appropriés."
+    },
+    "diagnosis_battery_power_issue": {
+      "title": "Problème d'alimentation par les batteries",
+      "description": "L'onduleur ne reçoit pas d'alimentation des batteries.",
+      "severity": "high",
+      "causes": [
+        "Batteries complètement déchargées",
+        "Fusibles batteries grillés",
+        "Connexions batteries défaillantes",
+        "BMS en protection"
+      ],
+      "solutions": [
+        {
+          "action": "Vérifier la tension des batteries",
+          "details": "Mesurer la tension directement sur les batteries"
+        },
+        {
+          "action": "Contrôler les fusibles batteries",
+          "details": "Vérifier et remplacer les fusibles si nécessaire"
+        },
+        {
+          "action": "Vérifier les connexions",
+          "details": "Contrôler toutes les connexions entre batteries et onduleur"
+        },
+        {
+          "action": "Réinitialiser le BMS",
+          "details": "Redémarrer le système de gestion des batteries"
+        }
+      ],
+      "prevention": "Surveillez l'état de charge des batteries et maintenez les connexions."
+    },
+    "diagnosis_solar_disconnection": {
+      "title": "Déconnexion des panneaux solaires",
+      "description": "Les panneaux solaires ne sont pas connectés ou ne fonctionnent pas.",
+      "severity": "medium",
+      "causes": ["Fusibles DC grillés", "Connexions DC défaillantes", "Problème de câblage", "Panneaux défaillants"],
+      "solutions": [
+        {
+          "action": "Vérifier les fusibles DC",
+          "details": "Contrôler et remplacer les fusibles côté panneaux"
+        },
+        {
+          "action": "Contrôler les connexions DC",
+          "details": "Vérifier toutes les connexions des panneaux"
+        },
+        {
+          "action": "Mesurer la tension des panneaux",
+          "details": "Vérifier que les panneaux produisent de la tension"
+        },
+        {
+          "action": "Inspecter le câblage",
+          "details": "Rechercher des dommages dans les câbles DC"
+        }
+      ],
+      "prevention": "Protégez le câblage DC et effectuez des contrôles réguliers."
+    },
+    "diagnosis_battery_mode_failure": {
+      "title": "Défaillance du mode batterie",
+      "description": "L'onduleur ne fournit pas d'électricité en mode batterie.",
+      "severity": "high",
+      "causes": [
+        "Défaut de l'inverseur DC/AC",
+        "Protection de sous-tension activée",
+        "Problème de commutation interne",
+        "Défaut de la carte de contrôle"
+      ],
+      "solutions": [
+        {
+          "action": "Vérifier la tension des batteries",
+          "details": "S'assurer que la tension est suffisante pour l'onduleur"
+        },
+        {
+          "action": "Contrôler les paramètres de protection",
+          "details": "Vérifier les seuils de sous-tension"
+        },
+        {
+          "action": "Tester en charge réduite",
+          "details": "Essayer avec une charge minimale"
+        },
+        {
+          "action": "Contacter le support technique",
+          "details": "Faire appel au service technique pour diagnostic approfondi"
+        }
+      ],
+      "prevention": "Maintenez les batteries en bon état et surveillez les paramètres."
+    },
+    "diagnosis_grid_mode_failure": {
+      "title": "Défaillance du mode réseau",
+      "description": "L'onduleur ne laisse pas passer l'électricité du réseau ENEO.",
+      "severity": "medium",
+      "causes": [
+        "Problème de relais de transfert",
+        "Tension réseau hors limites",
+        "Défaut de synchronisation",
+        "Protection réseau activée"
+      ],
+      "solutions": [
+        {
+          "action": "Vérifier la tension du réseau ENEO",
+          "details": "Mesurer la tension et fréquence du réseau"
+        },
+        {
+          "action": "Contrôler les paramètres réseau",
+          "details": "Vérifier les limites de tension et fréquence configurées"
+        },
+        {
+          "action": "Tester le relais de transfert",
+          "details": "Vérifier le fonctionnement du relais interne"
+        },
+        {
+          "action": "Réinitialiser l'onduleur",
+          "details": "Redémarrer complètement l'onduleur"
+        }
+      ],
+      "prevention": "Surveillez la qualité du réseau ENEO et ajustez les paramètres si nécessaire."
+    },
+    "diagnosis_complete_output_failure": {
+      "title": "Panne complète de sortie",
+      "description": "L'onduleur ne fournit aucune électricité en sortie.",
+      "severity": "critical",
+      "causes": [
+        "Défaillance majeure de l'onduleur",
+        "Fusibles de sortie grillés",
+        "Court-circuit en sortie",
+        "Défaut de la section AC"
+      ],
+      "solutions": [
+        {
+          "action": "Vérifier les fusibles de sortie",
+          "details": "Contrôler et remplacer les fusibles AC si nécessaire"
+        },
+        {
+          "action": "Déconnecter toutes les charges",
+          "details": "Isoler l'onduleur pour tester à vide"
+        },
+        {
+          "action": "Mesurer la sortie à vide",
+          "details": "Vérifier si l'onduleur produit de la tension sans charge"
+        },
+        {
+          "action": "Faire appel à un professionnel",
+          "details": "Diagnostic expert nécessaire pour réparation ou remplacement"
+        }
+      ],
+      "prevention": "Protégez la sortie avec des dispositifs appropriés et évitez les surcharges."
+    },
+    "diagnosis_no_battery_switch": {
+      "title": "Pas de basculement sur batterie",
+      "description": "Le système ne bascule pas automatiquement sur les batteries quand ENEO coupe.",
+      "severity": "high",
+      "causes": [
+        "Paramètres de basculement incorrects",
+        "Défaut du relais de transfert",
+        "Batteries insuffisamment chargées",
         "Problème de détection réseau"
       ],
       "solutions": [
         {
-          "action": "Vérifier la configuration UPS",
-          "details": "S'assurer que le mode backup est activé"
+          "action": "Vérifier les paramètres de basculement",
+          "details": "Contrôler la configuration du transfert automatique"
         },
         {
-          "action": "Tester le basculement manuel",
-          "details": "Forcer le basculement pour tester le mécanisme"
+          "action": "Tester manuellement le basculement",
+          "details": "Forcer le passage en mode batterie"
         },
         {
-          "action": "Contrôler les seuils de détection",
-          "details": "Ajuster les paramètres de détection de coupure réseau"
+          "action": "Vérifier l'état de charge des batteries",
+          "details": "S'assurer que les batteries sont suffisamment chargées"
         },
         {
-          "action": "Vérifier l'état des batteries",
-          "details": "S'assurer qu'elles ont suffisamment de charge"
+          "action": "Contrôler la détection réseau",
+          "details": "Vérifier que l'onduleur détecte bien les coupures ENEO"
         }
       ],
-      "prevention": "Testez régulièrement le basculement automatique."
+      "prevention": "Testez régulièrement le basculement automatique et maintenez les batteries chargées."
     },
-    "diagnosis_insufficient_backup": {
-      "title": "Autonomie de secours insuffisante",
-      "description": "Les batteries n'ont pas assez de charge pour assurer le backup.",
+    "diagnosis_no_grid_return": {
+      "title": "Pas de retour sur réseau",
+      "description": "Le système ne revient pas automatiquement sur ENEO quand l'électricité revient.",
       "severity": "medium",
       "causes": [
-        "Batteries déchargées",
-        "Capacité de batterie insuffisante",
-        "Consommation trop élevée pour le backup",
-        "Batteries vieillissantes"
+        "Paramètres de retour réseau incorrects",
+        "Temporisation trop longue",
+        "Qualité réseau insuffisante",
+        "Défaut de synchronisation"
       ],
       "solutions": [
         {
-          "action": "Charger les batteries avant coupure",
-          "details": "S'assurer que les batteries sont pleines quand ENEO fonctionne"
+          "action": "Ajuster les paramètres de retour réseau",
+          "details": "Configurer les conditions de retour automatique"
         },
         {
-          "action": "Réduire la charge de backup",
-          "details": "Limiter les appareils alimentés en mode secours"
+          "action": "Réduire la temporisation",
+          "details": "Diminuer le délai avant retour sur réseau"
         },
         {
-          "action": "Augmenter la capacité batterie",
-          "details": "Ajouter des batteries pour plus d'autonomie"
+          "action": "Vérifier la qualité du réseau",
+          "details": "S'assurer que la tension et fréquence ENEO sont stables"
         },
         {
-          "action": "Optimiser la consommation",
-          "details": "Utiliser des appareils plus efficaces"
+          "action": "Forcer manuellement le retour",
+          "details": "Tester le retour en mode manuel"
         }
       ],
-      "prevention": "Dimensionnez correctement les batteries selon vos besoins de backup."
-    },
-    "diagnosis_backup_disabled": {
-      "title": "Mode backup désactivé",
-      "description": "La fonction de secours sur batteries n'est pas configurée.",
-      "severity": "medium",
-      "causes": [
-        "Paramètre UPS désactivé",
-        "Configuration d'usine non modifiée",
-        "Mode économique prioritaire",
-        "Erreur de configuration"
-      ],
-      "solutions": [
-        {
-          "action": "Activer le mode UPS/Backup",
-          "details": "Aller dans les paramètres et activer la fonction secours"
-        },
-        {
-          "action": "Configurer les priorités",
-          "details": "Définir les priorités : Solaire > Batterie > Réseau"
-        },
-        {
-          "action": "Définir les seuils de basculement",
-          "details": "Configurer à partir de quel niveau de batterie basculer"
-        },
-        {
-          "action": "Tester la configuration",
-          "details": "Simuler une coupure pour valider le fonctionnement"
-        }
-      ],
-      "prevention": "Configurez correctement le système dès l'installation."
+      "prevention": "Configurez correctement les paramètres selon la qualité de votre réseau ENEO."
     },
     "diagnosis_frequent_switching": {
       "title": "Basculements trop fréquents",
-      "description": "Le système change de source d'alimentation trop souvent.",
+      "description": "Le système bascule constamment entre réseau et batterie.",
       "severity": "medium",
       "causes": [
         "Réseau ENEO instable",
-        "Seuils de basculement trop sensibles",
-        "Batteries à la limite",
-        "Micro-coupures fréquentes"
+        "Paramètres de basculement trop sensibles",
+        "Problème de détection",
+        "Interférences électriques"
       ],
       "solutions": [
         {
-          "action": "Ajuster les seuils de basculement",
-          "details": "Élargir les plages de tension pour éviter les oscillations"
+          "action": "Ajuster la sensibilité de détection",
+          "details": "Élargir les plages de tolérance de tension et fréquence"
         },
         {
-          "action": "Ajouter des temporisations",
-          "details": "Configurer des délais avant basculement"
+          "action": "Augmenter les temporisations",
+          "details": "Allonger les délais avant basculement"
         },
         {
           "action": "Installer un stabilisateur",
-          "details": "Améliorer la qualité du réseau ENEO"
+          "details": "Améliorer la qualité du réseau ENEO en entrée"
         },
         {
-          "action": "Vérifier l'état des batteries",
-          "details": "S'assurer qu'elles maintiennent bien leur tension"
+          "action": "Éliminer les interférences",
+          "details": "Éloigner les sources d'interférence électromagnétique"
         }
       ],
-      "prevention": "Configurez des seuils et temporisations adaptés à votre réseau."
-    },
-    "diagnosis_slow_switching": {
-      "title": "Basculement lent ou manuel",
-      "description": "Le changement de source n'est pas assez rapide ou nécessite une intervention.",
-      "severity": "medium",
-      "causes": ["Temporisations trop longues", "Mode manuel activé", "Problème de détection", "Défaut du commutateur"],
-      "solutions": [
-        {
-          "action": "Réduire les temporisations",
-          "details": "Accélérer la détection et le basculement"
-        },
-        {
-          "action": "Passer en mode automatique",
-          "details": "Désactiver le mode manuel si activé"
-        },
-        {
-          "action": "Calibrer la détection",
-          "details": "Ajuster les seuils de détection de coupure"
-        },
-        {
-          "action": "Tester le commutateur",
-          "details": "Vérifier le bon fonctionnement du relais de transfert"
-        }
-      ],
-      "prevention": "Configurez des temps de basculement optimaux pour vos besoins."
+      "prevention": "Adaptez les paramètres à la qualité de votre réseau ENEO local."
     },
     "diagnosis_switching_interruption": {
-      "title": "Interruptions lors du basculement",
-      "description": "Des coupures momentanées se produisent pendant le changement de source.",
+      "title": "Interruption lors du basculement",
+      "description": "Il y a une coupure d'électricité pendant le changement de source.",
       "severity": "medium",
       "causes": [
-        "Commutateur de transfert défaillant",
-        "Synchronisation imparfaite",
-        "Temps de basculement trop long",
-        "Problème de phase"
+        "Temps de transfert trop long",
+        "Problème de synchronisation",
+        "Défaut du relais de transfert",
+        "Configuration incorrecte"
       ],
       "solutions": [
         {
-          "action": "Vérifier le commutateur de transfert",
-          "details": "Contrôler l'état des contacts et relais"
+          "action": "Optimiser les paramètres de transfert",
+          "details": "Réduire le temps de basculement au minimum"
         },
         {
-          "action": "Optimiser la synchronisation",
-          "details": "Ajuster les paramètres de synchronisation des phases"
+          "action": "Vérifier la synchronisation",
+          "details": "S'assurer que l'onduleur se synchronise correctement"
         },
         {
-          "action": "Réduire le temps de transfert",
-          "details": "Minimiser le délai de basculement"
+          "action": "Tester le relais de transfert",
+          "details": "Vérifier la vitesse de commutation du relais"
         },
         {
-          "action": "Installer un UPS en complément",
-          "details": "Ajouter une alimentation sans interruption pour les charges sensibles"
+          "action": "Considérer un onduleur UPS",
+          "details": "Envisager un modèle avec transfert sans interruption"
         }
       ],
-      "prevention": "Choisissez un onduleur hybride avec transfert rapide et sans interruption."
+      "prevention": "Choisissez un onduleur avec un temps de transfert adapté à vos besoins."
     },
-    "diagnosis_overload_hybrid": {
-      "title": "Surcharge du système hybride",
-      "description": "La demande de puissance dépasse la capacité de l'onduleur hybride.",
+    "diagnosis_no_solar_production": {
+      "title": "Aucune production solaire",
+      "description": "Les panneaux ne produisent aucune électricité.",
       "severity": "high",
       "causes": [
-        "Trop d'appareils simultanés",
-        "Onduleur sous-dimensionné",
-        "Pic de consommation",
-        "Défaut de répartition de charge"
+        "Fusibles DC grillés",
+        "Connexions DC défaillantes",
+        "Panneaux endommagés",
+        "Problème de l'entrée MPPT"
       ],
       "solutions": [
         {
-          "action": "Réduire la charge immédiatement",
-          "details": "Éteindre les appareils non prioritaires"
+          "action": "Vérifier les fusibles DC",
+          "details": "Contrôler et remplacer les fusibles côté panneaux"
         },
         {
-          "action": "Répartir la consommation",
-          "details": "Éviter l'utilisation simultanée d'appareils puissants"
+          "action": "Mesurer la tension des panneaux",
+          "details": "Vérifier la tension à vide de chaque string"
         },
         {
-          "action": "Vérifier la capacité de l'onduleur",
-          "details": "S'assurer que la puissance installée est adaptée"
+          "action": "Contrôler les connexions DC",
+          "details": "Vérifier toutes les connexions des panneaux"
         },
         {
-          "action": "Envisager un upgrade",
-          "details": "Installer un onduleur plus puissant si nécessaire"
+          "action": "Tester l'entrée MPPT de l'onduleur",
+          "details": "Vérifier que l'entrée DC de l'onduleur fonctionne"
         }
       ],
-      "prevention": "Dimensionnez l'onduleur selon vos besoins de puissance de pointe."
+      "prevention": "Protégez le circuit DC et effectuez des contrôles réguliers."
     },
-    "diagnosis_load_detection_issue": {
-      "title": "Problème de détection de charge",
-      "description": "L'onduleur ne détecte pas correctement la consommation.",
+    "diagnosis_low_solar_production": {
+      "title": "Production solaire très réduite",
+      "description": "Les panneaux produisent beaucoup moins que la normale.",
       "severity": "medium",
       "causes": [
-        "Capteur de courant défaillant",
+        "Panneaux sales ou ombragés",
+        "Défaillance de certains panneaux",
         "Problème de câblage",
-        "Configuration incorrecte",
-        "Charge trop faible"
+        "Défaut MPPT de l'onduleur"
       ],
-      "solutions": [
-        {
-          "action": "Vérifier les connexions de mesure",
-          "details": "Contrôler le câblage des capteurs de courant"
-        },
-        {
-          "action": "Calibrer les capteurs",
-          "details": "Effectuer une calibration des mesures"
-        },
-        {
-          "action": "Tester avec une charge connue",
-          "details": "Brancher un appareil de puissance connue pour tester"
-        },
-        {
-          "action": "Vérifier la configuration",
-          "details": "S'assurer que les paramètres de mesure sont corrects"
-        }
-      ],
-      "prevention": "Installez correctement les capteurs de mesure dès le départ."
-    },
-    "diagnosis_normal_operation": {
-      "title": "Fonctionnement normal du système",
-      "description": "Le système hybride fonctionne correctement selon sa configuration.",
-      "severity": "low",
-      "causes": ["Système bien configuré", "Composants en bon état", "Utilisation optimale"],
-      "solutions": [
-        {
-          "action": "Maintenir la surveillance",
-          "details": "Continuer à monitorer les performances"
-        },
-        {
-          "action": "Effectuer la maintenance préventive",
-          "details": "Suivre le planning de maintenance recommandé"
-        },
-        {
-          "action": "Optimiser si possible",
-          "details": "Chercher des améliorations mineures"
-        }
-      ],
-      "prevention": "Continuez les bonnes pratiques d'utilisation et de maintenance."
-    },
-    "diagnosis_priority_issue": {
-      "title": "Problème de priorité énergétique",
-      "description": "Le système n'utilise pas les sources d'énergie dans l'ordre optimal.",
-      "severity": "medium",
-      "causes": [
-        "Configuration de priorité incorrecte",
-        "Paramètres d'usine non adaptés",
-        "Logique de contrôle défaillante",
-        "Seuils mal configurés"
-      ],
-      "solutions": [
-        {
-          "action": "Reconfigurer les priorités",
-          "details": "Définir l'ordre : Solaire > Batterie > Réseau"
-        },
-        {
-          "action": "Ajuster les seuils",
-          "details": "Configurer les niveaux de basculement entre sources"
-        },
-        {
-          "action": "Mettre à jour le firmware",
-          "details": "Installer la dernière version du logiciel"
-        },
-        {
-          "action": "Consulter le manuel",
-          "details": "Comprendre toutes les options de configuration"
-        }
-      ],
-      "prevention": "Configurez correctement les priorités dès l'installation."
-    },
-    "diagnosis_logic_error": {
-      "title": "Erreur de logique de contrôle",
-      "description": "Le comportement du système est incohérent ou imprévisible.",
-      "severity": "high",
-      "causes": ["Bug du firmware", "Configuration contradictoire", "Défaut de programmation", "Corruption de données"],
-      "solutions": [
-        {
-          "action": "Redémarrer complètement le système",
-          "details": "Effectuer un reset complet de l'onduleur"
-        },
-        {
-          "action": "Restaurer la configuration d'usine",
-          "details": "Remettre les paramètres par défaut puis reconfigurer"
-        },
-        {
-          "action": "Mettre à jour le firmware",
-          "details": "Installer la dernière version disponible"
-        },
-        {
-          "action": "Contacter le support technique",
-          "details": "Signaler le problème au fabricant"
-        }
-      ],
-      "prevention": "Effectuez les mises à jour firmware et sauvegardez la configuration."
-    },
-    "diagnosis_solar_system_issue": {
-      "title": "Problème du système solaire",
-      "description": "Défaut dans la partie photovoltaïque malgré de bonnes conditions.",
-      "severity": "high",
-      "causes": ["Panneaux défaillants", "Problème de câblage DC", "Défaut du MPPT", "Connexions oxydées"],
-      "solutions": [
-        {
-          "action": "Tester les panneaux individuellement",
-          "details": "Mesurer la tension et courant de chaque string"
-        },
-        {
-          "action": "Vérifier les connexions DC",
-          "details": "Contrôler tous les connecteurs MC4 et câbles"
-        },
-        {
-          "action": "Contrôler le MPPT intégré",
-          "details": "Vérifier le bon fonctionnement du tracker"
-        },
-        {
-          "action": "Nettoyer les connexions",
-          "details": "Éliminer l'oxydation et resserrer les bornes"
-        }
-      ],
-      "prevention": "Effectuez une maintenance régulière des connexions DC."
-    },
-    "diagnosis_panel_maintenance_needed": {
-      "title": "Maintenance des panneaux nécessaire",
-      "description": "Les panneaux solaires nécessitent un nettoyage ou une intervention.",
-      "severity": "low",
-      "causes": ["Accumulation de saleté", "Ombrage par végétation", "Dépôts atmosphériques", "Fientes d'oiseaux"],
       "solutions": [
         {
           "action": "Nettoyer les panneaux",
-          "details": "Utiliser de l'eau claire et une brosse douce"
+          "details": "Éliminer la poussière et les salissures"
         },
         {
-          "action": "Éliminer les ombrages",
-          "details": "Tailler la végétation environnante"
+          "action": "Vérifier l'absence d'ombrage",
+          "details": "S'assurer qu'aucun obstacle ne fait de l'ombre"
         },
         {
-          "action": "Installer des protections",
-          "details": "Mettre en place des dispositifs anti-oiseaux"
+          "action": "Tester chaque string individuellement",
+          "details": "Mesurer la production de chaque groupe de panneaux"
+        },
+        {
+          "action": "Vérifier le fonctionnement MPPT",
+          "details": "Contrôler que l'onduleur optimise correctement"
+        }
+      ],
+      "prevention": "Maintenez les panneaux propres et surveillez leur production individuelle."
+    },
+    "diagnosis_moderate_solar_reduction": {
+      "title": "Réduction modérée de production solaire",
+      "description": "La production solaire a diminué de façon modérée.",
+      "severity": "low",
+      "causes": [
+        "Conditions météorologiques",
+        "Accumulation progressive de saleté",
+        "Vieillissement des panneaux",
+        "Paramètres MPPT non optimaux"
+      ],
+      "solutions": [
+        {
+          "action": "Effectuer un nettoyage des panneaux",
+          "details": "Nettoyer régulièrement pour maintenir l'efficacité"
+        },
+        {
+          "action": "Optimiser les paramètres MPPT",
+          "details": "Ajuster les réglages pour maximiser la production"
+        },
+        {
+          "action": "Surveiller l'évolution",
+          "details": "Suivre la production pour détecter une dégradation"
         },
         {
           "action": "Planifier la maintenance",
-          "details": "Établir un calendrier de nettoyage régulier"
+          "details": "Établir un calendrier de maintenance préventive"
         }
       ],
-      "prevention": "Nettoyez régulièrement et surveillez l'environnement des panneaux."
-    },
-    "diagnosis_weather_impact": {
-      "title": "Impact des conditions météorologiques",
-      "description": "La production est réduite à cause du mauvais temps.",
-      "severity": "low",
-      "causes": ["Couverture nuageuse", "Saison peu ensoleillée", "Conditions temporaires", "Brouillard ou brume"],
-      "solutions": [
-        {
-          "action": "Utiliser le réseau en complément",
-          "details": "Laisser le système basculer sur ENEO"
-        },
-        {
-          "action": "Optimiser la consommation",
-          "details": "Reporter les gros consommateurs"
-        },
-        {
-          "action": "Surveiller les prévisions",
-          "details": "Planifier selon la météo"
-        },
-        {
-          "action": "Attendre l'amélioration",
-          "details": "La production reprendra avec le soleil"
-        }
-      ],
-      "prevention": "Dimensionnez le système avec une marge pour les périodes difficiles."
-    },
-    "diagnosis_system_optimization": {
-      "title": "Optimisation du système possible",
-      "description": "Le système fonctionne mais peut être optimisé.",
-      "severity": "low",
-      "causes": [
-        "Configuration basique",
-        "Paramètres non optimisés",
-        "Potentiel d'amélioration",
-        "Évolution des besoins"
-      ],
-      "solutions": [
-        {
-          "action": "Analyser les données de consommation",
-          "details": "Étudier les patterns d'utilisation"
-        },
-        {
-          "action": "Ajuster les paramètres",
-          "details": "Optimiser selon les habitudes réelles"
-        },
-        {
-          "action": "Programmer les charges",
-          "details": "Automatiser l'utilisation des appareils"
-        },
-        {
-          "action": "Considérer des améliorations",
-          "details": "Évaluer l'ajout de composants"
-        }
-      ],
-      "prevention": "Révisez régulièrement la configuration selon l'évolution des besoins."
-    },
-    "diagnosis_configuration_needed": {
-      "title": "Configuration à optimiser",
-      "description": "Les paramètres du système nécessitent des ajustements.",
-      "severity": "medium",
-      "causes": [
-        "Configuration d'usine générique",
-        "Paramètres non adaptés",
-        "Évolution des besoins",
-        "Mauvaise compréhension initiale"
-      ],
-      "solutions": [
-        {
-          "action": "Étudier le manuel utilisateur",
-          "details": "Comprendre tous les paramètres disponibles"
-        },
-        {
-          "action": "Configurer selon les besoins",
-          "details": "Adapter les réglages à votre situation"
-        },
-        {
-          "action": "Tester les modifications",
-          "details": "Valider chaque changement de configuration"
-        },
-        {
-          "action": "Documenter la configuration",
-          "details": "Noter tous les paramètres modifiés"
-        }
-      ],
-      "prevention": "Prenez le temps de bien configurer le système dès l'installation."
-    },
-    "diagnosis_configuration_help": {
-      "title": "Aide à la configuration nécessaire",
-      "description": "Une assistance technique est recommandée pour optimiser le système.",
-      "severity": "low",
-      "causes": ["Complexité du système", "Manque d'expérience", "Documentation insuffisante", "Besoins spécifiques"],
-      "solutions": [
-        {
-          "action": "Contacter l'installateur",
-          "details": "Demander une session de formation"
-        },
-        {
-          "action": "Faire appel à un technicien",
-          "details": "Programmer une intervention d'optimisation"
-        },
-        {
-          "action": "Consulter la documentation",
-          "details": "Étudier les guides et manuels disponibles"
-        },
-        {
-          "action": "Rejoindre des communautés",
-          "details": "Échanger avec d'autres utilisateurs"
-        }
-      ],
-      "prevention": "Prévoyez une formation lors de l'installation du système."
-    },
-    "diagnosis_display_issue": {
-      "title": "Problème d'affichage",
-      "description": "L'écran de l'onduleur ne fonctionne pas correctement.",
-      "severity": "medium",
-      "causes": [
-        "Défaut de l'écran LCD",
-        "Problème de rétroéclairage",
-        "Défaut électronique",
-        "Configuration d'affichage"
-      ],
-      "solutions": [
-        {
-          "action": "Vérifier les paramètres d'affichage",
-          "details": "Contrôler la configuration de l'écran"
-        },
-        {
-          "action": "Redémarrer l'onduleur",
-          "details": "Effectuer un reset pour réinitialiser l'affichage"
-        },
-        {
-          "action": "Utiliser l'application mobile",
-          "details": "Accéder aux informations via smartphone"
-        },
-        {
-          "action": "Contacter le service technique",
-          "details": "Signaler le défaut d'affichage"
-        }
-      ],
-      "prevention": "Protégez l'onduleur des conditions extrêmes."
-    },
-    "diagnosis_check_grid_connection": {
-      "title": "Vérification de la connexion réseau nécessaire",
-      "description": "Il faut contrôler la connexion au réseau ENEO.",
-      "severity": "medium",
-      "causes": ["Problème de connexion", "Disjoncteur réseau ouvert", "Défaut de câblage", "Protection déclenchée"],
-      "solutions": [
-        {
-          "action": "Vérifier le disjoncteur principal",
-          "details": "S'assurer qu'il est en position fermée"
-        },
-        {
-          "action": "Contrôler les connexions réseau",
-          "details": "Vérifier le câblage d'arrivée ENEO"
-        },
-        {
-          "action": "Mesurer la tension réseau",
-          "details": "Contrôler la présence et qualité du réseau"
-        },
-        {
-          "action": "Tester chez les voisins",
-          "details": "Confirmer si c'est un problème local ou général"
-        }
-      ],
-      "prevention": "Vérifiez régulièrement l'état des connexions réseau."
+      "prevention": "Effectuez une maintenance régulière et surveillez les performances."
     }
   }
 }
