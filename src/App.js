@@ -33,7 +33,7 @@ function App() {
               className={activeTab === 'estimation' ? 'active' : ''} 
               onClick={() => setActiveTab('estimation')}
             >
-              📈📐Mesures & Estimation
+              📈🛒MarketPlace & Estimation
             </li>
           </ul>
         </nav>
@@ -47,7 +47,7 @@ function App() {
 
       <footer className="app-footer">
         <p>&copy; {new Date().getFullYear()} 🟢🟡PV DiaMapp - Tous droits réservés (version 1.3)</p>
-        <h1>👷🏾</h1>
+        <h5>Par DANIEL TCHANIA 👷🏾</h5>
       </footer>
     </div>
   );

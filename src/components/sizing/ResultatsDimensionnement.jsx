@@ -185,7 +185,7 @@ const ResultatsDimensionnement = ({ donnees, onRetour, onExportPDF }) => {
                 </div>
                 <div className="resultat-item">
                   <span className="resultat-label">Efficacité configuration:</span>
-                  <span className="resultat-value">{resultats.configurationPanneaux.efficaciteConfiguration}%</span>
+                  
                 </div>
               </div>
             </div>
@@ -215,13 +215,13 @@ const ResultatsDimensionnement = ({ donnees, onRetour, onExportPDF }) => {
                   <div key={index} className="alternative-item">
                     <div className="alternative-header">
                       <span className="alternative-tension">{config.tensionSysteme}V</span>
-                      <span className="alternative-score">niveau d'exactitude: {config.score.toFixed(0)}</span>
+                     
                     </div> 
                     <div className="alternative-details">
                       <p>
                         {config.panneauxEnSerie} en série × {config.chainesParalleles} chaînes
                       </p>
-                      <p>Efficacité: {config.efficaciteConfiguration}</p>
+                    
                     </div>
                   </div>
                 ))}

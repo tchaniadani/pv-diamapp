@@ -3,7 +3,7 @@
 const SystemSchematic = ({ systemType, onComponentSelect, onBack }) => {
   const schematics = {
     autonome: {
-      title: "Système Autonome",
+      title: "→Système Autonome",
       description: "Cliquez sur les composants diagnosticables (onduleur, régulateur)",
       components: [
         { id: "panneaux", name: "Panneaux Solaires", x: 20, y: 10, width: 25, height: 15, clickable: false },
@@ -18,7 +18,7 @@ const SystemSchematic = ({ systemType, onComponentSelect, onBack }) => {
       ],
     },
     hybride: {
-      title: "Système Hybride",
+      title: "→Système Hybride",
       description: "Cliquez sur les composants diagnosticables (onduleur hybride)",
       components: [
         { id: "panneaux", name: "Panneaux Solaires", x: 15, y: 10, width: 25, height: 15, clickable: false },
@@ -33,7 +33,7 @@ const SystemSchematic = ({ systemType, onComponentSelect, onBack }) => {
       ],
     },
     connecte: {
-      title: "Système Connecté au Réseau",
+      title: "→Système Connecté au Réseau",
       description: "Cliquez sur les composants diagnosticables (onduleur string)",
       components: [
         { id: "panneaux", name: "Panneaux Solaires", x: 20, y: 20, width: 25, height: 15, clickable: false },
@@ -46,7 +46,7 @@ const SystemSchematic = ({ systemType, onComponentSelect, onBack }) => {
       ],
     },
     pompage: {
-      title: "Système de Pompage Solaire",
+      title: "→Système de Pompage Solaire",
       description: "Cliquez sur les composants diagnosticables (contrôleur de pompe)",
       components: [
         { id: "panneaux", name: "Panneaux Solaires", x: 20, y: 15, width: 25, height: 15, clickable: false },
