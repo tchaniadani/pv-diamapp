@@ -1,11 +1,14 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import "../../styles.css"
 
 const SiteEstimation = () => {
   const [selectedImage, setSelectedImage] = useState(null)
   const [imageLoadStates, setImageLoadStates] = useState({})
+
+  // État pour le bouton scroll to top
+  const [showScrollTop, setShowScrollTop] = useState(false)
 
   // Liste des images/flyers - MODIFIEZ ICI pour utiliser directement des placeholders
   const images = [
@@ -37,28 +40,28 @@ const SiteEstimation = () => {
       src: "/placeholder.svg?height=300&width=400&text=Guide%20Installation", // Placeholder direct
       category: "Guides",
     },
-     {
+    {
       id: 5,
       title: "Service en cours d'actualisation",
       description: "Service en cours d'actualisation",
       src: "/placeholder.svg?height=300&width=400&text=Guide%20Installation", // Placeholder direct
       category: "Guides",
     },
-     {
+    {
       id: 6,
       title: "➡️Catalogues SAHEL SOLAR-Maroua ⤵️⤵️⤵️",
       description: "Service En cours d'actualisation",
       src: "/placeholder.svg?height=300&width=400&text=Guide%20Installation", // Placeholder direct
       category: "Guides",
     },
-     {
+    {
       id: 7,
       title: "Service en cours d'actualisation",
       description: "Service en cours d'actualisation",
       src: "/placeholder.svg?height=300&width=400&text=Guide%20Installation", // Placeholder direct
       category: "Guides",
     },
-     {
+    {
       id: 8,
       title: "➡️Catalogues BERCOTECH-Yde/Mra ⤵️⤵️⤵️",
       description: "Service En cours d'actualisation",
@@ -75,6 +78,24 @@ const SiteEstimation = () => {
     // Quand vous ajoutez vos vraies images, remplacez par :
     // src: "/images/flyers/nom-de-votre-image.jpg",
   ]
+
+  // Gestion du scroll pour le bouton
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.pageYOffset > 300)
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  // Fonction pour remonter en haut
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
+  }
 
   const handleImageLoad = (imageId) => {
     setImageLoadStates((prev) => ({
@@ -168,13 +189,21 @@ const SiteEstimation = () => {
       {/* Instructions pour ajouter des images */}
       <div className="instructions-section">
         <h4>📞 Demande d'assistance pour amples informations, bien vouloir contactez les fournisseurs!</h4>
-        <div className="instructions-content">
-          
-          
-         
-          
-        </div>
+        <div className="instructions-content"></div>
       </div>
+
+      {/* Bouton de retour en haut */}
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className="scroll-to-top-btn"
+          aria-label="Retour en haut de la page"
+          title="Retour en haut"
+        >
+          <span className="scroll-icon">⬆️</span>
+          <span className="scroll-text">Haut</span>
+        </button>
+      )}
     </div>
   )
 }
