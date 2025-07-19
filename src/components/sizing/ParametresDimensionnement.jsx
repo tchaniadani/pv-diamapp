@@ -2,11 +2,12 @@
 
 import { useState, useEffect } from "react"
 import { calculsDimensionnement } from "../../utils/calculsDimensionnement"
-import { panneauxManager } from "../../utils/panneauxManager"
+import { panneauxManager } from "../../utils/panneauxManager.js"
 
 const ParametresDimensionnement = ({ besoinEnergetique, onRetour, onResultatsCalcules }) => {
   // États existants
   const [ville, setVille] = useState("")
+  const [moisSelectionne, setMoisSelectionne] = useState("") // NOUVEAU : État pour le mois sélectionné
   const [irradiance, setIrradiance] = useState("")
   const [azimut, setAzimut] = useState("")
   const [inclinaison, setInclinaison] = useState("")
@@ -39,7 +40,24 @@ const ParametresDimensionnement = ({ besoinEnergetique, onRetour, onResultatsCal
     ville: false,
     puissancePanneau: false,
     typeSysteme: false,
+    tensionSysteme: false,
   })
+
+  // NOUVEAU : Liste des mois
+  const moisOptions = [
+    { value: "janvier", label: "Janvier" },
+    { value: "fevrier", label: "Février" },
+    { value: "mars", label: "Mars" },
+    { value: "avril", label: "Avril" },
+    { value: "mai", label: "Mai" },
+    { value: "juin", label: "Juin" },
+    { value: "juillet", label: "Juillet" },
+    { value: "aout", label: "Août" },
+    { value: "septembre", label: "Septembre" },
+    { value: "octobre", label: "Octobre" },
+    { value: "novembre", label: "Novembre" },
+    { value: "decembre", label: "Décembre" },
+  ]
 
   // Charger les données des villes et panneaux
   useEffect(() => {
@@ -70,8 +88,9 @@ const ParametresDimensionnement = ({ besoinEnergetique, onRetour, onResultatsCal
       ville: !ville,
       puissancePanneau: !puissancePanneau,
       typeSysteme: !typeSysteme,
+      tensionSysteme: !tensionSysteme,
     })
-  }, [ville, puissancePanneau, typeSysteme])
+  }, [ville, puissancePanneau, typeSysteme, tensionSysteme])
 
   // Met à jour les informations du panneau sélectionné
   useEffect(() => {
@@ -84,19 +103,28 @@ const ParametresDimensionnement = ({ besoinEnergetique, onRetour, onResultatsCal
     }
   }, [puissancePanneau])
 
-  // Met à jour automatiquement les données associées à la ville
+  // MODIFIÉ : Met à jour automatiquement les données associées à la ville et au mois
   useEffect(() => {
     const villeData = villesData.find((v) => v.nom === ville)
     if (villeData) {
-      setIrradiance(villeData.irradiance)
-      setAzimut(`${villeData.azimut}° (${villeData.orientation})`)
-      setInclinaison(villeData.inclinaison)
+      if (moisSelectionne && villeData.donneesMensuelles && villeData.donneesMensuelles[moisSelectionne]) {
+        // Utiliser les données du mois sélectionné
+        const donneesMois = villeData.donneesMensuelles[moisSelectionne]
+        setIrradiance(donneesMois.irradiance)
+        setAzimut(`${donneesMois.azimut}° (${donneesMois.orientation})`)
+        setInclinaison(donneesMois.inclinaison)
+      } else {
+        // Utiliser les données moyennes annuelles
+        setIrradiance(villeData.irradiance)
+        setAzimut(`${villeData.azimut}° (${villeData.orientation})`)
+        setInclinaison(villeData.inclinaison)
+      }
     } else {
       setIrradiance("")
       setAzimut("")
       setInclinaison("")
     }
-  }, [ville, villesData])
+  }, [ville, moisSelectionne, villesData])
 
   // Met à jour la description du type de système
   useEffect(() => {
@@ -138,7 +166,10 @@ const ParametresDimensionnement = ({ besoinEnergetique, onRetour, onResultatsCal
 
   // Vérifier si le bouton peut être activé
   const peutCalculer =
-    !champsObligatoires.ville && !champsObligatoires.puissancePanneau && !champsObligatoires.typeSysteme
+    !champsObligatoires.ville &&
+    !champsObligatoires.puissancePanneau &&
+    !champsObligatoires.typeSysteme &&
+    !champsObligatoires.tensionSysteme
 
   // Filtrer les panneaux par marque
   const panneauxFiltres = marqueSelectionnee
@@ -176,13 +207,14 @@ const ParametresDimensionnement = ({ besoinEnergetique, onRetour, onResultatsCal
     onResultatsCalcules({
       parametres: {
         ville: ville || "Non spécifiée",
+        moisSelectionne: moisSelectionne || "Moyenne annuelle",
         irradiance: irradiance || "Valeur par défaut utilisée",
         azimut: azimut || "Non spécifié",
         inclinaison: inclinaison || "Non spécifiée",
         puissancePanneau: puissancePanneau || "Valeur par défaut utilisée",
         typeSysteme: typeSysteme || "Non spécifié",
         descriptionSysteme,
-        tensionSysteme: tensionSysteme || "Valeur par défaut utilisée",
+        tensionSysteme: tensionSysteme || "Non spécifiée",
         autonomieJours: typeSysteme && typeSysteme.match(/Hybride|Autonome|Backup/) ? autonomieJours : null,
         tensionBatterie: typeSysteme && typeSysteme.match(/Hybride|Autonome|Backup/) ? tensionBatterie : null,
         capaciteBatterie: typeSysteme && typeSysteme.match(/Hybride|Autonome|Backup/) ? capaciteBatterie : null,
@@ -231,13 +263,39 @@ const ParametresDimensionnement = ({ besoinEnergetique, onRetour, onResultatsCal
           {champsObligatoires.ville && <p className="field-warning">⚠️</p>}
         </div>
 
+        {/* NOUVEAU : Sélection du mois */}
+        {ville && (
+          <div className="form-group">
+            <label htmlFor="moisSelectionne">Mois de référence:</label>
+            <select
+              id="moisSelectionne"
+              value={moisSelectionne}
+              onChange={(e) => setMoisSelectionne(e.target.value)}
+              className="select-primary"
+            >
+              <option value="">-- Moyenne annuelle --</option>
+              {moisOptions.map((mois) => (
+                <option key={mois.value} value={mois.value}>
+                  {mois.label}
+                </option>
+              ))}
+            </select>
+            <p className="input-help">
+              →Sélectionnez un mois spécifique pour des données plus précises ou laissez vide pour la moyenne annuelle.
+            </p>
+          </div>
+        )}
+
         {/* Données automatiques */}
         {ville && (
           <div className="auto-data-section">
-            <h4>Données de localisation</h4>
+            <h4>
+              Données de localisation{" "}
+              {moisSelectionne && `(${moisOptions.find((m) => m.value === moisSelectionne)?.label})`}
+            </h4>
             <div className="auto-data-grid">
               <div className="auto-data-item">
-                <span className="auto-data-label">Irradiance moyenne:</span>
+                <span className="auto-data-label">Irradiance:</span>
                 <span className="auto-data-value">{irradiance} kWh/m²/j</span>
               </div>
               <div className="auto-data-item">
@@ -256,7 +314,7 @@ const ParametresDimensionnement = ({ besoinEnergetique, onRetour, onResultatsCal
         <div className="panneau-section">
           <h4>Caractéristiques du panneau</h4>
 
-          {/* NOUVEAU : Sélection par marque */}
+          {/* Sélection par marque */}
           <div className="form-group">
             <label htmlFor="marque">Marque de panneau:</label>
             <select
@@ -458,20 +516,23 @@ const ParametresDimensionnement = ({ besoinEnergetique, onRetour, onResultatsCal
 
         {/* Tension système */}
         <div className="form-group">
-          <label htmlFor="tensionSysteme">Tension système:</label>
+          <label htmlFor="tensionSysteme">
+            Tension système: <span className="required-star">*</span>
+          </label>
           <select
             id="tensionSysteme"
             value={tensionSysteme}
             onChange={(e) => setTensionSysteme(e.target.value)}
-            className="select-primary"
+            className={`select-primary ${champsObligatoires.tensionSysteme ? "field-missing" : ""}`}
           >
-            <option value="">-- Choisir (24V par défaut) --</option>
+            <option value="">-- Choisir la tension --</option>
             {[12, 24, 36, 48].map((v) => (
               <option key={v} value={v}>
                 {v} V
               </option>
             ))}
           </select>
+          {champsObligatoires.tensionSysteme && <p className="field-warning">⚠️</p>}
           {panneauSelectionne && tensionSysteme && (
             <p className="input-help">
               →Avec ce panneau ({panneauSelectionne.tensionNominale}V nominal), vous aurez{" "}
