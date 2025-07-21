@@ -7,7 +7,7 @@ import { panneauxManager } from "../../utils/panneauxManager.js"
 const ParametresDimensionnement = ({ besoinEnergetique, onRetour, onResultatsCalcules }) => {
   // États existants
   const [ville, setVille] = useState("")
-  const [moisSelectionne, setMoisSelectionne] = useState("") // NOUVEAU : État pour le mois sélectionné
+  const [moisSelectionne, setMoisSelectionne] = useState("") // État pour le mois sélectionné
   const [irradiance, setIrradiance] = useState("")
   const [azimut, setAzimut] = useState("")
   const [inclinaison, setInclinaison] = useState("")
@@ -21,10 +21,8 @@ const ParametresDimensionnement = ({ besoinEnergetique, onRetour, onResultatsCal
   const [typeInstallation, setTypeInstallation] = useState("toiture")
   const [orientationPanneaux, setOrientationPanneaux] = useState("paysage")
 
-  // États pour les distances personnalisées
+  // SIMPLIFIÉ : Seule la distance panneaux-régulateur est demandée
   const [distancePanneauxRegulateur, setDistancePanneauxRegulateur] = useState(10)
-  const [distanceRegulateurBatteries, setDistanceRegulateurBatteries] = useState(5)
-  const [distanceBatteriesOnduleur, setDistanceBatteriesOnduleur] = useState(3)
 
   // États pour les panneaux
   const [panneauxDisponibles, setPanneauxDisponibles] = useState([])
@@ -43,7 +41,7 @@ const ParametresDimensionnement = ({ besoinEnergetique, onRetour, onResultatsCal
     tensionSysteme: false,
   })
 
-  // NOUVEAU : Liste des mois
+  // Liste des mois
   const moisOptions = [
     { value: "janvier", label: "Janvier" },
     { value: "fevrier", label: "Février" },
@@ -103,7 +101,7 @@ const ParametresDimensionnement = ({ besoinEnergetique, onRetour, onResultatsCal
     }
   }, [puissancePanneau])
 
-  // MODIFIÉ : Met à jour automatiquement les données associées à la ville et au mois
+  // Met à jour automatiquement les données associées à la ville et au mois
   useEffect(() => {
     const villeData = villesData.find((v) => v.nom === ville)
     if (villeData) {
@@ -198,8 +196,7 @@ const ParametresDimensionnement = ({ besoinEnergetique, onRetour, onResultatsCal
       typeInstallation,
       orientationPanneaux,
       distancePanneauxRegulateur: Number.parseFloat(distancePanneauxRegulateur),
-      distanceRegulateurBatteries: Number.parseFloat(distanceRegulateurBatteries),
-      distanceBatteriesOnduleur: Number.parseFloat(distanceBatteriesOnduleur),
+      // SUPPRIMÉ : Les autres distances sont maintenant fixées par défaut
     }
 
     const resultats = calculsDimensionnement(params)
@@ -223,8 +220,6 @@ const ParametresDimensionnement = ({ besoinEnergetique, onRetour, onResultatsCal
         typeInstallation,
         orientationPanneaux,
         distancePanneauxRegulateur,
-        distanceRegulateurBatteries,
-        distanceBatteriesOnduleur,
       },
       resultats,
     })
@@ -263,7 +258,7 @@ const ParametresDimensionnement = ({ besoinEnergetique, onRetour, onResultatsCal
           {champsObligatoires.ville && <p className="field-warning">⚠️</p>}
         </div>
 
-        {/* NOUVEAU : Sélection du mois */}
+        {/* Sélection du mois */}
         {ville && (
           <div className="form-group">
             <label htmlFor="moisSelectionne">Mois de référence:</label>
@@ -428,11 +423,12 @@ const ParametresDimensionnement = ({ besoinEnergetique, onRetour, onResultatsCal
           </div>
         </div>
 
-        {/* Distances personnalisées */}
+        {/* SIMPLIFIÉ : Distance de câblage */}
         <div className="distances-section">
-          <h4>Distances de câblage</h4>
+          <h4>Distance de câblage</h4>
           <p className="section-help">
-            →Saisissez les distances réelles de votre installation pour un calcul précis des sections de câbles.
+            →Saisissez la distance entre les panneaux et le régulateur. Les autres distances sont fixées par défaut à
+            3.5m.
           </p>
 
           <div className="form-group">
@@ -451,39 +447,12 @@ const ParametresDimensionnement = ({ besoinEnergetique, onRetour, onResultatsCal
             </div>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="distanceRegulateurBatteries">Distance Régulateur → Batteries:</label>
-            <div className="input-with-unit">
-              <input
-                id="distanceRegulateurBatteries"
-                type="number"
-                value={distanceRegulateurBatteries}
-                onChange={(e) => setDistanceRegulateurBatteries(e.target.value)}
-                className="input-primary"
-                min="1"
-                step="0.5"
-              />
-              <span className="input-unit">m</span>
-            </div>
+          <div className="distances-info">
+            <p className="info-note">
+              📝 <strong>Note:</strong> Les distances Régulateur→Batteries et Batteries→Onduleur sont fixées à 3.5m par
+              défaut pour simplifier les calculs.
+            </p>
           </div>
-
-          {typeSysteme && typeSysteme.match(/Hybride|Autonome|Backup/) && (
-            <div className="form-group">
-              <label htmlFor="distanceBatteriesOnduleur">Distance Batteries → Onduleur:</label>
-              <div className="input-with-unit">
-                <input
-                  id="distanceBatteriesOnduleur"
-                  type="number"
-                  value={distanceBatteriesOnduleur}
-                  onChange={(e) => setDistanceBatteriesOnduleur(e.target.value)}
-                  className="input-primary"
-                  min="1"
-                  step="0.5"
-                />
-                <span className="input-unit">m</span>
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Type de système */}
@@ -632,6 +601,23 @@ const ParametresDimensionnement = ({ besoinEnergetique, onRetour, onResultatsCal
           </button>
         </div>
       </div>
+
+      {/* Styles CSS pour la nouvelle section */}
+      <style jsx>{`
+        .distances-info {
+          background-color: rgba(59, 130, 246, 0.1);
+          border: 1px solid #3b82f6;
+          border-radius: 8px;
+          padding: 15px;
+          margin-top: 15px;
+        }
+        
+        .info-note {
+          margin: 0;
+          color: #3b82f6;
+          font-size: 0.9rem;
+        }
+      `}</style>
     </div>
   )
 }

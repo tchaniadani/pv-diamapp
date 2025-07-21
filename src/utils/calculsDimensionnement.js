@@ -23,8 +23,8 @@ export function calculsDimensionnement(params) {
     typeInstallation = "toiture",
     orientationPanneaux = "paysage",
     distancePanneauxRegulateur = 10,
-    distanceRegulateurBatteries = 5,
-    distanceBatteriesOnduleur = 3,
+    distanceRegulateurBatteries = 3.5, // MODIFIÉ : Fixé par défaut
+    distanceBatteriesOnduleur = 3.5, // MODIFIÉ : Fixé par défaut
   } = params
 
   // Initialiser le tableau des données manquantes
@@ -61,17 +61,17 @@ export function calculsDimensionnement(params) {
   const facteurSecurite = 1.2
 
   // 1. Calculs pour les panneaux solaires avec gestion des valeurs par défaut
-  const irradianceUtilisee = irradiance 
-  const puissanceUtilisee = puissancePanneau 
-  const besoinUtilise = besoinEnergetique 
-  const tensionUtilisee = tensionSysteme 
+  const irradianceUtilisee = irradiance
+  const puissanceUtilisee = puissancePanneau
+  const besoinUtilise = besoinEnergetique
+  const tensionUtilisee = tensionSysteme
 
   const productionParPanneauParJour =
     puissanceUtilisee * irradianceUtilisee * performance * pertesCablage * pertesConversion
   const besoinAvecSecurite = besoinUtilise * facteurSecurite
   const nombrePanneaux = Math.ceil(besoinAvecSecurite / productionParPanneauParJour)
 
-  // NOUVEAU : Calcul de la configuration série/parallèle
+  // Calcul de la configuration série/parallèle
   let configurationPanneaux = null
   let configurationsAlternatives = []
   let validationConfiguration = null
@@ -147,13 +147,15 @@ export function calculsDimensionnement(params) {
   const puissanceRegulateur = courantMaxPanneaux * tensionUtilisee * 1.25
 
   // 4. Calculs pour l'onduleur
-  const puissanceOnduleur = Math.max((besoinUtilise * 1.3) / 24)
+  const puissanceOnduleur = Math.max(besoinUtilise / (8 * 0.8))
 
   // 5. Calculs des câbles avec distances personnalisées
   let resultatscables = null
   try {
+    // MODIFIÉ : Utilisation des nouveaux paramètres
     resultatscables = calculerCablesPersonnalises({
-      courantPanneaux: courantMaxPanneaux,
+      courantUneChaine: panneauSelectionne?.courantMaxPuissance || puissanceUtilisee / tensionUtilisee,
+      nombreChaines: configurationPanneaux?.chainesParalleles || 1,
       tensionSysteme: tensionUtilisee,
       distancePanneauxRegulateur,
       distanceRegulateurBatteries,
@@ -190,7 +192,7 @@ export function calculsDimensionnement(params) {
     panneauSelectionne,
     caracteristiquesPanneaux,
 
-    // NOUVEAU : Configuration série/parallèle
+    // Configuration série/parallèle
     configurationPanneaux,
     validationConfiguration,
     configurationsAlternatives,

@@ -37,6 +37,12 @@ const ResultatsDimensionnement = ({ donnees, onRetour, onExportPDF }) => {
               {parametres.ville}
             </span>
           </div>
+          {parametres.moisSelectionne && (
+            <div className="param-item">
+              <span className="param-label">Mois de référence:</span>
+              <span className="param-value">{parametres.moisSelectionne}</span>
+            </div>
+          )}
           <div className="param-item">
             <span className="param-label">Irradiance:</span>
             <span
@@ -111,7 +117,7 @@ const ResultatsDimensionnement = ({ donnees, onRetour, onExportPDF }) => {
         </div>
       )}
 
-      {/* NOUVELLE SECTION : Configuration série/parallèle */}
+      {/* Configuration série/parallèle */}
       {resultats.configurationPanneaux && !resultats.configurationPanneaux.erreur && (
         <div className="resultats-section">
           <h4>🔗 Configuration série/parallèle des panneaux</h4>
@@ -128,8 +134,6 @@ const ResultatsDimensionnement = ({ donnees, onRetour, onExportPDF }) => {
 
           <div className="configuration-principale">
             <div className="config-schema">
-              
-
               <div className="config-details">
                 <div className="config-item highlight">
                   <span className="config-label">Panneaux en série par chaîne:</span>
@@ -185,7 +189,7 @@ const ResultatsDimensionnement = ({ donnees, onRetour, onExportPDF }) => {
                 </div>
                 <div className="resultat-item">
                   <span className="resultat-label">Efficacité configuration:</span>
-                  
+                  <span className="resultat-value">{resultats.configurationPanneaux.efficaciteConfiguration}%</span>
                 </div>
               </div>
             </div>
@@ -215,13 +219,13 @@ const ResultatsDimensionnement = ({ donnees, onRetour, onExportPDF }) => {
                   <div key={index} className="alternative-item">
                     <div className="alternative-header">
                       <span className="alternative-tension">{config.tensionSysteme}V</span>
-                     
-                    </div> 
+                      <span className="alternative-score">{config.efficaciteConfiguration}%</span>
+                    </div>
                     <div className="alternative-details">
                       <p>
                         {config.panneauxEnSerie} en série × {config.chainesParalleles} chaînes
                       </p>
-                    
+                      <p>Score: {Math.round(config.score)}</p>
                     </div>
                   </div>
                 ))}
@@ -267,7 +271,10 @@ const ResultatsDimensionnement = ({ donnees, onRetour, onExportPDF }) => {
           <div className="resultats-grid">
             <div className="resultat-item highlight">
               <span className="resultat-label">Clamps (pinces) nécessaires:</span>
-              <span className="resultat-value">{resultats.fixations.clamps.nombreClampsTotal}<h5>(04 aux extrémités et 02 entre panneaux)</h5></span>
+              <span className="resultat-value">
+                {resultats.fixations.clamps.nombreClampsTotal}
+                <small> (04 aux extrémités et 02 entre panneaux)</small>
+              </span>
             </div>
             <div className="resultat-item highlight">
               <span className="resultat-label">Rails nécessaires:</span>
@@ -329,10 +336,18 @@ const ResultatsDimensionnement = ({ donnees, onRetour, onExportPDF }) => {
         </div>
       </div>
 
-      {/* Câblage */}
+      {/* Câblage CORRIGÉ */}
       {resultats.cables && (
         <div className="resultats-section">
-          <h4>📏 Dimensionnement des câbles</h4>
+          <h4>📏 Dimensionnement des câbles (sections exactes)</h4>
+
+          {/* Vérification logique */}
+          {resultats.cables.verificationLogique && (
+            <div className="verification-logique">
+              <p className="verification-message">{resultats.cables.verificationLogique.message}</p>
+            </div>
+          )}
+
           <div className="cables-details">
             <div className="cable-section">
               <h5>Panneaux → Régulateur</h5>
@@ -343,9 +358,9 @@ const ResultatsDimensionnement = ({ donnees, onRetour, onExportPDF }) => {
                 </div>
                 <div className="cable-results">
                   <div className="resultat-item highlight">
-                    <span className="resultat-label">Section recommandée:</span>
+                    <span className="resultat-label">Section calculée:</span>
                     <span className="resultat-value">
-                      {resultats.cables.cables.panneauxRegulateur.sectionRecommandee} mm²
+                      {resultats.cables.cables.panneauxRegulateur.sectionCalculee} mm²
                     </span>
                   </div>
                   <div className="resultat-item">
@@ -355,6 +370,7 @@ const ResultatsDimensionnement = ({ donnees, onRetour, onExportPDF }) => {
                     </span>
                   </div>
                 </div>
+                <p className="cable-description">{resultats.cables.cables.panneauxRegulateur.description}</p>
               </div>
             </div>
 
@@ -367,9 +383,9 @@ const ResultatsDimensionnement = ({ donnees, onRetour, onExportPDF }) => {
                 </div>
                 <div className="cable-results">
                   <div className="resultat-item highlight">
-                    <span className="resultat-label">Section recommandée:</span>
+                    <span className="resultat-label">Section calculée:</span>
                     <span className="resultat-value">
-                      {resultats.cables.cables.regulateurBatteries.sectionRecommandee} mm²
+                      {resultats.cables.cables.regulateurBatteries.sectionCalculee} mm²
                     </span>
                   </div>
                   <div className="resultat-item">
@@ -379,6 +395,7 @@ const ResultatsDimensionnement = ({ donnees, onRetour, onExportPDF }) => {
                     </span>
                   </div>
                 </div>
+                <p className="cable-description">{resultats.cables.cables.regulateurBatteries.description}</p>
               </div>
             </div>
 
@@ -392,9 +409,9 @@ const ResultatsDimensionnement = ({ donnees, onRetour, onExportPDF }) => {
                   </div>
                   <div className="cable-results">
                     <div className="resultat-item highlight">
-                      <span className="resultat-label">Section recommandée:</span>
+                      <span className="resultat-label">Section calculée:</span>
                       <span className="resultat-value">
-                        {resultats.cables.cables.batteriesOnduleur.sectionRecommandee} mm²
+                        {resultats.cables.cables.batteriesOnduleur.sectionCalculee} mm²
                       </span>
                     </div>
                     <div className="resultat-item">
@@ -404,10 +421,36 @@ const ResultatsDimensionnement = ({ donnees, onRetour, onExportPDF }) => {
                       </span>
                     </div>
                   </div>
+                  <p className="cable-description">{resultats.cables.cables.batteriesOnduleur.description}</p>
                 </div>
               </div>
             )}
           </div>
+
+          {/* Paramètres de calcul */}
+          {resultats.cables.parametresCalcul && (
+            <div className="parametres-calcul">
+              <h5>Paramètres de calcul utilisés</h5>
+              <div className="parametres-grid">
+                <div className="param-calcul">
+                  <span>Chute de tension max:</span>
+                  <span>{resultats.cables.parametresCalcul.chuteTensionMax}%</span>
+                </div>
+                <div className="param-calcul">
+                  <span>Facteur sécurité panneaux:</span>
+                  <span>{resultats.cables.parametresCalcul.facteurSecuritePanneaux}</span>
+                </div>
+                <div className="param-calcul">
+                  <span>Facteur sécurité régulateur:</span>
+                  <span>{resultats.cables.parametresCalcul.facteurSecuriteRegulateur}</span>
+                </div>
+                <div className="param-calcul">
+                  <span>Facteur sécurité onduleur:</span>
+                  <span>{resultats.cables.parametresCalcul.facteurSecuriteOnduleur}</span>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
 
@@ -422,6 +465,49 @@ const ResultatsDimensionnement = ({ donnees, onRetour, onExportPDF }) => {
 
       {/* Styles CSS pour les nouvelles sections */}
       <style jsx>{`
+        .verification-logique {
+          background-color: rgba(34, 197, 94, 0.1);
+          border: 1px solid #22c55e;
+          border-radius: 8px;
+          padding: 10px 15px;
+          margin-bottom: 20px;
+        }
+        
+        .verification-message {
+          margin: 0;
+          font-weight: bold;
+          color: #22c55e;
+        }
+        
+        .cable-description {
+          font-size: 0.9rem;
+          color: #888;
+          margin-top: 10px;
+          font-style: italic;
+        }
+        
+        .parametres-calcul {
+          background-color: rgba(59, 130, 246, 0.1);
+          border-radius: 8px;
+          padding: 15px;
+          margin-top: 20px;
+        }
+        
+        .parametres-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 10px;
+          margin-top: 10px;
+        }
+        
+        .param-calcul {
+          display: flex;
+          justify-content: space-between;
+          padding: 5px 10px;
+          background-color: rgba(255, 255, 255, 0.1);
+          border-radius: 4px;
+        }
+        
         .validation-badge {
           display: flex;
           align-items: center;
@@ -453,11 +539,6 @@ const ResultatsDimensionnement = ({ donnees, onRetour, onExportPDF }) => {
         
         .config-schema {
           margin-bottom: 20px;
-        }
-        
-        .schema-description {
-          text-align: center;
-          margin-bottom: 15px;
         }
         
         .config-details {
