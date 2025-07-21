@@ -86,7 +86,7 @@ export function calculerCablesPersonnalises(params) {
         distance: distancePanneauxRegulateur,
         courantUtilise: courantTotalPanneaux, // Courant réel utilisé
         coutEstime: calculerCoutCable(cablePanneauxRegulateur.sectionCalculee, distancePanneauxRegulateur * 2),
-        description: `Courant total: ${courantUneChaine}A × ${nombreChaines} chaînes = ${courantTotalPanneaux.toFixed(2)}A`,
+        
       },
 
       regulateurBatteries: {

@@ -122,15 +122,7 @@ const ResultatsDimensionnement = ({ donnees, onRetour, onExportPDF }) => {
         <div className="resultats-section">
           <h4>🔗 Configuration série/parallèle des panneaux</h4>
 
-          {/* Validation de la configuration */}
-          {resultats.validationConfiguration && (
-            <div
-              className={`validation-badge ${resultats.validationConfiguration.estValide ? "validation-ok" : "validation-warning"}`}
-            >
-              <span className="validation-icon">{resultats.validationConfiguration.estValide ? "✅" : "⚠️"}</span>
-              <span className="validation-text">{resultats.validationConfiguration.recommandation}</span>
-            </div>
-          )}
+          
 
           <div className="configuration-principale">
             <div className="config-schema">
@@ -194,44 +186,10 @@ const ResultatsDimensionnement = ({ donnees, onRetour, onExportPDF }) => {
               </div>
             </div>
 
-            {/* Recommandations */}
-            {resultats.configurationPanneaux.recommandations &&
-              resultats.configurationPanneaux.recommandations.length > 0 && (
-                <div className="recommandations-section">
-                  <h5>Recommandations</h5>
-                  <ul className="recommandations-list">
-                    {resultats.configurationPanneaux.recommandations.map((rec, index) => (
-                      <li key={index} className="recommandation-item">
-                        {rec}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+            
           </div>
 
-          {/* Configurations alternatives */}
-          {resultats.configurationsAlternatives && resultats.configurationsAlternatives.length > 0 && (
-            <div className="configurations-alternatives">
-              <h5>💡 Configurations alternatives suggérées</h5>
-              <div className="alternatives-grid">
-                {resultats.configurationsAlternatives.map((config, index) => (
-                  <div key={index} className="alternative-item">
-                    <div className="alternative-header">
-                      <span className="alternative-tension">{config.tensionSysteme}V</span>
-                      <span className="alternative-score">{config.efficaciteConfiguration}%</span>
-                    </div>
-                    <div className="alternative-details">
-                      <p>
-                        {config.panneauxEnSerie} en série × {config.chainesParalleles} chaînes
-                      </p>
-                      <p>Score: {Math.round(config.score)}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+          
         </div>
       )}
 
@@ -339,14 +297,8 @@ const ResultatsDimensionnement = ({ donnees, onRetour, onExportPDF }) => {
       {/* Câblage CORRIGÉ */}
       {resultats.cables && (
         <div className="resultats-section">
-          <h4>📏 Dimensionnement des câbles (sections exactes)</h4>
+          <h4>📏 Dimensionnement des câbles</h4>
 
-          {/* Vérification logique */}
-          {resultats.cables.verificationLogique && (
-            <div className="verification-logique">
-              <p className="verification-message">{resultats.cables.verificationLogique.message}</p>
-            </div>
-          )}
 
           <div className="cables-details">
             <div className="cable-section">
@@ -358,13 +310,14 @@ const ResultatsDimensionnement = ({ donnees, onRetour, onExportPDF }) => {
                 </div>
                 <div className="cable-results">
                   <div className="resultat-item highlight">
-                    <span className="resultat-label">Section calculée:</span>
+                    <span className="resultat-label">Section calculée: </span>
                     <span className="resultat-value">
-                      {resultats.cables.cables.panneauxRegulateur.sectionCalculee} mm²
+                      {(resultats.cables.cables.panneauxRegulateur.sectionCalculee)/3} mm²
                     </span>
+                    <div className="force">Recommandations : 10mm²(12V) ; 6mm²(24V); 4mm²(48V)</div>
                   </div>
                   <div className="resultat-item">
-                    <span className="resultat-label">Chute de tension:</span>
+                    <span className="resultat-label">Chute de tension: </span>
                     <span className="resultat-value">
                       {resultats.cables.cables.panneauxRegulateur.chuteTensionReelle.toFixed(2)}%
                     </span>
@@ -379,14 +332,15 @@ const ResultatsDimensionnement = ({ donnees, onRetour, onExportPDF }) => {
               <div className="cable-info">
                 <div className="cable-params">
                   <span>▫️Distance: {resultats.cables.distances.regulateurBatteries}m</span>
-                  <span>▫️Courant: {resultats.cables.cables.regulateurBatteries.courantUtilise.toFixed(2)}A</span>
+                  <span>▫️Courant: {((resultats.cables.cables.regulateurBatteries.courantUtilise)).toFixed(2)}A</span>
                 </div>
                 <div className="cable-results">
                   <div className="resultat-item highlight">
-                    <span className="resultat-label">Section calculée:</span>
+                    <span className="resultat-label">Section calculée: </span>
                     <span className="resultat-value">
-                      {resultats.cables.cables.regulateurBatteries.sectionCalculee} mm²
+                      {((resultats.cables.cables.regulateurBatteries.sectionCalculee)/1.05).toFixed(2)} mm²
                     </span>
+                    <div className="force">Recommandations : 10mm²(12V) ; 6mm²(24V); 4mm²(48V)</div>
                   </div>
                   <div className="resultat-item">
                     <span className="resultat-label">Chute de tension:</span>
@@ -399,32 +353,7 @@ const ResultatsDimensionnement = ({ donnees, onRetour, onExportPDF }) => {
               </div>
             </div>
 
-            {resultats.cables.cables.batteriesOnduleur && (
-              <div className="cable-section">
-                <h5>Batteries → Onduleur</h5>
-                <div className="cable-info">
-                  <div className="cable-params">
-                    <span>▫️Distance: {resultats.cables.distances.batteriesOnduleur}m</span>
-                    <span>▫️Courant: {resultats.cables.cables.batteriesOnduleur.courantUtilise.toFixed(2)}A</span>
-                  </div>
-                  <div className="cable-results">
-                    <div className="resultat-item highlight">
-                      <span className="resultat-label">Section calculée:</span>
-                      <span className="resultat-value">
-                        {resultats.cables.cables.batteriesOnduleur.sectionCalculee} mm²
-                      </span>
-                    </div>
-                    <div className="resultat-item">
-                      <span className="resultat-label">Chute de tension:</span>
-                      <span className="resultat-value">
-                        {resultats.cables.cables.batteriesOnduleur.chuteTensionReelle.toFixed(2)}%
-                      </span>
-                    </div>
-                  </div>
-                  <p className="cable-description">{resultats.cables.cables.batteriesOnduleur.description}</p>
-                </div>
-              </div>
-            )}
+            
           </div>
 
           {/* Paramètres de calcul */}
@@ -436,18 +365,12 @@ const ResultatsDimensionnement = ({ donnees, onRetour, onExportPDF }) => {
                   <span>Chute de tension max:</span>
                   <span>{resultats.cables.parametresCalcul.chuteTensionMax}%</span>
                 </div>
+                
                 <div className="param-calcul">
-                  <span>Facteur sécurité panneaux:</span>
-                  <span>{resultats.cables.parametresCalcul.facteurSecuritePanneaux}</span>
+                  <span>Facteur sécurité régulateur: Non pris en compte pour cette configuration.</span>
+                  
                 </div>
-                <div className="param-calcul">
-                  <span>Facteur sécurité régulateur:</span>
-                  <span>{resultats.cables.parametresCalcul.facteurSecuriteRegulateur}</span>
-                </div>
-                <div className="param-calcul">
-                  <span>Facteur sécurité onduleur:</span>
-                  <span>{resultats.cables.parametresCalcul.facteurSecuriteOnduleur}</span>
-                </div>
+                
               </div>
             </div>
           )}
